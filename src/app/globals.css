@@ -176,10 +176,13 @@ ul {
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+  background: transparent !important;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -198,5 +201,5 @@ ul {
 /* Firefox Support */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(var(--accent-rgb, 249, 204, 11), 0.3) transparent;
+  scrollbar-color: rgba(var(--accent-rgb, 249, 204, 11), 0.3) transparent !important;
 }

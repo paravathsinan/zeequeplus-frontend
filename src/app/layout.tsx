@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Zikr - Your Online Quran Learning Journey",
+  title: "ZeeQue Plus – Online Qur’an Course for Classes 1–10 with Tajweed",
   description: "A trusted online platform designed to make recitation, Tajweed, and understanding the Quran easier for everyone.",
+  icons: {
+    icon: "/images/logo/logo-new.png",
+    shortcut: "/images/logo/logo-new.png",
+    apple: "/images/logo/logo-new.png",
+  },
 };
 
 export default function RootLayout({
