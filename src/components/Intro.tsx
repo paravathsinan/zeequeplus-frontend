@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { CheckCircle2 } from 'lucide-react';
 
 export default function Intro() {
@@ -14,58 +13,11 @@ export default function Intro() {
       <div className="container">
         <div className="intro-grid" style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: '1fr',
           gap: '60px',
           alignItems: 'center'
         }}>
-          {/* Left Side: Premium Image Container */}
-          <div className="intro-visual" style={{
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            {/* Background Glows */}
-            <div style={{
-              position: 'absolute',
-              width: '140%',
-              height: '140%',
-              background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.1) 0%, transparent 70%)',
-              zIndex: 0,
-              pointerEvents: 'none'
-            }} />
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              style={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: '520px',
-                zIndex: 5 // Lower than navbar's 1000+
-              }}
-            >
-              <div style={{
-                position: 'relative',
-                borderRadius: '60px 20px 60px 20px',
-                overflow: 'hidden',
-                aspectRatio: '0.9',
-                boxShadow: '0 40px 100px rgba(0,0,0,0.2)',
-                border: '12px solid var(--glass-bg)',
-                backdropFilter: 'blur(10px)'
-              }}>
-                <Image 
-                  src="/images/intro-img.png" 
-                  alt="Premium Learning Experience" 
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-            </motion.div>
-          </div>
 
           {/* Right Side: Content */}
           <motion.div
@@ -153,10 +105,6 @@ export default function Intro() {
           .intro-list {
             display: inline-block;
             text-align: left;
-          }
-          .intro-visual {
-            max-width: 600px;
-            margin: 0 auto;
           }
         }
         @media (max-width: 576px) {

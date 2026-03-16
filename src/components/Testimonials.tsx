@@ -74,42 +74,55 @@ export default function Testimonials() {
       position: 'relative',
       overflow: 'hidden'
     }}>
+      {/* Hide scrollbar globally for this section */}
       <div className="container" style={{
         display: 'grid',
-        gridTemplateColumns: '1fr', // Simplified for better slider focus
+        gridTemplateColumns: '1fr',
         gap: '40px',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden',
+        maxWidth: '100%'
       }}>
         {/* Header */}
         <motion.div
+          className="testimonials-header"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '20px' }}
+          style={{
+            textAlign: 'center',
+            marginBottom: '20px',
+            display: 'flex',
+            flexDirection: 'column' as const,
+            alignItems: 'center'
+          }}
         >
-          <Quote size={60} style={{ color: 'rgba(var(--accent-rgb), 0.1)', marginBottom: '10px' }} />
-          <h2 style={{
+          <Quote size={60} style={{ color: 'rgba(var(--accent-rgb), 0.1)', marginBottom: '10px', display: 'block' }} />
+          <h2 className="testimonials-heading" style={{
             fontSize: '44px',
             fontWeight: 800,
             color: 'var(--text-primary)',
             marginBottom: '16px',
-            lineHeight: 1.1
+            lineHeight: 1.1,
+            textAlign: 'center',
+            width: '100%'
           }}>
             What our parents are saying
           </h2>
-          <p style={{
+          <p className="testimonials-subtitle" style={{
             fontSize: '16px',
             color: 'var(--text-secondary)',
             maxWidth: '600px',
-            margin: '0 auto'
+            textAlign: 'center',
+            padding: '0 16px'
           }}>
             Built on the experience of ZeeQue Preschool & Quran programs, ZeeQue Plus continues the same philosophy – now available for Classes 1–10.
           </p>
         </motion.div>
 
         {/* Slider Container */}
-        <div style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '0 auto', overflow: 'hidden' }}>
           <div 
             ref={containerRef}
             onScroll={handleScroll}
@@ -133,7 +146,7 @@ export default function Testimonials() {
                 }}
               >
                 {/* Speech Bubble Card */}
-                <div style={{
+                <div className="testimonial-card" style={{
                   backgroundColor: 'var(--card-bg)',
                   padding: '40px',
                   borderRadius: '32px',
@@ -147,7 +160,7 @@ export default function Testimonials() {
                       <Star key={i} size={18} fill="var(--accent)" stroke="var(--accent)" />
                     ))}
                   </div>
-                  <p style={{
+                  <p className="testimonial-text" style={{
                     fontSize: '18px',
                     lineHeight: 1.7,
                     color: 'var(--text-primary)',
@@ -235,14 +248,26 @@ export default function Testimonials() {
           display: none;
         }
         @media (max-width: 768px) {
-          h2 {
-            font-size: 32px !important;
+          .testimonials-heading {
+            font-size: 28px !important;
+            padding: 0 16px;
+            text-align: center !important;
           }
-          div[style*="padding: 40px"] {
+          .testimonials-subtitle {
+            font-size: 14px !important;
+          }
+          .testimonial-card {
             padding: 24px !important;
+            border-radius: 24px !important;
           }
-          p[style*="font-size: 18px"] {
-            font-size: 16px !important;
+          .testimonial-text {
+            font-size: 15px !important;
+            line-height: 1.6 !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .testimonials-heading {
+            font-size: 24px !important;
           }
         }
       `}</style>
