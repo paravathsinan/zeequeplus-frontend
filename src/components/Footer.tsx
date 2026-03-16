@@ -2,14 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube, Phone, Mail } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube, Phone, Mail, Linkedin, MapPin } from "lucide-react";
+
+const socialLinks = [
+  { Icon: Facebook, href: "https://facebook.com/zeequepreschool" },
+  { Icon: Instagram, href: "https://instagram.com/zeeque_preschool" },
+  { Icon: Twitter, href: "https://twitter.com/markazonline" },
+  { Icon: Linkedin, href: "https://linkedin.com/company/zeeque-preschool-network" },
+  { Icon: Youtube, href: "https://youtube.com/zeequepreschool" },
+];
 
 const quickLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About Us", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "FAQs", href: "#faqs" },
-  { name: "Enroll Now", href: "#enroll" },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about" },
+  { name: "Learning Experience", href: "/experience" },
+  { name: "Blogs", href: "/blogs" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 const targetGroups = [
@@ -64,10 +72,12 @@ export default function Footer() {
             Empowering the next generation with a structured, step-by-step Qur'anic journey. Excellence in Tajweed, Hifz, and Character.
           </p>
           <div style={{ display: 'flex', gap: '16px' }}>
-            {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
+            {socialLinks.map(({ Icon, href }, i) => (
               <a 
                 key={i} 
-                href="#" 
+                href={href} 
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   width: '44px',
                   height: '44px',
@@ -167,7 +177,12 @@ export default function Footer() {
             </div>
             <div>
               <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Call Us</div>
-              <div style={{ fontSize: '16px', fontWeight: 700 }}>+91 1800-419-ZEE</div>
+              <a
+                href="tel:+919072500435"
+                style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}
+              >
+                +91 9072 500 435
+              </a>
             </div>
           </div>
 
@@ -187,7 +202,39 @@ export default function Footer() {
             </div>
             <div>
               <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Email</div>
-              <div style={{ fontSize: '16px', fontWeight: 700 }}>LEARN@ZEEQUEPLUS.COM</div>
+              <a
+                href="mailto:zqnetwork@zeeque.in"
+                style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none', textTransform: 'lowercase' }}
+              >
+                zqnetwork@zeeque.in
+              </a>
+            </div>
+          </div>
+          
+          {/* Location */}
+          <div style={{ display: 'flex', gap: '20px', marginTop: '32px' }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid rgba(255,255,255,0.1)'
+            }}>
+              <MapPin size={20} style={{ color: 'var(--accent)' }} />
+            </div>
+            <div>
+              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Location</div>
+              <a
+                href="https://www.google.com/maps?q=Zahra+Park,+Koduvally,+Kozhikode,+Kerala"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}
+              >
+                Zahra Park, Koduvally, Kozhikode, Kerala
+              </a>
             </div>
           </div>
         </div>
@@ -206,8 +253,8 @@ export default function Footer() {
         }}>
           <div>© 2026 ZeeQue Plus. All rights reserved.</div>
           <div style={{ display: 'flex', gap: '40px' }}>
-            <Link href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</Link>
-            <Link href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Use</Link>
+            <Link href="/privacy-policy" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</Link>
+            <Link href="/terms-of-use" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Use</Link>
           </div>
         </div>
       </div>

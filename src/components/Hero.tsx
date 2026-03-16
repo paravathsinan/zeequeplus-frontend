@@ -99,6 +99,7 @@ export default function Hero() {
                 src="/images/hero-boy.png" 
                 alt="Boy learning Quran" 
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: 'cover' }}
               />
             </div>
@@ -149,7 +150,7 @@ export default function Hero() {
                 <p style={{ fontSize: '11px', opacity: 0.7 }}>Helping children connect with the Word of Allah</p>
               </div>
               <div style={{ flexShrink: 0 }}>
-                <Image src="/images/quran-open.png" alt="Open Quran" width={60} height={40} style={{ borderRadius: '4px' }} />
+                <Image src="/images/quran-open.png" alt="Open Quran" width={60} height={40} sizes="60px" style={{ borderRadius: '4px' }} />
               </div>
             </motion.div>
 

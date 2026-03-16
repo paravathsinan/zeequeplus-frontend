@@ -56,13 +56,15 @@ export default function BlogCard({ article }: BlogCardProps) {
              backgroundColor: 'rgba(var(--accent-rgb), 0.05)',
              display: 'flex',
              alignItems: 'center',
-             justifyContent: 'center'
+              justifyContent: 'center',
+              position: 'relative'
            }}>
              <Image 
                src={article.image} 
                alt={article.title} 
                fill 
-               style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
                className="card-image"
              />
            </div>

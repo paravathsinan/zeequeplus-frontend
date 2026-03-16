@@ -99,7 +99,7 @@ export default function OurApproach() {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ backgroundColor: 'rgba(var(--accent-rgb, 249, 204, 11), 0.05)' }}
+              whileHover={{ backgroundColor: 'rgba(249, 204, 11, 0.05)' }}
               style={{
                 padding: '60px 40px',
                 backgroundColor: 'var(--bg-page)',

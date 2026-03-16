@@ -13,7 +13,7 @@ const navLinks = [
   { name: "About Us", href: "/about" },
   { name: "Learning Experience", href: "/experience" },
   { name: "Blogs", href: "/blogs" },
-  { name: "Contact Us", href: "/#contact" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -90,7 +90,7 @@ export default function Navbar() {
         animate={{ 
           y: isVisible ? 0 : -100,
           opacity: 1,
-          backgroundColor: isScrolled ? 'var(--glass-bg)' : 'transparent',
+          backgroundColor: isScrolled ? 'var(--glass-bg)' : 'rgba(255, 255, 255, 0)',
           backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)'
         }}
         transition={{ duration: 0.4, ease: "easeInOut" }}

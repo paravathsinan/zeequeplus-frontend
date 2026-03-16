@@ -85,12 +85,14 @@ export default function FeaturedBlogs() {
                     background: `linear-gradient(135deg, ${article.color}22 0%, ${article.color}44 100%)`,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    position: 'relative'
                   }}>
                     <Image 
                       src={article.image} 
                       alt={article.title} 
                       fill 
+                      sizes="(max-width: 768px) 100vw, 33vw"
                       style={{ objectFit: 'cover', opacity: 0.9 }}
                     />
                   </div>

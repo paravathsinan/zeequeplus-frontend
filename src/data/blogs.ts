@@ -18,7 +18,7 @@ export const blogs: BlogPost[] = [
     content: "Online Quran classes offer unparalleled flexibility and access to world-class tutors. With advanced interactive tools, children can engage with the holy text in a way that resonates with their digital-first lifestyle, ensuring consistent progress and deep spiritual connection.",
     category: "Featured",
     image: "/images/blog-latest-1.png",
-    date: "March 12, 2024",
+    date: "March 12, 2026",
     readTime: "6 min",
     color: "#4FD1C5"
   },
@@ -29,7 +29,7 @@ export const blogs: BlogPost[] = [
     content: "The journey begins with a stable internet connection and a quiet learning space. At Zikr Plus, we guide you through every step: baseline evaluation, level placement, interactive sessions, and regular feedback loops that ensure your child masters every verse with confidence.",
     category: "Learning tips",
     image: "/images/blog-latest-2.png",
-    date: "March 10, 2024",
+    date: "August 24, 2026",
     readTime: "8 min",
     color: "#63B3ED"
   },
@@ -40,7 +40,7 @@ export const blogs: BlogPost[] = [
     content: "Experts suggest that children are like sponges between ages 4 and 7. Early introduction to Arabic phonetics through Noorani Qaida builds a strong foundation. This guide helps parents recognize readiness signs and implement a stress-free start to their child's spiritual path.",
     category: "Parents",
     image: "/images/blog-latest-3.png",
-    date: "March 8, 2024",
+    date: "January 15, 2026",
     readTime: "5 min",
     color: "#F6AD55"
   },
@@ -51,7 +51,7 @@ export const blogs: BlogPost[] = [
     content: "From eliminating travel stress to providing a safe, supervised environment, online learning offers dynamic benefits. Personalized attention ensures that every child's specific Tajweed challenges are addressed, while flexible scheduling fits perfectly into a busy school lifestyle.",
     category: "Featured",
     image: "/images/blog-latest-4.png",
-    date: "March 5, 2024",
+    date: "November 30, 2026",
     readTime: "7 min",
     color: "#FC8181"
   },
@@ -62,7 +62,7 @@ export const blogs: BlogPost[] = [
     content: "The Noorani Qaida is the essential primer for any beginner. It systematically introduces the Arabic alphabet, basic vowels, and the rules of blending letters. Mastery of the Qaida is the bedrock of beautiful and accurate Quranic recitation.",
     category: "Tuitions",
     image: "/images/blog-latest-5.png",
-    date: "March 3, 2024",
+    date: "June 22, 2026",
     readTime: "10 min",
     color: "#4FD1C5"
   },
@@ -73,7 +73,7 @@ export const blogs: BlogPost[] = [
     content: "Consistent repetition and understanding context are key. We recommend the 'Five-Repeat' method and integrating verses into daily prayers. Encouragement and creating a rhythmic routine transform memorization from a task into a spiritual celebration.",
     category: "Academics",
     image: "/images/blog-latest-2.png",
-    date: "March 1, 2024",
+    date: "April 10, 2026",
     readTime: "9 min",
     color: "#63B3ED"
   },
@@ -84,7 +84,7 @@ export const blogs: BlogPost[] = [
     content: "Tajweed isn't just about 'reading correctly'; it's about honoring the divine weight of the words. It covers rules like Makharij (letter origins) and Sifat (characteristics), ensuring that every letter is given its due right during recitation.",
     category: "Tuitions",
     image: "/images/blog-latest-1.png",
-    date: "Feb 28, 2024",
+    date: "October 5, 2026",
     readTime: "6 min",
     color: "#F6AD55"
   },
@@ -95,7 +95,7 @@ export const blogs: BlogPost[] = [
     content: "While Traditional Madrasas offer community spirit, Online Classes provide 1-on-1 focus and safety. We explore how Zikr Plus combines the best of both worlds by providing high-quality instruction with a modern, interactive interface that keeps children engaged.",
     category: "Parents",
     image: "/images/blog-feat-1.png",
-    date: "Feb 26, 2024",
+    date: "May 18, 2026",
     readTime: "8 min",
     color: "#FC8181"
   },
@@ -106,7 +106,7 @@ export const blogs: BlogPost[] = [
     content: "Our tutors use visual aids, gamified learning, and screen-sharing tools to bring the Quran to life. They are trained in child psychology to ensure a positive, encouraging atmosphere where mistakes are seen as steps toward mastery.",
     category: "Academics",
     image: "/images/blog-feat-2.png",
-    date: "Feb 24, 2024",
+    date: "July 09, 2026",
     readTime: "7 min",
     color: "#4FD1C5"
   },
@@ -117,7 +117,7 @@ export const blogs: BlogPost[] = [
     content: "Look for certified teachers, transparent progress reporting, and a curriculum that balances Hifz with Adkar. Safety protocols and a user-friendly platform are also critical for a smooth and worry-free educational experience.",
     category: "Parents",
     image: "/images/blog-feat-3.png",
-    date: "Feb 22, 2024",
+    date: "February 28, 2026",
     readTime: "5 min",
     color: "#63B3ED"
   },
@@ -128,7 +128,7 @@ export const blogs: BlogPost[] = [
     content: "Surah Al-Fatihah, followed by the shorter Surahs of Juz Amma like Al-Ikhlas, Al-Falaq, and An-Nas, provide the perfect starting point. These build confidence and allow children to participate fully in family prayers quickly.",
     category: "Islamic",
     image: "/images/blog-latest-1.png",
-    date: "Feb 20, 2024",
+    date: "September 14, 2026",
     readTime: "6 min",
     color: "#F6AD55"
   },
@@ -139,7 +139,7 @@ export const blogs: BlogPost[] = [
     content: "This 30-day plan breaks learning into micro-goals. Week 1 focuses on phonetics, Week 2 on short verses, Week 3 on meaning, and Week 4 on review. Small, daily wins lead to massive long-term success.",
     category: "Learning tips",
     image: "/images/blog-latest-4.png",
-    date: "Feb 18, 2024",
+    date: "December 25, 2026",
     readTime: "4 min",
     color: "#FC8181"
   },
@@ -150,7 +150,7 @@ export const blogs: BlogPost[] = [
     content: "The discipline of daily recitation flows into academic work. Learning the stories of the Prophets instills empathy, patience, and honesty, helping children develop a strong moral compass from a young age.",
     category: "Parents",
     image: "/images/blog-latest-5.png",
-    date: "Feb 15, 2024",
+    date: "May 04, 2026",
     readTime: "9 min",
     color: "#4FD1C5"
   },
@@ -161,7 +161,7 @@ export const blogs: BlogPost[] = [
     content: "Education should be joy-filled. We use digital quizzes, interactive maps of prophetic journeys, and rhythmic chanting to make every session a highlight of your child's day.",
     category: "Learning tips",
     image: "/images/blog-latest-1.png",
-    date: "Feb 12, 2024",
+    date: "August 07, 2026",
     readTime: "7 min",
     color: "#63B3ED"
   },
@@ -172,7 +172,7 @@ export const blogs: BlogPost[] = [
     content: "Create a 'Quran Corner' in your home, listen to recitations together in the car, and show genuine interest in their progress. Your active involvement is the single biggest predictor of their long-term success.",
     category: "Parents",
     image: "/images/blog-feat-1.png",
-    date: "Feb 10, 2024",
+    date: "November 12, 2026",
     readTime: "5 min",
     color: "#F6AD55"
   },
@@ -183,7 +183,7 @@ export const blogs: BlogPost[] = [
     content: "From choosing the right timezone to understanding the curriculum levels, this guide covers it all. We demystify the process and show you how easy it is to bring high-quality Quran learning into your living room.",
     category: "Parents",
     image: "/images/blog-feat-2.png",
-    date: "Feb 8, 2024",
+    date: "January 29, 2026",
     readTime: "10 min",
     color: "#FC8181"
   },
@@ -194,7 +194,7 @@ export const blogs: BlogPost[] = [
     content: "Scientific studies show that memorizing the Quran improves auditory memory and focus. As children master complex verses, their self-confidence grows, translating into better performance in school and social life.",
     category: "Academics",
     image: "/images/blog-latest-3.png",
-    date: "Feb 5, 2024",
+    date: "October 20, 2026",
     readTime: "6 min",
     color: "#4FD1C5"
   },
@@ -205,7 +205,7 @@ export const blogs: BlogPost[] = [
     content: "Teaching children the Duas for waking up, eating, and sleeping makes Islam a living reality for them. These small moments of mindfulness build a lifelong habit of gratitude and reliance on the Creator.",
     category: "Islamic",
     image: "/images/blog-latest-2.png",
-    date: "Feb 3, 2024",
+    date: "March 30, 2026",
     readTime: "4 min",
     color: "#63B3ED"
   },
@@ -216,7 +216,7 @@ export const blogs: BlogPost[] = [
     content: "Rushing progress, focusing solely on speed over Tajweed, and using the Quran as a chore are common mistakes. We provide healthier alternatives that foster a deep, loving relationship with the Book of Allah.",
     category: "Parents",
     image: "/images/blog-feat-3.png",
-    date: "Feb 1, 2024",
+    date: "June 15, 2026",
     readTime: "7 min",
     color: "#F6AD55"
   },
@@ -227,7 +227,7 @@ export const blogs: BlogPost[] = [
     content: "From high-quality audio streaming to interactive whiteboards, technology removes barriers. It allows for a global community of learners to connect with experts anytime, anywhere, making sacred knowledge more accessible than ever before.",
     category: "Learning tips",
     image: "/images/blog-latest-5.png",
-    date: "Jan 30, 2024",
+    date: "September 05, 2026",
     readTime: "8 min",
     color: "#FC8181"
   }

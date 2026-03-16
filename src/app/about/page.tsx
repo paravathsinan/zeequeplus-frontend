@@ -16,7 +16,7 @@ export default function AboutPage() {
       
       {/* Page Header / Hero for About Page */}
       <section style={{ 
-        padding: '80px 0 30px', 
+        padding: '160px 0 30px', 
         backgroundColor: 'var(--bg-page)',
         textAlign: 'center',
         position: 'relative',
@@ -47,18 +47,6 @@ export default function AboutPage() {
           </motion.div>
         </div>
         
-        {/* Background blobs for premium feel */}
-        <div style={{
-          position: 'absolute',
-          top: '-10%',
-          left: '-10%',
-          width: '400px',
-          height: '400px',
-          background: 'radial-gradient(circle, rgba(var(--accent-rgb, 249, 204, 11), 0.1) 0%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(60px)',
-          zIndex: 1
-        }} />
       </section>
 
       <AboutStory />

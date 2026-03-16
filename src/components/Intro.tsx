@@ -60,6 +60,7 @@ export default function Intro() {
                   src="/images/intro-img.png" 
                   alt="Premium Learning Experience" 
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
