@@ -120,10 +120,10 @@ export default function Navbar() {
             letterSpacing: '0.5px'
           }}>
             <Image 
-              src="/images/logo/logo-new.png" 
+              src="/images/logo/Logo (2).png" 
               alt="ZeeQuePlus Logo" 
-              width={52} 
-              height={52}
+              width={64} 
+              height={64}
               style={{ objectFit: 'contain' }}
             />
             <span style={{ color: 'var(--text-primary)' }}>

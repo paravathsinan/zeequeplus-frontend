@@ -52,10 +52,10 @@ export default function Footer() {
             marginBottom: '32px'
           }}>
             <Image 
-              src="/images/logo/logo-new.png" 
+              src="/images/logo/Logo (2).png" 
               alt="ZeeQuePlus Logo" 
-              width={48} 
-              height={48} 
+              width={60} 
+              height={60} 
               style={{ filter: 'brightness(1.5)' }}
             />
             <span>
