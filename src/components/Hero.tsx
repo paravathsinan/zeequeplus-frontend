@@ -154,17 +154,7 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Decorative Arrow */}
-            <div className="decorative-arrow" style={{
-              position: 'absolute',
-              top: '40%',
-              right: '10%',
-              zIndex: 0
-            }}>
-              <svg width="100" height="150" viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 140C10 140 50 100 80 50M80 50L60 60M80 50L90 70" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
+
           </motion.div>
         </div>
       </div>
@@ -194,7 +184,7 @@ export default function Hero() {
             max-width: 500px;
             margin: 0 auto;
           }
-          .glass-card, .decorative-arrow {
+          .glass-card {
             display: none !important;
           }
         }

@@ -193,12 +193,32 @@ export default function Navbar() {
                 borderRadius: '50%',
                 backgroundColor: 'var(--glass-bg)',
                 transition: 'all 0.3s ease',
-                marginLeft: '8px'
+                marginRight: '8px'
               }}
               aria-label="Toggle Theme"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
+
+            {/* Login Button */}
+            <a 
+              href="https://operations.zeequeplus.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <button 
+                className="btn btn-primary"
+                style={{
+                  fontSize: '14px',
+                  padding: '8px 20px',
+                  borderRadius: '100px',
+                  fontWeight: 700,
+                  boxShadow: '0 4px 15px rgba(var(--accent-rgb), 0.3)'
+                }}
+              >
+                Login
+              </button>
+            </a>
           </div>
 
             {/* Mobile Toggle - Only show Menu when closed, X is handled inside overlay */}
@@ -349,6 +369,35 @@ export default function Navbar() {
                 {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
               </button>
             </div>
+
+            {/* Mobile Login Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              style={{ marginTop: '24px' }}
+            >
+              <a 
+                href="https://operations.zeequeplus.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+              >
+                <button 
+                  className="btn btn-primary"
+                  style={{
+                    width: '100%',
+                    padding: '18px',
+                    fontSize: '18px',
+                    fontWeight: 700,
+                    borderRadius: '20px',
+                    boxShadow: '0 10px 25px rgba(var(--accent-rgb), 0.2)'
+                  }}
+                >
+                  Login to Portal
+                </button>
+              </a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

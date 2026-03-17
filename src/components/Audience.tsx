@@ -31,13 +31,70 @@ export default function Audience() {
   return (
     <section id="audience" style={{ padding: '100px 0', backgroundColor: 'var(--stats-bg)', overflow: 'hidden' }}>
       <div className="container">
+        {/* Centered Header */}
+        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{
+              padding: '8px 20px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '100px',
+              color: 'var(--accent)',
+              fontSize: '13px',
+              fontWeight: 800,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '24px',
+              letterSpacing: '1px'
+            }}
+          >
+            FOR EVERYONE
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            style={{
+              fontSize: '52px',
+              fontWeight: 800,
+              marginBottom: '24px',
+              lineHeight: 1.1,
+              fontFamily: 'var(--font-heading)',
+              color: 'var(--text-primary)'
+            }}
+          >
+            Who is this journey <span className="handwritten" style={{ color: 'var(--accent)' }}>intended</span> for?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            style={{
+              fontSize: '19px',
+              color: 'var(--text-secondary)',
+              lineHeight: '1.7',
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}
+          >
+            The Quran is a guide for all of humanity. Our platform is designed to accommodate 
+            learners at every stage of their spiritual and linguistic development.
+          </motion.p>
+        </div>
+
         <div className="audience-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
+          gap: '80px',
           alignItems: 'center'
         }}>
-          {/* Left: Content */}
+          {/* Left: Items */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -46,66 +103,42 @@ export default function Audience() {
             className="audience-content"
           >
             <div style={{
-              padding: '8px 16px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: '100px',
-              color: 'var(--accent)',
-              fontSize: '12px',
-              fontWeight: 800,
-              display: 'inline-block',
-              marginBottom: '16px'
-            }}>
-              FOR EVERYONE
-            </div>
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: 800,
-              marginBottom: '24px',
-              lineHeight: 1.2,
-              fontFamily: 'var(--font-heading)'
-            }}>
-              Who is this journey <span className="handwritten" style={{ color: 'var(--accent)' }}>intended</span> for?
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              color: 'var(--text-secondary)',
-              lineHeight: '1.6',
-              marginBottom: '40px'
-            }}>
-              The Quran is a guide for all of humanity. Our platform is designed to accommodate 
-              learners at every stage of their spiritual and linguistic development.
-            </p>
-
-            <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: '24px'
+              gap: '32px'
             }} className="audience-items">
               {targetAudience.map((item, idx) => (
                 <motion.div
                   key={idx}
-                  whileHover={{ x: 10 }}
+                  whileHover={{ y: -5 }}
                   style={{
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'flex-start',
-                    gap: '16px'
+                    gap: '16px',
+                    padding: '24px',
+                    backgroundColor: 'var(--card-bg)',
+                    borderRadius: '24px',
+                    border: '1px solid var(--glass-border)',
+                    transition: 'all 0.3s ease'
                   }}
                 >
                   <div style={{
-                    minWidth: '40px',
-                    height: '40px',
-                    borderRadius: '10px',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
                     backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'var(--accent)'
+                    color: 'var(--accent)',
+                    border: '1px solid rgba(var(--accent-rgb), 0.2)'
                   }}>
-                    <item.icon size={20} />
+                    <item.icon size={24} />
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px' }}>{item.title}</h4>
-                    <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>{item.desc}</p>
+                    <h4 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '8px', color: 'var(--text-primary)' }}>{item.title}</h4>
+                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
