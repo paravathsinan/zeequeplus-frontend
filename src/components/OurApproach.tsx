@@ -1,35 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Layers, Volume2, Heart } from "lucide-react";
-
 const approachItems = [
   {
     number: "01",
     title: "Child-Centered Teaching",
     description: "We use age-appropriate examples, repetition, and encouragement to keep children engaged.",
-    icon: <Sparkles size={20} />,
     color: "var(--accent)"
   },
   {
     number: "02",
     title: "Step-by-Step Levels",
     description: "Each class has defined goals: letters → words → sentences → full-page recitation → selected Surahs, etc.",
-    icon: <Layers size={20} />,
     color: "var(--accent)"
   },
   {
     number: "03",
     title: "Tajweed Made Simple",
     description: "Basics of makhārij, stretching, qalqala and other rules are taught in simple language children understand.",
-    icon: <Volume2 size={20} />,
     color: "var(--accent)"
   },
   {
     number: "04",
     title: "Integrated Values",
     description: "Along with Qur’an, children learn Akhlaq, Adab, Islamic habits and daily duas.",
-    icon: <Heart size={20} />,
     color: "var(--accent)"
   }
 ];
@@ -126,12 +120,6 @@ export default function OurApproach() {
                 }}>
                   {item.number}
                 </span>
-                <div style={{
-                  color: 'var(--accent)',
-                  opacity: 0.7
-                }}>
-                  {item.icon}
-                </div>
               </div>
 
               <div>

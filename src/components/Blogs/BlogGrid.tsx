@@ -27,10 +27,11 @@ export default function BlogGrid({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              className="blog-grid-content"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '30px'
+                gridTemplateColumns: '1fr',
+                gap: '40px'
               }}
             >
               {blogs.map((article, idx) => (
@@ -103,17 +104,19 @@ export default function BlogGrid({
         )}
       <style jsx>{`
         @media (max-width: 1024px) {
-          .blog-grid div[style*="display: grid"] {
-            grid-template-columns: repeat(2, 1fr) !important;
+          .blog-grid {
+            padding: 40px 0 80px !important;
+          }
+          .blog-grid-content {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
           }
         }
-        @media (max-width: 640px) {
-          .blog-grid div[style*="display: grid"] {
-            grid-template-columns: 1fr !important;
-          }
+        @media (max-width: 576px) {
            .blog-grid div[style*="display: flex"] {
             flex-wrap: wrap;
             justify-content: center !important;
+            gap: 8px !important;
           }
         }
       `}</style>

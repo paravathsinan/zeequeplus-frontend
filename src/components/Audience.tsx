@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Users, GraduationCap, Heart, BookOpen } from "lucide-react";
 
 const targetAudience = [
@@ -29,7 +30,13 @@ const targetAudience = [
 
 export default function Audience() {
   return (
-    <section id="audience" style={{ padding: '100px 0', backgroundColor: 'var(--stats-bg)', overflow: 'hidden' }}>
+    <section id="audience" style={{ 
+      padding: '100px 0', 
+      backgroundColor: 'var(--stats-bg)', 
+      overflow: 'hidden',
+      borderBottomLeftRadius: '50% 40px',
+      borderBottomRightRadius: '50% 40px'
+    }}>
       <div className="container">
         {/* Centered Header */}
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
@@ -105,7 +112,8 @@ export default function Audience() {
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: '32px'
+              gap: '32px',
+              marginBottom: '40px'
             }} className="audience-items">
               {targetAudience.map((item, idx) => (
                 <motion.div
@@ -143,6 +151,12 @@ export default function Audience() {
                 </motion.div>
               ))}
             </div>
+
+            <Link href="/about">
+              <button className="btn btn-primary" style={{ padding: '16px 36px', borderRadius: '100px', fontSize: '17px', fontWeight: 700 }}>
+                Learn More
+              </button>
+            </Link>
           </motion.div>
 
           {/* Right: Illustration */}

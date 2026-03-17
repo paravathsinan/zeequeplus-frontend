@@ -69,7 +69,7 @@ export default function VisionMission() {
               lineHeight: 1.2,
               marginBottom: '32px'
             }}>
-              To see every ZeeQue Plus student <span style={{ color: 'var(--accent)' }}>reading the Qur’an correctly</span>, loving it deeply, and living by its guidance.
+              To see our students <span style={{ color: 'var(--accent)' }}>read correctly</span>, love deeply, and live the Qur’an.
             </h2>
             <div style={{
               height: '4px',

@@ -42,75 +42,14 @@ export default function ParentPartnership() {
         overflow: 'hidden'
       }}
     >
-      <div className="container">
-        <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '80px', alignItems: 'center'
-        }}>
-          {/* Illustration Side */}
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 80px' }}>
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
             viewport={{ once: true }}
-            style={{ position: 'relative' }}
-          >
-            <div style={{
-              position: 'relative',
-              borderRadius: '40px',
-              overflow: 'hidden',
-              boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
-              border: '1px solid var(--glass-border)'
-            }}>
-              <Image
-                src="/images/about/parent-partnership.png"
-                alt="Parent Partnership"
-                width={800}
-                height={600}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-            </div>
-            
-            {/* Minimal Dashboard Card Preview */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              viewport={{ once: true }}
-              style={{
-                position: 'absolute',
-                bottom: '-40px',
-                right: '-40px',
-                padding: '24px 32px',
-                backgroundColor: 'var(--glass-bg)',
-                backdropFilter: 'blur(16px)',
-                borderRadius: '24px',
-                border: '1px solid var(--glass-border)',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.1)',
-                zIndex: 2,
-                maxWidth: '240px'
-              }}
-            >
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '12px' }}>
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#4FD1C5' }} />
-                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>Progress Report</span>
-              </div>
-              <div style={{ height: '8px', width: '100%', backgroundColor: 'rgba(var(--accent-rgb), 0.1)', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: '85%', backgroundColor: 'var(--accent)' }} />
-              </div>
-              <p style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '8px', opacity: 0.7 }}>
-                Last updated: Just now
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Content Side */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div style={{
+            style={{
               display: 'inline-block',
               padding: '8px 20px',
               backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
@@ -118,105 +57,253 @@ export default function ParentPartnership() {
               fontSize: '14px',
               fontWeight: 700,
               color: 'var(--accent)',
-              marginBottom: '32px',
+              marginBottom: '24px',
               textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>
-              Primary Partners
-            </div>
+              letterSpacing: '1px',
+              border: '1px solid rgba(var(--accent-rgb), 0.2)'
+            }}
+          >
+            Primary Partners
+          </motion.div>
 
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              lineHeight: 1.2,
-              marginBottom: '32px'
-            }}>
-              Nurturing Growth <span style={{ color: 'var(--accent)' }}>Together</span>.
-            </h2>
+          <h2 style={{
+            fontSize: '56px',
+            fontWeight: 800,
+            color: 'var(--text-primary)',
+            lineHeight: 1.1,
+            marginBottom: '32px',
+            fontFamily: 'var(--font-heading)'
+          }}>
+            Nurturing Growth <span style={{ color: 'var(--accent)' }}>Together</span>.
+          </h2>
 
-            <p style={{
-              fontSize: '19px',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.7,
-              marginBottom: '48px'
-            }}>
-              At ZeeQue Plus, we believe parents are the foundation of a child's learning. We keep you connected at every step of their spiritual and academic journey.
-            </p>
+          <p style={{
+            fontSize: '20px',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.7,
+            opacity: 0.8
+          }}>
+            At ZeeQue Plus, we believe parents are the foundation of a child's learning. We keep you connected at every step of their spiritual and academic journey.
+          </p>
+        </div>
 
-            <div style={{ display: 'grid', gap: '24px' }}>
-              {partnershipPoints.map((point, idx) => (
+        {/* Desktop Milestone Trail (Hidden on Mobile) */}
+        <div className="desktop-timeline" style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto', padding: '40px 0' }}>
+          {/* Central Line */}
+          <div 
+            className="timeline-line"
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: 0,
+              bottom: 0,
+              width: '2px',
+              background: 'linear-gradient(to bottom, transparent, var(--glass-border) 10%, var(--glass-border) 90%, transparent)',
+              transform: 'translateX(-50%)',
+              zIndex: 0
+            }} 
+          />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '60px', position: 'relative' }}>
+            {partnershipPoints.map((point, idx) => (
+              <div 
+                key={idx} 
+                className="timeline-item"
+                style={{ 
+                  display: 'flex', 
+                  width: '100%', 
+                  justifyContent: idx % 2 === 0 ? 'flex-start' : 'flex-end',
+                  alignItems: 'center',
+                  position: 'relative'
+                }}
+              >
+                {/* Visual Node on Line */}
                 <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
+                  className="timeline-node"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: idx * 0.2, type: 'spring', stiffness: 200 }}
                   viewport={{ once: true }}
                   style={{
-                    padding: '28px',
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    width: '20px',
+                    height: '20px',
+                    backgroundColor: 'var(--bg-page)',
+                    border: `4px solid ${point.color}`,
+                    borderRadius: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 2,
+                    boxShadow: `0 0 15px ${point.color}50`
+                  }}
+                />
+
+                {/* Content Card */}
+                <motion.div
+                  className="timeline-card"
+                  initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  style={{
+                    width: 'calc(50% - 60px)',
+                    padding: '40px',
                     backgroundColor: 'var(--glass-bg)',
-                    borderRadius: '24px',
+                    backdropFilter: 'blur(16px)',
+                    borderRadius: '32px',
                     border: '1px solid var(--glass-border)',
-                    display: 'flex',
-                    gap: '20px',
-                    alignItems: 'center'
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s ease'
+                  }}
+                  whileHover={{ 
+                    y: -10, 
+                    borderColor: point.color,
+                    boxShadow: `0 30px 60px ${point.color}15`
                   }}
                 >
+                  {/* Subtle Background Glow */}
                   <div style={{
-                    width: '52px',
-                    height: '52px',
-                    backgroundColor: `${point.color}15`,
-                    borderRadius: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: point.color,
-                    flexShrink: 0
-                  }}>
-                    {point.icon}
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>
-                      {point.title}
-                    </h4>
-                    <p style={{ fontSize: '15px', color: 'var(--text-secondary)', opacity: 0.8 }}>
-                      {point.description}
-                    </p>
+                    position: 'absolute',
+                    top: '-50%',
+                    left: '-50%',
+                    width: '200%',
+                    height: '200%',
+                    background: `radial-gradient(circle, ${point.color}08 0%, transparent 70%)`,
+                    pointerEvents: 'none',
+                    zIndex: 0
+                  }} />
+
+                  <div 
+                    className="card-content"
+                    style={{ 
+                      position: 'relative', 
+                      zIndex: 1, 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: idx % 2 === 0 ? 'flex-end' : 'flex-start', 
+                      textAlign: idx % 2 === 0 ? 'right' : 'left', 
+                      gap: '20px' 
+                    }}
+                  >
+                    <div style={{
+                      width: '64px',
+                      height: '64px',
+                      backgroundColor: `${point.color}15`,
+                      borderRadius: '20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: point.color,
+                      flexShrink: 0
+                    }}>
+                      {point.icon}
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>
+                        {point.title}
+                      </h4>
+                      <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, opacity: 0.9 }}>
+                        {point.description}
+                      </p>
+                    </div>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          </motion.div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Vertical Stack */}
+        <div className="mobile-milestones" style={{ display: 'none', padding: '0 20px 40px' }}>
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            gap: '24px'
+          }}>
+            {partnershipPoints.map((point, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                style={{
+                  width: '100%',
+                  padding: '40px 30px',
+                  backgroundColor: 'var(--glass-bg)',
+                  backdropFilter: 'blur(16px)',
+                  borderRadius: '32px',
+                  border: '1px solid var(--glass-border)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  gap: '24px',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                 <div style={{
+                    position: 'absolute',
+                    top: '-50%',
+                    left: '-50%',
+                    width: '200%',
+                    height: '200%',
+                    background: `radial-gradient(circle, ${point.color}15 0%, transparent 70%)`,
+                    pointerEvents: 'none',
+                    zIndex: 0
+                  }} />
+
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  backgroundColor: `${point.color}15`,
+                  borderRadius: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: point.color,
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  {point.icon}
+                </div>
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <h4 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '12px' }}>
+                    {point.title}
+                  </h4>
+                  <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, opacity: 0.9 }}>
+                    {point.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
       <style jsx>{`
-        @media (max-width: 1024px) {
-          .container > div:first-child {
-            grid-template-columns: 1fr !important;
-            gap: 60px !important;
-            text-align: center;
+        @media (max-width: 992px) {
+          h2 { font-size: 42px !important; }
+          .container > div:first-child { 
+            margin-bottom: 60px !important; 
           }
-          h2 { font-size: 38px !important; }
-          .parent-partnership div[style*="display: inline-block"] {
-            margin: 0 auto 32px;
+        }
+        @media (max-width: 768px) {
+          .desktop-timeline {
+            display: none !important;
+          }
+          .mobile-milestones {
+            display: block !important;
           }
         }
         @media (max-width: 576px) {
-          .parent-partnership {
-            padding: 40px 0 !important;
-          }
-          h2 {
-            font-size: 32px !important;
-          }
-          .parent-partnership div[style*="bottom: -40px"] {
-             display: none !important;
-          }
-          .parent-partnership div[style*="padding: 28px"] {
-             padding: 20px !important;
-             flex-direction: column !important;
-             text-align: center !important;
-          }
+          .parent-partnership { padding: 80px 0 !important; }
+          h2 { font-size: 34px !important; }
         }
       `}</style>
     </section>

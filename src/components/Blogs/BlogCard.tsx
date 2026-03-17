@@ -12,6 +12,7 @@ interface BlogCardProps {
     image: string;
     date: string;
     readTime: string;
+    author: string;
   };
 }
 
@@ -27,16 +28,18 @@ export default function BlogCard({ article }: BlogCardProps) {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'all 0.4s ease'
+        transition: 'all 0.4s ease',
+        boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)'
       }}
       className="blog-card"
     >
-      <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+      {/* Top: Image */}
+      <div className="image-wrapper" style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
         <div style={{
           position: 'absolute',
           top: '16px',
           left: '16px',
-          backgroundColor: 'rgba(var(--bg-card-rgb), 0.8)',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(10px)',
           color: 'var(--accent)',
           padding: '4px 12px',
@@ -45,7 +48,7 @@ export default function BlogCard({ article }: BlogCardProps) {
           fontWeight: 700,
           zIndex: 2,
           border: '1px solid var(--glass-border)'
-        }}>
+        }} className="desktop-badge">
           {article.category}
         </div>
         <div style={{ width: '100%', height: '100%', backgroundColor: '#f5f5f5' }}>
@@ -71,22 +74,24 @@ export default function BlogCard({ article }: BlogCardProps) {
         </div>
       </div>
 
-      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          color: 'var(--text-secondary)',
-          fontSize: '12px',
-          marginBottom: '12px'
-        }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <Clock size={14} /> {article.readTime}
+      <div className="card-content-wrapper" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+        {/* Category Badge Below Image (Mobile Only) */}
+        <div className="mobile-badge" style={{ marginBottom: '16px', display: 'none' }}>
+          <span style={{
+            backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+            color: 'var(--accent)',
+            padding: '4px 12px',
+            borderRadius: '100px',
+            fontSize: '11px',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em'
+          }}>
+            {article.category}
           </span>
-          <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'var(--glass-border)' }} />
-          <span>{article.date}</span>
         </div>
 
+        {/* Blog Title */}
         <h3 style={{
           fontSize: '20px',
           fontWeight: 700,
@@ -98,19 +103,39 @@ export default function BlogCard({ article }: BlogCardProps) {
           {article.title}
         </h3>
 
+        {/* Short Description (2 lines max) */}
         <p style={{
           fontSize: '15px',
           color: 'var(--text-secondary)',
           lineHeight: 1.6,
           marginBottom: '20px',
           display: '-webkit-box',
-          WebkitLineClamp: 3,
+          WebkitLineClamp: 2,
           WebkitBoxOrient: 'vertical',
           overflow: 'hidden'
         }}>
           {article.excerpt}
         </p>
 
+        {/* Author + Reading Time */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          color: 'var(--text-secondary)',
+          fontSize: '13px',
+          marginBottom: '20px',
+          paddingTop: '16px',
+          borderTop: '1px solid var(--glass-border)'
+        }}>
+          <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{article.author}</span>
+          <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'var(--glass-border)' }} />
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Clock size={14} /> {article.readTime} reading
+          </span>
+        </div>
+
+        {/* Read Article Link */}
         <div style={{ marginTop: 'auto' }}>
           <motion.button
             whileHover={{ x: 5 }}
@@ -127,14 +152,26 @@ export default function BlogCard({ article }: BlogCardProps) {
               padding: 0
             }}
           >
-            Read More <ArrowUpRight size={18} />
+            Read Article <ArrowUpRight size={18} />
           </motion.button>
         </div>
       </div>
 
       <style jsx>{`
+        .blog-card {
+          box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
+        }
         .blog-card:hover .card-image {
-          transform: scale(1.1);
+          transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+          .card-content-wrapper {
+            padding: 30px 24px !important;
+          }
+          .image-wrapper {
+            height: 240px !important;
+          }
+          h3 { font-size: 24px !important; }
         }
       `}</style>
     </motion.div>

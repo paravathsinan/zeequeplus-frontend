@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle2, Users, Award, BookOpen } from 'lucide-react';
 
@@ -126,9 +127,11 @@ export default function Intro() {
               ))}
             </div>
 
-            <button className="btn btn-primary" style={{ padding: '18px 40px', borderRadius: '100px', fontSize: '18px', boxShadow: '0 10px 30px rgba(var(--accent-rgb), 0.2)' }}>
-              Learn More About Us
-            </button>
+            <Link href="/about">
+              <button className="btn btn-primary" style={{ padding: '18px 40px', borderRadius: '100px', fontSize: '18px', boxShadow: '0 10px 30px rgba(var(--accent-rgb), 0.2)' }}>
+                Learn More
+              </button>
+            </Link>
           </motion.div>
 
           {/* Right Side: Visuals */}
@@ -144,7 +147,7 @@ export default function Intro() {
               position: 'relative',
               width: '100%',
               aspectRatio: '4/5',
-              borderRadius: '40px 100px 40px 40px',
+              borderRadius: '40px',
               overflow: 'hidden',
               boxShadow: '0 30px 60px rgba(0,0,0,0.15)',
               border: '2px solid var(--glass-border)'

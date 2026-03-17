@@ -95,20 +95,31 @@ export default function BlogHero() {
 
       <style jsx>{`
         @media (max-width: 991px) {
-          .blog-hero .container {
-            grid-template-columns: 1fr;
-            text-align: center;
+          .blog-hero {
+            padding: 80px 0 40px !important;
           }
-          .blog-hero h1 { font-size: 40px !important; }
-          .blog-hero p { margin: 0 auto; }
+          .blog-hero .container {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            text-align: center !important;
+          }
+          .blog-hero h1 { 
+            font-size: 38px !important; 
+            margin-bottom: 20px !important;
+          }
+          .blog-hero p { 
+            margin: 0 auto !important; 
+            font-size: 17px !important;
+          }
           .blog-hero div[style*="display: inline-block"] {
-            margin: 0 auto 24px;
+            margin: 0 auto 20px !important;
           }
         }
         @media (max-width: 576px) {
-          .blog-hero { padding: 60px 0 40px !important; }
-          .blog-hero h1 { font-size: 32px !important; }
-          .blog-hero p { font-size: 16px !important; }
+          .blog-hero { padding: 60px 0 30px !important; }
+          .blog-hero h1 { font-size: 30px !important; }
+          .blog-hero p { font-size: 15px !important; }
+          .blog-hero .container { gap: 30px !important; }
         }
       `}</style>
     </section>

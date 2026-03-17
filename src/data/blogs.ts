@@ -8,6 +8,7 @@ export interface BlogPost {
   date: string;
   readTime: string;
   color: string;
+  author: string;
 }
 
 export const blogs: BlogPost[] = [
@@ -20,7 +21,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-1.png",
     date: "March 12, 2026",
     readTime: "6 min",
-    color: "#4FD1C5"
+    color: "#4FD1C5",
+    author: "Albedo Edu"
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-2.png",
     date: "August 24, 2026",
     readTime: "8 min",
-    color: "#63B3ED"
+    color: "#63B3ED",
+    author: "Albedo Edu"
   },
   {
     id: 3,
@@ -42,7 +45,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-3.png",
     date: "January 15, 2026",
     readTime: "5 min",
-    color: "#F6AD55"
+    color: "#F6AD55",
+    author: "Albedo Edu"
   },
   {
     id: 4,
@@ -53,7 +57,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-4.png",
     date: "November 30, 2026",
     readTime: "7 min",
-    color: "#FC8181"
+    color: "#FC8181",
+    author: "Albedo Edu"
   },
   {
     id: 5,
@@ -64,7 +69,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-5.png",
     date: "June 22, 2026",
     readTime: "10 min",
-    color: "#4FD1C5"
+    color: "#4FD1C5",
+    author: "Albedo Edu"
   },
   {
     id: 6,
@@ -75,7 +81,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-2.png",
     date: "April 10, 2026",
     readTime: "9 min",
-    color: "#63B3ED"
+    color: "#63B3ED",
+    author: "Albedo Edu"
   },
   {
     id: 7,
@@ -86,7 +93,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-1.png",
     date: "October 5, 2026",
     readTime: "6 min",
-    color: "#F6AD55"
+    color: "#F6AD55",
+    author: "Albedo Edu"
   },
   {
     id: 8,
@@ -97,7 +105,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-feat-1.png",
     date: "May 18, 2026",
     readTime: "8 min",
-    color: "#FC8181"
+    color: "#FC8181",
+    author: "Albedo Edu"
   },
   {
     id: 9,
@@ -108,7 +117,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-feat-2.png",
     date: "July 09, 2026",
     readTime: "7 min",
-    color: "#4FD1C5"
+    color: "#4FD1C5",
+    author: "Albedo Edu"
   },
   {
     id: 10,
@@ -119,7 +129,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-feat-3.png",
     date: "February 28, 2026",
     readTime: "5 min",
-    color: "#63B3ED"
+    color: "#63B3ED",
+    author: "Albedo Edu"
   },
   {
     id: 11,
@@ -130,7 +141,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-1.png",
     date: "September 14, 2026",
     readTime: "6 min",
-    color: "#F6AD55"
+    color: "#F6AD55",
+    author: "Albedo Edu"
   },
   {
     id: 12,
@@ -141,7 +153,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-4.png",
     date: "December 25, 2026",
     readTime: "4 min",
-    color: "#FC8181"
+    color: "#FC8181",
+    author: "Albedo Edu"
   },
   {
     id: 13,
@@ -152,7 +165,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-5.png",
     date: "May 04, 2026",
     readTime: "9 min",
-    color: "#4FD1C5"
+    color: "#4FD1C5",
+    author: "Albedo Edu"
   },
   {
     id: 14,
@@ -163,7 +177,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-1.png",
     date: "August 07, 2026",
     readTime: "7 min",
-    color: "#63B3ED"
+    color: "#63B3ED",
+    author: "Albedo Edu"
   },
   {
     id: 15,
@@ -174,7 +189,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-feat-1.png",
     date: "November 12, 2026",
     readTime: "5 min",
-    color: "#F6AD55"
+    color: "#F6AD55",
+    author: "Albedo Edu"
   },
   {
     id: 16,
@@ -185,7 +201,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-feat-2.png",
     date: "January 29, 2026",
     readTime: "10 min",
-    color: "#FC8181"
+    color: "#FC8181",
+    author: "Albedo Edu"
   },
   {
     id: 17,
@@ -196,7 +213,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-3.png",
     date: "October 20, 2026",
     readTime: "6 min",
-    color: "#4FD1C5"
+    color: "#4FD1C5",
+    author: "Albedo Edu"
   },
   {
     id: 18,
@@ -207,7 +225,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-2.png",
     date: "March 30, 2026",
     readTime: "4 min",
-    color: "#63B3ED"
+    color: "#63B3ED",
+    author: "Albedo Edu"
   },
   {
     id: 19,
@@ -218,7 +237,8 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-feat-3.png",
     date: "June 15, 2026",
     readTime: "7 min",
-    color: "#F6AD55"
+    color: "#F6AD55",
+    author: "Albedo Edu"
   },
   {
     id: 20,
@@ -229,6 +249,7 @@ export const blogs: BlogPost[] = [
     image: "/images/blog-latest-5.png",
     date: "September 05, 2026",
     readTime: "8 min",
-    color: "#FC8181"
+    color: "#FC8181",
+    author: "Albedo Edu"
   }
 ];

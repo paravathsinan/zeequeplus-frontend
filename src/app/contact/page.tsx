@@ -9,8 +9,10 @@ export default function ContactPage() {
   return (
     <main style={{ backgroundColor: 'var(--bg-page)', minHeight: '100vh' }}>
       <Navbar />
-      <ContactFormSection />
-      <ContactMap />
+      <div style={{ paddingTop: '100px' }}>
+        <ContactFormSection />
+        <ContactMap />
+      </div>
       <Footer />
     </main>
   );
