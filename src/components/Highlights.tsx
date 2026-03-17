@@ -29,7 +29,13 @@ const highlights = [
 
 export default function Highlights() {
   return (
-    <section id="highlights" style={{ padding: '100px 0', backgroundColor: 'var(--bg-page)' }}>
+    <section id="highlights" style={{ 
+      padding: '100px 0', 
+      backgroundColor: 'var(--bg-page)',
+      borderBottomLeftRadius: '50% 60px',
+      borderBottomRightRadius: '50% 60px',
+      overflow: 'hidden'
+    }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <div style={{

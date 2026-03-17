@@ -125,21 +125,22 @@ export default function BlogSearchFilter({
           box-shadow: 0 10px 40px rgba(var(--accent-rgb), 0.15);
         }
         @media (max-width: 1024px) {
-          h2 { font-size: 36px !important; }
-        }
-        @media (max-width: 640px) {
-          .blog-filter { padding: 40px 0 !important; }
-          h2 { font-size: 28px !important; }
+          .blog-filter { padding: 40px 0 30px !important; }
+          h2 { font-size: 34px !important; margin-bottom: 30px !important; }
           .search-input { 
-            padding: 16px 20px 16px 50px !important; 
-            font-size: 16px !important;
+            padding: 18px 24px 18px 60px !important; 
+            font-size: 17px !important;
           }
           div[style*="left: 30px"] {
-             left: 20px !important;
+             left: 22px !important;
           }
-           div[style*="gap: 12px"] {
-             gap: 8px !important;
+          div[style*="gap: 12px"] {
+             gap: 10px !important;
           }
+        }
+        @media (max-width: 576px) {
+          h2 { font-size: 28px !important; }
+          .search-input { font-size: 16px !important; }
         }
       `}</style>
     </section>

@@ -56,26 +56,7 @@ export default function AboutStory() {
             />
           </div>
           
-          {/* Decorative floating element */}
-          <motion.div
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              position: 'absolute',
-              bottom: '-30px',
-              right: '-30px',
-              padding: '24px',
-              backgroundColor: 'var(--card-bg)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: '24px',
-              border: '1px solid var(--glass-border)',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-              zIndex: 2
-            }}
-          >
-            <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--accent)', marginBottom: '8px' }}>Dream big</div>
-            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', maxWidth: '140px' }}>Nurturing children in the light of the Qur’an.</p>
-          </motion.div>
+
         </motion.div>
 
         {/* Right Side: Content */}
@@ -104,22 +85,27 @@ export default function AboutStory() {
             fontSize: '56px',
             fontWeight: 800,
             color: 'var(--text-primary)',
-            marginBottom: '32px',
+            marginBottom: '24px',
             lineHeight: 1.1
           }}>
             ZeeQue started with a <span className="handwritten" style={{ color: 'var(--accent)' }}>simple dream</span>
           </h2>
 
           <div style={{
-            fontSize: '19px',
             color: 'var(--text-secondary)',
-            lineHeight: 1.8,
-            marginBottom: '40px'
+            lineHeight: 1.7,
+            marginBottom: '48px'
           }}>
-            <p style={{ marginBottom: '24px' }}>
+            <p style={{ 
+              marginBottom: '20px', 
+              fontSize: '22px', 
+              fontWeight: 600, 
+              color: 'var(--text-primary)',
+              opacity: 0.9 
+            }}>
               To nurture children in the light of the Qur’an.
             </p>
-            <p>
+            <p style={{ fontSize: '18px', opacity: 0.85 }}>
               From preschool initiatives like Zahratul Qur’an to today’s structured online programs, we’ve always believed that Qur’an learning should begin early, be systematic, joyful, and value-centered.
             </p>
           </div>
@@ -140,17 +126,18 @@ export default function AboutStory() {
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {storyPoints.map((point, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                   <div style={{
                     color: 'var(--accent)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0
+                    flexShrink: 0,
+                    marginTop: '2px'
                   }}>
                     <CheckCircle2 size={24} />
                   </div>
-                  <span style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: 500 }}>{point}</span>
+                  <span style={{ fontSize: '17px', color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.5 }}>{point}</span>
                 </div>
               ))}
             </div>
@@ -168,8 +155,17 @@ export default function AboutStory() {
           h2 {
             font-size: 40px !important;
           }
-           .about-story div[style*="display: flex"] {
-            justify-content: center;
+          .about-story div[style*="display: flex"]:not(.audience-items div):not(.intro-list div):not(.audience-grid div) {
+             /* Target only major layout containers if needed, but broad centering often breaks lists */
+          }
+          /* Ensure the list container itself is centered but items inside are left-aligned */
+          .about-story div[style*="flex-direction: column"] {
+            align-items: center;
+          }
+          .about-story div[style*="flex-direction: column"] > div {
+            text-align: left;
+            width: 100%;
+            max-width: 500px;
           }
           p {
             margin-left: auto;
@@ -185,9 +181,6 @@ export default function AboutStory() {
           }
           .about-story div[style*="padding: 40px"] {
             padding: 24px !important;
-          }
-          .about-story div[style*="bottom: -30px"] {
-             display: none !important;
           }
         }
       `}</style>
