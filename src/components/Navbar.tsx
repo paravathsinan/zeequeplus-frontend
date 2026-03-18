@@ -86,9 +86,9 @@ export default function Navbar() {
   return (
     <>
       <motion.nav 
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: -150, opacity: 0 }}
         animate={{ 
-          y: isVisible ? 0 : -100,
+          y: isVisible ? 0 : -150,
           opacity: 1,
           backgroundColor: isScrolled ? 'var(--glass-bg)' : 'rgba(255, 255, 255, 0)',
           backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)'
@@ -101,7 +101,7 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 9999,
-          padding: isScrolled ? '16px 0' : '24px 0',
+          padding: isScrolled ? '10px 0' : '12px 0',
           transition: 'padding 0.3s ease'
         }}
       >
@@ -111,24 +111,14 @@ export default function Navbar() {
           alignItems: 'center'
         }}>
           {/* Logo */}
-          <Link href="/" style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            fontSize: '24px',
-            fontWeight: 800,
-            letterSpacing: '0.5px'
-          }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
             <Image 
-              src="/images/logo/Logo (2).png" 
+              src="/images/logo/Logo (2).svg" 
               alt="ZeeQuePlus Logo" 
-              width={64} 
-              height={64}
-              style={{ objectFit: 'contain' }}
+              width={80} 
+              height={80}
+              style={{ objectFit: 'contain', transform: 'scale(1.5)', transformOrigin: 'left center' }}
             />
-            <span style={{ color: 'var(--text-primary)' }}>
-              ZeeQue<span style={{ color: 'var(--accent)' }}>Plus</span>
-            </span>
           </Link>
 
           {/* Desktop Menu & Theme Toggle */}

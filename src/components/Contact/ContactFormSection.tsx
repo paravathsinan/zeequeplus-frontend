@@ -26,8 +26,8 @@ export default function ContactFormSection() {
     },
     {
       label: "Email Address:",
-      value: "zqnetwork@zeeque.in",
-      href: "mailto:zqnetwork@zeeque.in",
+      value: "info@zeequeplus.com",
+      href: "mailto:info@zeequeplus.com",
       icon: <Mail size={24} />,
       gradient: "linear-gradient(135deg, #4FD1C5 0%, #38B2AC 100%)",
     },

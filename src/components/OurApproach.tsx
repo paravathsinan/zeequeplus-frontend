@@ -1,30 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Heart, ListChecks, BookOpen, Sparkles } from "lucide-react";
 const approachItems = [
   {
-    number: "01",
+    icon: Heart,
     title: "Child-Centered Teaching",
     description: "We use age-appropriate examples, repetition, and encouragement to keep children engaged.",
     color: "var(--accent)"
   },
   {
-    number: "02",
+    icon: ListChecks,
     title: "Step-by-Step Levels",
     description: "Each class has defined goals: letters → words → sentences → full-page recitation → selected Surahs, etc.",
     color: "var(--accent)"
   },
   {
-    number: "03",
+    icon: BookOpen,
     title: "Tajweed Made Simple",
     description: "Basics of makhārij, stretching, qalqala and other rules are taught in simple language children understand.",
     color: "var(--accent)"
-  },
-  {
-    number: "04",
-    title: "Integrated Values",
-    description: "Along with Qur’an, children learn Akhlaq, Adab, Islamic habits and daily duas.",
-    color: "var(--accent)"
+
   }
 ];
 
@@ -103,40 +99,43 @@ export default function OurApproach() {
                 transition: 'background-color 0.4s ease',
                 position: 'relative',
                 flex: '1 1 350px',
-                minWidth: '300px'
+                minWidth: '300px',
+                alignItems: 'center',
+                textAlign: 'center'
               }}
             >
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start'
-              }}>
-                <span style={{
-                  fontSize: '40px',
-                  fontWeight: 900,
-                  color: 'rgba(var(--text-primary-rgb), 0.05)',
-                  lineHeight: 1,
-                  fontFamily: 'serif'
-                }}>
-                  {item.number}
-                </span>
-              </div>
-
-              <div>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '120px' }}>
+                <item.icon 
+                  size={100} 
+                  style={{ 
+                    position: 'absolute', 
+                    top: '50%', 
+                    left: '50%', 
+                    transform: 'translate(-50%, -50%)', 
+                    opacity: 0.08, 
+                    color: 'var(--text-primary)',
+                    strokeWidth: 2
+                  }} 
+                />
                 <h3 style={{
                   fontSize: '24px',
                   fontWeight: 800,
                   color: 'var(--text-primary)',
-                  marginBottom: '16px',
-                  letterSpacing: '-0.5px'
+                  margin: 0,
+                  letterSpacing: '-0.5px',
+                  textAlign: 'center',
+                  zIndex: 1
                 }}>
                   {item.title}
                 </h3>
+              </div>
+              <div>
                 <p style={{
                   fontSize: '16px',
                   color: 'var(--text-secondary)',
                   lineHeight: 1.7,
-                  opacity: 0.8
+                  opacity: 0.8,
+                  textAlign: 'center'
                 }}>
                   {item.description}
                 </p>

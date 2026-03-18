@@ -46,21 +46,15 @@ export default function Footer() {
           <Link href="/" style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            fontSize: '32px',
-            fontWeight: 800,
             marginBottom: '32px'
           }}>
             <Image 
-              src="/images/logo/Logo (2).png" 
+              src="/images/logo/Logo (2).svg" 
               alt="ZeeQuePlus Logo" 
-              width={60} 
-              height={60} 
-              style={{ filter: 'brightness(1.5)' }}
+              width={100} 
+              height={100} 
+              style={{ filter: 'brightness(1.5)', transform: 'scale(1.5)', transformOrigin: 'left center' }}
             />
-            <span>
-              ZeeQue <span style={{ color: 'var(--accent)' }}>Plus</span>
-            </span>
           </Link>
           <p style={{
             color: 'rgba(255,255,255,0.7)',
@@ -203,10 +197,10 @@ export default function Footer() {
             <div>
               <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Email</div>
               <a
-                href="mailto:zqnetwork@zeeque.in"
+                href="mailto:info@zeequeplus.com"
                 style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none', textTransform: 'lowercase' }}
               >
-                zqnetwork@zeeque.in
+                info@zeequeplus.com
               </a>
             </div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Star, ArrowRight, Sparkles } from "lucide-react";
 
@@ -63,18 +64,26 @@ export default function Hero() {
             </p>
 
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }} className="hero-btns">
-              <button className="btn btn-primary" style={{ padding: '16px 32px', borderRadius: '100px', fontSize: '18px' }}>
-                Enroll Now
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
-                >
-                  <ArrowRight size={20} />
-                </motion.span>
-              </button>
-              <button className="btn btn-outline" style={{ padding: '16px 32px', borderRadius: '100px', fontSize: '18px', backgroundColor: 'var(--accent)', color: 'var(--primary)', borderColor: 'var(--accent)' }}>
-                Prospectus
-              </button>
+              <Link href="/enroll">
+                <button className="btn btn-primary" style={{ padding: '16px 32px', borderRadius: '100px', fontSize: '18px' }}>
+                  Enroll Now
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    <ArrowRight size={20} />
+                  </motion.span>
+                </button>
+              </Link>
+              <a 
+                href="https://operations.zeequeplus.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <button className="btn btn-outline" style={{ padding: '16px 32px', borderRadius: '100px', fontSize: '18px', backgroundColor: 'var(--accent)', color: 'white', borderColor: 'var(--accent)' }}>
+                  Login
+                </button>
+              </a>
             </div>
           </motion.div>
 
@@ -116,7 +125,12 @@ export default function Hero() {
                 padding: '16px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px'
+                gap: '12px',
+                background: 'rgba(255, 255, 255, 0.7)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                borderRadius: '16px'
               }}
             >
               <div style={{ backgroundColor: 'var(--accent)', padding: '8px', borderRadius: '10px', color: 'var(--primary)' }}>
@@ -142,7 +156,12 @@ export default function Hero() {
                 display: 'flex',
                 gap: '12px',
                 alignItems: 'center',
-                zIndex: 2
+                zIndex: 2,
+                background: 'rgba(255, 255, 255, 0.7)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                borderRadius: '16px'
               }}
             >
               <div>
@@ -160,6 +179,22 @@ export default function Hero() {
       </div>
 
       <style jsx>{`
+        .glass-card {
+          background: rgba(255, 255, 255, 0.7) !important;
+          backdrop-filter: blur(10px) !important;
+          border: 1px solid rgba(255, 255, 255, 0.5) !important;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+          border-radius: 16px !important;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          .glass-card {
+            background: rgba(30, 30, 30, 0.7) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+          }
+        }
+
         @media (max-width: 992px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
