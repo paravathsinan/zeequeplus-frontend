@@ -6,21 +6,18 @@ import { BarChart3, CheckCircle2, MessageSquare } from "lucide-react";
 export default function ExperienceReports() {
   const reportItems = [
     {
-      number: "01",
       icon: <BarChart3 size={24} />,
       title: "Monthly Progress Updates",
       desc: "Receive comprehensive monthly summaries of your child's curriculum coverage, recitation quality, and engagement levels.",
       accent: "radial-gradient(circle at top right, rgba(var(--accent-rgb), 0.15), transparent 60%)"
     },
     {
-      number: "02",
       icon: <CheckCircle2 size={24} />,
       title: "Attendance Reports",
       desc: "Track consistency via our dashboard or receive reports on request. Regularity is the key to memorisation.",
       accent: "radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.1), transparent 60%)"
     },
     {
-      number: "03",
       icon: <MessageSquare size={24} />,
       title: "Parent-Teacher Interaction",
       desc: "Schedule meetings to discuss your child's spiritual and academic growth, review goals and adjust learning pace.",
@@ -72,7 +69,6 @@ export default function ExperienceReports() {
               className="report-item-card"
             >
               <div className="card-accent" style={{ background: item.accent }}></div>
-              <div className="card-number">{item.number}</div>
               <div className="icon-wrapper">
                 {item.icon}
                 <div className="icon-glow"></div>
@@ -129,27 +125,11 @@ export default function ExperienceReports() {
           pointer-events: none;
           z-index: 0;
         }
-        .card-number {
-          position: absolute;
-          top: 32px;
-          right: 32px;
-          font-size: 40px;
-          font-weight: 900;
-          color: rgba(255, 255, 255, 0.03);
-          line-height: 1;
-          letter-spacing: -2px;
-          user-select: none;
-        }
         .report-item-card:hover {
           transform: translateY(-12px);
           background: rgba(var(--bg-card-rgb), 0.6);
           border-color: rgba(var(--accent-rgb), 0.4);
           box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        }
-        .report-item-card:hover .card-number {
-          color: rgba(var(--accent-rgb), 0.08);
-          transform: scale(1.1);
-          transition: all 0.5s ease;
         }
         .icon-wrapper {
           width: 72px;
@@ -224,11 +204,6 @@ export default function ExperienceReports() {
             padding: 48px 24px;
             border-radius: 32px;
             gap: 20px;
-          }
-          .card-number {
-            font-size: 32px;
-            top: 24px;
-            right: 24px;
           }
           h3 {
             font-size: 22px;

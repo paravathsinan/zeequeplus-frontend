@@ -34,6 +34,51 @@ export default function BatchOptions() {
       overflow: 'hidden'
     }}>
       <div className="container">
+        {/* Centered Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginBottom: '60px' }}
+        >
+          <div style={{
+            display: 'inline-block',
+            padding: '8px 20px',
+            backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+            borderRadius: '100px',
+            fontSize: '14px',
+            fontWeight: 700,
+            color: 'var(--accent)',
+            marginBottom: '24px',
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
+          }}>
+            Batch Options
+          </div>
+
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: 800,
+            color: 'var(--text-primary)',
+            lineHeight: 1.2,
+            maxWidth: '800px',
+            margin: '0 auto 32px'
+          }}>
+            Learning that <span style={{ color: 'var(--accent)' }}>Fits Your Life</span>.
+          </h2>
+
+          <p style={{
+            fontSize: '19px',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.7,
+            maxWidth: '700px',
+            margin: '0 auto'
+          }}>
+            We understand the demands of modern schooling. Our batch system is built for flexibility, ensuring that Quran learning remains a joyful part of your child's daily routine.
+          </p>
+        </motion.div>
+
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '80px', alignItems: 'center'
         }}>
@@ -45,6 +90,7 @@ export default function BatchOptions() {
             viewport={{ once: true }}
             style={{ position: 'relative' }}
           >
+            {/* Same illustration code */}
             <div style={{
               position: 'relative',
               borderRadius: '40px',
@@ -75,48 +121,15 @@ export default function BatchOptions() {
             }} />
           </motion.div>
 
-          {/* Content Side */}
+          {/* Content Side (Points only) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div style={{
-              display: 'inline-block',
-              padding: '8px 20px',
-              backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
-              borderRadius: '100px',
-              fontSize: '14px',
-              fontWeight: 700,
-              color: 'var(--accent)',
-              marginBottom: '32px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>
-              Batch Options
-            </div>
-
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              lineHeight: 1.2,
-              marginBottom: '32px'
-            }}>
-              Learning that <span style={{ color: 'var(--accent)' }}>Fits Your Life</span>.
-            </h2>
-
-            <p style={{
-              fontSize: '19px',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.7,
-              marginBottom: '48px'
-            }}>
-              We understand the demands of modern schooling. Our batch system is built for flexibility, ensuring that Quran learning remains a joyful part of your child's daily routine.
-            </p>
-
             <div style={{ display: 'grid', gap: '32px' }}>
+
               {batchPoints.map((point, idx) => (
                 <motion.div
                   key={idx}
@@ -174,12 +187,6 @@ export default function BatchOptions() {
             text-align: left;
           }
           h2 { font-size: 36px !important; }
-          .container > div:first-child > div:first-child {
-            order: 2 !important;
-          }
-          .container > div:first-child > div:last-child {
-            order: 1 !important;
-          }
         }
         @media (max-width: 576px) {
           .batch-options {

@@ -30,9 +30,10 @@ export default function BlogGrid({
               className="blog-grid-content"
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr',
-                gap: '40px'
+                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                gap: '32px'
               }}
+
             >
               {blogs.map((article, idx) => (
                 <motion.div
@@ -107,11 +108,8 @@ export default function BlogGrid({
           .blog-grid {
             padding: 40px 0 80px !important;
           }
-          .blog-grid-content {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
         }
+
         @media (max-width: 576px) {
            .blog-grid div[style*="display: flex"] {
             flex-wrap: wrap;

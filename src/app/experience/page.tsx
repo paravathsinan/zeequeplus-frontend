@@ -16,7 +16,7 @@ export default function ExperiencePage() {
       
       {/* Page Header / Hero for Learning Experience */}
       <section style={{ 
-        padding: '80px 0 30px', 
+        padding: '160px 0 100px', 
         backgroundColor: 'var(--bg-page)',
         textAlign: 'center',
         position: 'relative',
@@ -50,6 +50,7 @@ export default function ExperiencePage() {
             }}>
               How <span style={{ color: 'var(--accent)' }}>ZeeQue Plus</span> Works
             </h1>
+
             <p style={{ 
               fontSize: '20px', 
               color: 'var(--text-secondary)', 
@@ -61,18 +62,10 @@ export default function ExperiencePage() {
           </motion.div>
         </div>
         
-        {/* Background blobs */}
-        <div style={{
-          position: 'absolute',
-          top: '-10%',
-          right: '-5%',
-          width: '400px',
-          height: '400px',
-          background: 'radial-gradient(circle, rgba(99, 179, 237, 0.1) 0%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(60px)',
-          zIndex: 1
-        }} />
+
+
+        
+
       </section>
 
       <ClassFormat />

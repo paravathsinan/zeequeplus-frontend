@@ -147,15 +147,19 @@ export default function Testimonials() {
               >
                 {/* Speech Bubble Card */}
                 <div className="testimonial-card" style={{
-                  backgroundColor: 'var(--card-bg)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   padding: '40px',
                   borderRadius: '32px',
-                  border: '1px solid var(--glass-border)',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: 'none',
                   position: 'relative',
-                  marginBottom: '32px'
+                  marginBottom: '32px',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  overflow: 'hidden'
                 }}>
-                  <div style={{ display: 'flex', gap: '4px', marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', gap: '4px', marginBottom: '20px', position: 'relative', zIndex: 2 }}>
                     {[...Array(item.rating)].map((_, i) => (
                       <Star key={i} size={18} fill="var(--accent)" stroke="var(--accent)" />
                     ))}
@@ -164,24 +168,15 @@ export default function Testimonials() {
                     fontSize: '18px',
                     lineHeight: 1.7,
                     color: 'var(--text-primary)',
-                    fontStyle: 'italic'
+                    fontStyle: 'italic',
+                    position: 'relative',
+                    zIndex: 2
                   }}>
                     "{item.text}"
                   </p>
                   
-                  {/* Tail */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '-12px',
-                    left: '40px',
-                    width: '24px',
-                    height: '24px',
-                    backgroundColor: 'inherit', // Match parent card-bg
-                    borderRight: '1px solid var(--glass-border)',
-                    borderBottom: '1px solid var(--glass-border)',
-                    transform: 'rotate(45deg)',
-                    zIndex: 0
-                  }} />
+                  {/* Tail removed */}
+
                 </div>
 
                 {/* User Info */}
@@ -244,6 +239,27 @@ export default function Testimonials() {
       </div>
 
       <style jsx>{`
+        .testimonial-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .testimonial-card:hover {
+          background-color: rgba(255, 255, 255, 0.2) !important;
+          box-shadow: none !important;
+          border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        :global([data-theme='light']) .testimonial-card {
+          background-color: rgba(11, 77, 102, 0.04) !important;
+          border-color: rgba(11, 77, 102, 0.1) !important;
+          box-shadow: none !important;
+        }
+
+        :global([data-theme='light']) .testimonial-card:hover {
+          background-color: rgba(11, 77, 102, 0.08) !important;
+          border-color: var(--accent) !important;
+        }
+
         ::-webkit-scrollbar {
           display: none;
         }
@@ -257,7 +273,7 @@ export default function Testimonials() {
             font-size: 14px !important;
           }
           .testimonial-card {
-            padding: 24px !important;
+            padding: 32px 24px !important;
             border-radius: 24px !important;
           }
           .testimonial-text {

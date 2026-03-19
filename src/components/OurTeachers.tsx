@@ -70,72 +70,89 @@ export default function OurTeachers() {
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Centered Header */}
+        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            viewport={{ once: true }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '10px 24px',
+              backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+              borderRadius: '100px',
+              fontSize: '14px',
+              fontWeight: 800,
+              color: 'var(--accent)',
+              marginBottom: '24px',
+              textTransform: 'uppercase',
+              letterSpacing: '1.5px',
+              border: '1px solid rgba(var(--accent-rgb), 0.2)'
+            }}
+          >
+            <Users size={16} />
+            Expert Faculty
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            style={{
+              fontSize: '56px',
+              fontWeight: 800,
+              color: 'var(--text-primary)',
+              lineHeight: 1.1,
+              marginBottom: '24px',
+              fontFamily: 'var(--font-heading)',
+              maxWidth: '900px',
+              margin: '0 auto 24px'
+            }}
+          >
+            Guided by the <span style={{ color: 'var(--accent)' }}>Best Minds</span> in Quranic Education.
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            style={{
+              fontSize: '20px',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.7,
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}
+          >
+            Our teachers are more than just instructors; they are mentors who nurture both the mind and the soul, dedicated to excellence in every lesson.
+          </motion.p>
+        </div>
+
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '100px',
           alignItems: 'center'
         }}>
-          {/* Left Side: Content & Selection Rigour */}
+          {/* Left Side: Selection Rigour & Features */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '10px 24px',
-                backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
-                borderRadius: '100px',
-                fontSize: '14px',
-                fontWeight: 800,
-                color: 'var(--accent)',
-                marginBottom: '32px',
-                textTransform: 'uppercase',
-                letterSpacing: '1.5px',
-                border: '1px solid rgba(var(--accent-rgb), 0.2)'
-              }}
-            >
-              <Users size={16} />
-              Expert Faculty
-            </motion.div>
-            
-            <h2 style={{
-              fontSize: '56px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              lineHeight: 1.1,
-              marginBottom: '32px',
-              fontFamily: 'var(--font-heading)'
-            }}>
-              Guided by the <span style={{ color: 'var(--accent)' }}>Best Minds</span> in Quranic Education.
-            </h2>
-            
-            <p style={{
-              fontSize: '20px',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.7,
-              marginBottom: '48px',
-              maxWidth: '90%'
-            }}>
-              Our teachers are more than just instructors; they are mentors who nurture both the mind and the soul, dedicated to excellence in every lesson.
-            </p>
-
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               {features.map((feature, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 + 0.3 }}
+                  transition={{ delay: idx * 0.1 }}
                   viewport={{ once: true }}
                   style={{
                     display: 'flex',
@@ -268,11 +285,12 @@ export default function OurTeachers() {
                   }}
                   style={{
                     padding: '60px 32px 40px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    backdropFilter: 'blur(20px)',
+                    backgroundColor: 'rgba(15, 15, 15, 0.3)',
+                    backdropFilter: 'blur(30px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(180%)',
                     borderRadius: '40px',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
-                    boxShadow: '0 25px 50px rgba(0,0,0,0.15)',
+                    boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',

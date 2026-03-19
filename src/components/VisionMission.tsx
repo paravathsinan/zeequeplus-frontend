@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Compass, Target, ShieldCheck, TrendingUp } from "lucide-react";
+import { Compass, Target, ShieldCheck, TrendingUp, Heart } from "lucide-react";
 
 const missionPoints = [
   {
@@ -31,21 +31,14 @@ export default function VisionMission() {
       overflow: 'hidden'
     }}>
       <div className="container">
-        {/* Vision Section */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.2fr 1fr',
-          gap: '100px',
-          alignItems: 'center',
-          marginBottom: '70px'
-        }}>
+        {/* Centered Vision Header */}
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-          >
-            <div style={{
+            style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '12px',
@@ -55,28 +48,121 @@ export default function VisionMission() {
               fontSize: '14px',
               fontWeight: 700,
               color: 'var(--accent)',
-              marginBottom: '32px',
+              marginBottom: '24px',
               textTransform: 'uppercase',
               letterSpacing: '1px'
-            }}>
-              <Target size={18} />
-              Our Vision
-            </div>
-            <h2 style={{
+            }}
+          >
+            <Target size={18} />
+            Our Vision
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            style={{
               fontSize: '44px',
               fontWeight: 800,
               color: 'var(--text-primary)',
               lineHeight: 1.2,
-              marginBottom: '32px'
-            }}>
-              To see our students <span style={{ color: 'var(--accent)' }}>read correctly</span>, love deeply, and live the Qur’an.
-            </h2>
-            <div style={{
+              marginBottom: '24px',
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}
+          >
+            To see our students <span style={{ color: 'var(--accent)' }}>read correctly</span>, love deeply, and live the Qur’an.
+          </motion.h2>
+          
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            style={{
               height: '4px',
               width: '80px',
               backgroundColor: 'var(--accent)',
-              borderRadius: '2px'
-            }} />
+              borderRadius: '2px',
+              margin: '0 auto'
+            }}
+          />
+        </div>
+
+        {/* Vision Content Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.2fr 1fr',
+          gap: '80px',
+          alignItems: 'center',
+          marginBottom: '100px'
+        }}>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <p style={{
+              fontSize: '20px',
+              lineHeight: 1.7,
+              color: 'var(--text-secondary)',
+              marginBottom: '40px'
+            }}>
+              Our vision is to nurture a generation that doesn't just recite the Qur’an, but understands its essence and carries its light into every aspect of their lives. We believe that true learning happens when the heart is engaged alongside the mind.
+            </p>
+
+            {/* New Vision Pillars */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              {[
+                { icon: <Heart size={20} />, title: 'Heart-Centered', desc: 'Fostering a deep spiritual love for Allah and His words.' },
+                { icon: <TrendingUp size={20} />, title: 'Growth Mindset', desc: 'Encouraging continuous self-improvement and wisdom.' },
+                { icon: <ShieldCheck size={20} />, title: 'Rooted Character', desc: 'Building strong ethical foundations for daily life.' }
+              ].map((pillar, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + (i * 0.1) }}
+                  viewport={{ once: true }}
+                  style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}
+                >
+                  <div style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'var(--accent)',
+                    flexShrink: 0,
+                    marginTop: '2px'
+                  }}>
+                    {pillar.icon}
+                  </div>
+                  <div>
+                    <h4 style={{ 
+                      fontSize: '18px', 
+                      fontWeight: 700, 
+                      color: 'var(--text-primary)', 
+                      marginBottom: '6px' 
+                    }}>
+                      {pillar.title}
+                    </h4>
+                    <p style={{ 
+                      fontSize: '15.5px', 
+                      color: 'var(--text-secondary)', 
+                      lineHeight: 1.5,
+                      opacity: 0.85 
+                    }}>
+                      {pillar.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div

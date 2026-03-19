@@ -27,18 +27,7 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="hero-content"
           >
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '8px 16px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: '100px',
-              border: '1px solid var(--glass-border)',
-              marginBottom: '24px',
-              fontSize: '14px',
-              fontWeight: 600
-            }}>
+            <div className="premium-badge" style={{ marginBottom: '24px' }}>
               <span style={{ color: 'var(--accent)' }}>Trusted by 20,000+ Students</span>
             </div>
 
@@ -65,14 +54,9 @@ export default function Hero() {
 
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }} className="hero-btns">
               <Link href="/enroll">
-                <button className="btn btn-primary" style={{ padding: '16px 32px', borderRadius: '100px', fontSize: '18px' }}>
-                  Enroll Now
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
-                  >
-                    <ArrowRight size={20} />
-                  </motion.span>
+                <button className="premium-glass-btn primary">
+                  <span>Enroll Now</span>
+                  <ArrowRight size={20} className="arrow-icon" />
                 </button>
               </Link>
               <a 
@@ -80,8 +64,9 @@ export default function Hero() {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <button className="btn btn-outline" style={{ padding: '16px 32px', borderRadius: '100px', fontSize: '18px', backgroundColor: 'var(--accent)', color: 'white', borderColor: 'var(--accent)' }}>
-                  Login
+                <button className="premium-glass-btn">
+                  <span>Login</span>
+                  <ArrowRight size={20} className="arrow-icon" />
                 </button>
               </a>
             </div>
@@ -112,7 +97,6 @@ export default function Hero() {
                 style={{ objectFit: 'cover' }}
               />
             </div>
-
             {/* Floating Rating Card */}
             <motion.div 
               animate={{ y: [0, -10, 0] }}
@@ -125,12 +109,7 @@ export default function Hero() {
                 padding: '16px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                background: 'rgba(255, 255, 255, 0.7)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                borderRadius: '16px'
+                gap: '12px'
               }}
             >
               <div style={{ backgroundColor: 'var(--accent)', padding: '8px', borderRadius: '10px', color: 'var(--primary)' }}>
@@ -156,12 +135,7 @@ export default function Hero() {
                 display: 'flex',
                 gap: '12px',
                 alignItems: 'center',
-                zIndex: 2,
-                background: 'rgba(255, 255, 255, 0.7)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                borderRadius: '16px'
+                zIndex: 2
               }}
             >
               <div>
@@ -180,19 +154,102 @@ export default function Hero() {
 
       <style jsx>{`
         .glass-card {
-          background: rgba(255, 255, 255, 0.7) !important;
-          backdrop-filter: blur(10px) !important;
-          border: 1px solid rgba(255, 255, 255, 0.5) !important;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
-          border-radius: 16px !important;
+          background: rgba(15, 15, 15, 0.4) !important;
+          backdrop-filter: blur(30px) saturate(180%) !important;
+          -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+          border-radius: 24px !important;
+          transition: all 0.3s ease;
+          color: white !important;
         }
 
-        @media (prefers-color-scheme: dark) {
-          .glass-card {
-            background: rgba(30, 30, 30, 0.7) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
-          }
+        :global([data-theme='light']) .glass-card {
+          background: rgba(255, 255, 255, 0.6) !important;
+          border: 1px solid rgba(255, 255, 255, 0.8) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+          color: #0b4d66 !important;
+        }
+
+        .premium-glass-btn {
+          position: relative;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: white;
+          padding: 16px 36px;
+          border-radius: 50px;
+          font-size: 18px;
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          box-shadow: 0 8px 32px rgba(255, 165, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          z-index: 1;
+        }
+
+        .premium-glass-btn.primary {
+          background: rgba(var(--accent-rgb), 0.2);
+          border: 1px solid rgba(var(--accent-rgb), 0.3);
+          box-shadow: 0 8px 32px rgba(var(--accent-rgb), 0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .premium-glass-btn:hover {
+          background: rgba(0, 0, 0, 0.4);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .premium-glass-btn.primary:hover {
+          background: #06455d; /* Darker version of accent */
+          box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+          border-color: var(--accent);
+        }
+
+        .premium-glass-btn :global(.arrow-icon) {
+          transition: transform 0.3s ease;
+        }
+
+        .premium-glass-btn:hover :global(.arrow-icon) {
+          transform: translateX(6px);
+        }
+
+        :global([data-theme='light']) .premium-glass-btn:not(.primary) {
+          background: rgba(var(--accent-rgb), 0.1);
+          border: 1px solid rgba(var(--accent-rgb), 0.2);
+          color: var(--accent);
+          box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.12), inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+
+        :global([data-theme='light']) .premium-glass-btn.primary {
+          background: rgba(var(--accent-rgb), 0.2);
+          border: 1px solid rgba(var(--accent-rgb), 0.3);
+          color: #0b4d66; /* Dark color for visibility */
+          box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.15), inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+
+        .premium-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 8px 16px;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 100px;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        :global([data-theme='light']) .premium-badge {
+          background: rgba(var(--accent-rgb), 0.1);
+          border: 1px solid rgba(var(--accent-rgb), 0.15);
         }
 
         @media (max-width: 992px) {

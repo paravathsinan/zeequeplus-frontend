@@ -83,14 +83,19 @@ export default function Highlights() {
               transition={{ delay: idx * 0.1 }}
               whileHover={{ y: -10 }}
               style={{
-                padding: '40px',
-                borderRadius: '32px',
-                backgroundColor: 'var(--glass-bg)',
-                border: '1px solid var(--glass-border)',
+                padding: '40px 48px',
+                borderRadius: '50px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                boxShadow: 'none',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '24px',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                position: 'relative',
+                overflow: 'hidden'
               }}
               className="highlight-card"
             >
@@ -98,35 +103,39 @@ export default function Highlights() {
                 width: '64px',
                 height: '64px',
                 borderRadius: '16px',
-                backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+                backgroundColor: 'rgba(var(--accent-rgb), 0.15)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--accent)'
+                color: 'var(--accent)',
+                position: 'relative',
+                zIndex: 2
               }} className="highlight-icon">
                 <item.icon size={32} />
               </div>
 
-              <div>
+              <div style={{ position: 'relative', zIndex: 2 }}>
                 <h3 style={{
                   fontSize: '24px',
                   fontWeight: 800,
                   color: 'var(--text-primary)',
                   marginBottom: '12px',
-                  fontFamily: 'var(--font-heading)'
+                  fontFamily: 'var(--font-heading)',
+                  transition: 'color 0.3s ease'
                 }}>
                   {item.title}
                 </h3>
                 <p style={{
                   color: 'var(--text-secondary)',
                   lineHeight: 1.6,
-                  fontSize: '16px'
+                  fontSize: '16px',
+                  transition: 'color 0.3s ease'
                 }}>
                   {item.description}
                 </p>
               </div>
 
-              <div style={{ marginTop: 'auto' }}>
+              <div style={{ marginTop: 'auto', position: 'relative', zIndex: 2 }}>
                 <Link href="/experience" style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -166,6 +175,27 @@ export default function Highlights() {
       </div>
 
       <style jsx>{`
+        .highlight-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .highlight-card:hover {
+          background-color: rgba(255, 255, 255, 0.2) !important;
+          box-shadow: none !important;
+          border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        :global([data-theme='light']) .highlight-card {
+          background-color: rgba(11, 77, 102, 0.04) !important;
+          border-color: rgba(11, 77, 102, 0.1) !important;
+          box-shadow: none !important;
+        }
+
+        :global([data-theme='light']) .highlight-card:hover {
+          background-color: rgba(11, 77, 102, 0.08) !important;
+          border-color: var(--accent) !important;
+        }
+
         @media (max-width: 1200px) {
           .highlights-grid {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -176,7 +206,8 @@ export default function Highlights() {
             grid-template-columns: 1fr !important;
           }
           .highlight-card {
-            padding: 30px !important;
+            padding: 40px 30px !important;
+            border-radius: 40px !important;
           }
           h2 {
             font-size: 32px !important;

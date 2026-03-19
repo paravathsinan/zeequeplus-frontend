@@ -1,15 +1,14 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, CheckCircle2, X, Linkedin } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, CheckCircle2, X, Linkedin, SendHorizontal } from "lucide-react";
 import { useState } from "react";
 
 export default function ContactFormSection() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "",
-    city: "",
+    subject: "",
     message: ""
   });
 
@@ -56,7 +55,7 @@ export default function ContactFormSection() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Valid email required";
     }
-    if (!formData.phone.trim()) newErrors.phone = "Phone number required";
+    if (!formData.subject.trim()) newErrors.subject = "Subject required";
     if (!formData.message.trim()) newErrors.message = "Message required";
     
     setErrors(newErrors);
@@ -67,7 +66,7 @@ export default function ContactFormSection() {
     e.preventDefault();
     if (validateForm()) {
       setIsSubmitted(true);
-      setFormData({ fullName: "", email: "", phone: "", city: "", message: "" });
+      setFormData({ fullName: "", email: "", subject: "", message: "" });
       setErrors({});
     }
   };
@@ -237,61 +236,46 @@ export default function ContactFormSection() {
               </p>
 
               <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '24px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                  <div style={inputContainer}>
-                    <label style={labelStyle}>Full Name</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. John Doe" 
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                      style={{...inputStyle, borderColor: errors.fullName ? '#ef4444' : 'var(--glass-border)'}} 
-                    />
-                    {errors.fullName && <span style={errorText}>{errors.fullName}</span>}
-                  </div>
-
-                  <div style={inputContainer}>
-                    <label style={labelStyle}>Email Address</label>
-                    <input 
-                      type="email" 
-                      placeholder="e.g. john@example.com" 
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      style={{...inputStyle, borderColor: errors.email ? '#ef4444' : 'var(--glass-border)'}} 
-                    />
-                    {errors.email && <span style={errorText}>{errors.email}</span>}
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                  <div style={inputContainer}>
-                    <label style={labelStyle}>Phone Number</label>
-                    <input 
-                      type="text" 
-                      placeholder="+91 0000 000 000" 
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      style={{...inputStyle, borderColor: errors.phone ? '#ef4444' : 'var(--glass-border)'}} 
-                    />
-                    {errors.phone && <span style={errorText}>{errors.phone}</span>}
-                  </div>
-
-                  <div style={inputContainer}>
-                    <label style={labelStyle}>City</label>
-                    <input 
-                      type="text" 
-                      placeholder="Your city" 
-                      value={formData.city}
-                      onChange={(e) => setFormData({...formData, city: e.target.value})}
-                      style={inputStyle} 
-                    />
-                  </div>
+                <div style={inputContainer}>
+                  <label style={labelStyle}>Full Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="Your name" 
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                    style={{...inputStyle, borderColor: errors.fullName ? '#ef4444' : 'var(--glass-border)'}} 
+                  />
+                  {errors.fullName && <span style={errorText}>{errors.fullName}</span>}
                 </div>
 
                 <div style={inputContainer}>
-                  <label style={labelStyle}>How can we help?</label>
+                  <label style={labelStyle}>Email Address</label>
+                  <input 
+                    type="email" 
+                    placeholder="your.email@example.com" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    style={{...inputStyle, borderColor: errors.email ? '#ef4444' : 'var(--glass-border)'}} 
+                  />
+                  {errors.email && <span style={errorText}>{errors.email}</span>}
+                </div>
+
+                <div style={inputContainer}>
+                  <label style={labelStyle}>Subject</label>
+                  <input 
+                    type="text" 
+                    placeholder="what is this regarding" 
+                    value={formData.subject}
+                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                    style={{...inputStyle, borderColor: errors.subject ? '#ef4444' : 'var(--glass-border)'}} 
+                  />
+                  {errors.subject && <span style={errorText}>{errors.subject}</span>}
+                </div>
+
+                <div style={inputContainer}>
+                  <label style={labelStyle}>Message</label>
                   <textarea 
-                    placeholder="Tell us about your requirements..." 
+                    placeholder="Tell us more about your inquiry..." 
                     rows={4} 
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -314,10 +298,15 @@ export default function ContactFormSection() {
                     fontSize: '17px',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    marginTop: '10px'
+                    marginTop: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px'
                   }}
                 >
-                  Submit Inquiry
+                  <span>Send Message</span>
+                  <SendHorizontal size={18} style={{ transform: 'rotate(-45deg) translateY(0.5px)' }} />
                 </motion.button>
               </form>
             </div>

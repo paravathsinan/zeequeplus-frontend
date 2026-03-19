@@ -32,11 +32,11 @@ export default function OurApproach() {
       position: 'relative'
     }}>
       <div className="container">
-        {/* Minimal Header */}
-        <div style={{ marginBottom: '100px', maxWidth: '800px' }}>
+        {/* Minimal Header - Centered for consistency */}
+        <div style={{ margin: '0 auto 110px', maxWidth: '800px', textAlign: 'center' }}>
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             style={{
@@ -48,11 +48,13 @@ export default function OurApproach() {
               marginBottom: '24px',
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '12px'
             }}
           >
             <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--accent)' }} />
             The Methodology
+            <div style={{ width: '30px', height: '1px', backgroundColor: 'var(--accent)' }} />
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -104,19 +106,7 @@ export default function OurApproach() {
                 textAlign: 'center'
               }}
             >
-              <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '120px' }}>
-                <item.icon 
-                  size={100} 
-                  style={{ 
-                    position: 'absolute', 
-                    top: '50%', 
-                    left: '50%', 
-                    transform: 'translate(-50%, -50%)', 
-                    opacity: 0.08, 
-                    color: 'var(--text-primary)',
-                    strokeWidth: 2
-                  }} 
-                />
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60px' }}>
                 <h3 style={{
                   fontSize: '24px',
                   fontWeight: 800,

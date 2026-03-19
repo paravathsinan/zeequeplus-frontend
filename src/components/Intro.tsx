@@ -180,9 +180,12 @@ export default function Intro() {
                 alignItems: 'center',
                 gap: '15px',
                 zIndex: 2,
-                backgroundColor: 'var(--card-bg)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid var(--glass-border)'
+                backgroundColor: 'rgba(15, 15, 15, 0.4)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4)',
+                color: 'white'
               }}
             >
               <div style={{
@@ -198,8 +201,8 @@ export default function Intro() {
                 <Users size={24} />
               </div>
               <div>
-                <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)' }}>10K+</div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Happy Students</div>
+                <div style={{ fontSize: '20px', fontWeight: 800, color: '#fff' }}>10K+</div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.8)' }}>Happy Students</div>
               </div>
             </motion.div>
 
@@ -218,9 +221,12 @@ export default function Intro() {
                 alignItems: 'center',
                 gap: '12px',
                 zIndex: 2,
-                backgroundColor: 'var(--card-bg)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid var(--glass-border)'
+                backgroundColor: 'rgba(15, 15, 15, 0.4)',
+                backdropFilter: 'blur(30px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(30px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4)',
+                color: 'white'
               }}
             >
               <div style={{
@@ -235,7 +241,7 @@ export default function Intro() {
               }}>
                 <Award size={22} />
               </div>
-              <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>10+ Years Experience</div>
+              <div style={{ fontSize: '15px', fontWeight: 700, color: '#fff' }}>10+ Years Experience</div>
             </motion.div>
           </motion.div>
         </div>

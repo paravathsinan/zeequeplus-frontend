@@ -30,11 +30,11 @@ const targetGroups = [
 export default function Footer() {
   return (
     <footer style={{
-      backgroundColor: '#051e29',
+      backgroundColor: 'var(--footer-bg, #051e29)',
       padding: '100px 0 40px',
-      color: '#ffffff',
-      borderTop: '1px solid rgba(255, 255, 255, 0.05)'
-    }}>
+      color: 'var(--footer-text, #ffffff)',
+      borderTop: '1px solid var(--footer-border, rgba(255, 255, 255, 0.05))'
+    }} className="site-footer">
       <div className="container" style={{
         display: 'grid',
         gridTemplateColumns: '1.2fr 0.8fr 1fr 1fr',
@@ -48,16 +48,24 @@ export default function Footer() {
             alignItems: 'center',
             marginBottom: '32px'
           }}>
-            <Image 
-              src="/images/logo/Logo (2).svg" 
-              alt="ZeeQuePlus Logo" 
-              width={100} 
-              height={100} 
-              style={{ filter: 'brightness(1.5)', transform: 'scale(1.5)', transformOrigin: 'left center' }}
-            />
+            <div style={{ width: '100%', maxWidth: '500px' }}>
+              <Image 
+                src="/images/logo/zeequeplus-logo.png" 
+                alt="ZeeQuePlus Logo" 
+                width={500} 
+                height={500} 
+                style={{ 
+                  filter: 'var(--footer-logo-filter, brightness(1.5))', 
+                  width: '100%', 
+                  height: 'auto',
+                  display: 'block'
+                }}
+              />
+            </div>
+
           </Link>
           <p style={{
-            color: 'rgba(255,255,255,0.7)',
+            color: 'var(--footer-text-secondary, rgba(255,255,255,0.7))',
             lineHeight: 1.7,
             fontSize: '15px',
             marginBottom: '40px',
@@ -76,22 +84,15 @@ export default function Footer() {
                   width: '44px',
                   height: '44px',
                   borderRadius: '50%',
-                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#ffffff',
+                  color: 'var(--footer-text, #ffffff)',
                   transition: 'all 0.3s ease',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--accent)';
-                  e.currentTarget.style.color = '#000';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
+                className="footer-social-link"
               >
                 <Icon size={20} />
               </a>
@@ -101,27 +102,26 @@ export default function Footer() {
 
         {/* Quick Links Column */}
         <div>
-          <h4 className="handwritten" style={{ fontSize: '28px', color: '#ffffff', marginBottom: '32px' }}>Quick Links</h4>
+          <h4 className="handwritten" style={{ fontSize: '28px', color: 'var(--footer-text, #ffffff)', marginBottom: '32px' }}>Quick Links</h4>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {quickLinks.map((link) => (
               <li key={link.name} style={{ marginBottom: '16px' }}>
-                <Link 
-                  href={link.href} 
-                  style={{ 
-                    color: 'rgba(255,255,255,0.7)', 
-                    textDecoration: 'none',
-                    fontSize: '15px',
-                    transition: 'color 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
-                >
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent)' }} />
-                  {link.name}
-                </Link>
+                  <Link 
+                    href={link.href} 
+                    style={{ 
+                      color: 'var(--footer-text-secondary, rgba(255,255,255,0.7))', 
+                      textDecoration: 'none',
+                      fontSize: '15px',
+                      transition: 'color 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px'
+                    }}
+                    className="footer-link"
+                  >
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent)' }} />
+                    {link.name}
+                  </Link>
               </li>
             ))}
           </ul>
@@ -129,20 +129,19 @@ export default function Footer() {
 
         {/* Target Groups Column */}
         <div>
-          <h4 className="handwritten" style={{ fontSize: '28px', color: '#ffffff', marginBottom: '32px' }}>Target Groups</h4>
+          <h4 className="handwritten" style={{ fontSize: '28px', color: 'var(--footer-text, #ffffff)', marginBottom: '32px' }}>Target Groups</h4>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {targetGroups.map((group) => (
               <li key={group.name} style={{ marginBottom: '16px' }}>
                 <Link 
                   href={group.href} 
                   style={{ 
-                    color: 'rgba(255,255,255,0.7)', 
+                    color: 'var(--footer-text-secondary, rgba(255,255,255,0.7))', 
                     textDecoration: 'none',
                     fontSize: '15px',
                     transition: 'color 0.3s ease'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+                  className="footer-link"
                 >
                   {group.name}
                 </Link>
@@ -153,7 +152,7 @@ export default function Footer() {
 
         {/* Connect Column */}
         <div>
-          <h4 className="handwritten" style={{ fontSize: '28px', color: '#ffffff', marginBottom: '32px' }}>Connect</h4>
+          <h4 className="handwritten" style={{ fontSize: '28px', color: 'var(--footer-text, #ffffff)', marginBottom: '32px' }}>Connect</h4>
           
           {/* Phone */}
           <div style={{ display: 'flex', gap: '20px', marginBottom: '32px' }}>
@@ -161,19 +160,19 @@ export default function Footer() {
               width: '48px',
               height: '48px',
               borderRadius: '12px',
-              backgroundColor: 'rgba(255,255,255,0.05)',
+              backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '1px solid rgba(255,255,255,0.1)'
+              border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
             }}>
               <Phone size={20} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Call Us</div>
+              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Call Us</div>
               <a
                 href="tel:+919072500435"
-                style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}
+                style={{ fontSize: '16px', fontWeight: 700, color: 'var(--footer-text, #ffffff)', textDecoration: 'none' }}
               >
                 +91 9072 500 435
               </a>
@@ -181,24 +180,24 @@ export default function Footer() {
           </div>
 
           {/* Email */}
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '32px' }}>
             <div style={{
               width: '48px',
               height: '48px',
               borderRadius: '12px',
-              backgroundColor: 'rgba(255,255,255,0.05)',
+              backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '1px solid rgba(255,255,255,0.1)'
+              border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
             }}>
               <Mail size={20} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Email</div>
+              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Email</div>
               <a
                 href="mailto:info@zeequeplus.com"
-                style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none', textTransform: 'lowercase' }}
+                style={{ fontSize: '16px', fontWeight: 700, color: 'var(--footer-text, #ffffff)', textDecoration: 'none', textTransform: 'lowercase' }}
               >
                 info@zeequeplus.com
               </a>
@@ -206,26 +205,26 @@ export default function Footer() {
           </div>
           
           {/* Location */}
-          <div style={{ display: 'flex', gap: '20px', marginTop: '32px' }}>
+          <div style={{ display: 'flex', gap: '20px' }}>
             <div style={{
               width: '48px',
               height: '48px',
               borderRadius: '12px',
-              backgroundColor: 'rgba(255,255,255,0.05)',
+              backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '1px solid rgba(255,255,255,0.1)'
+              border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
             }}>
               <MapPin size={20} style={{ color: 'var(--accent)' }} />
             </div>
             <div>
-              <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Location</div>
+              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Location</div>
               <a
                 href="https://www.google.com/maps?q=Zahra+Park,+Koduvally,+Kozhikode,+Kerala"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}
+                style={{ fontSize: '16px', fontWeight: 700, color: 'var(--footer-text, #ffffff)', textDecoration: 'none' }}
               >
                 Zahra Park, Koduvally, Kozhikode, Kerala
               </a>
@@ -235,13 +234,13 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.05)', paddingTop: '40px' }}>
+      <div style={{ borderTop: '1px solid var(--footer-border, rgba(255, 255, 255, 0.05))', paddingTop: '40px' }}>
         <div className="container" style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: '13px',
-          color: 'rgba(255,255,255,0.5)',
+          color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))',
           textTransform: 'uppercase',
           letterSpacing: '1px'
         }}>
@@ -254,6 +253,39 @@ export default function Footer() {
       </div>
 
       <style jsx>{`
+        .site-footer {
+          --footer-bg: #051e29;
+          --footer-text: #ffffff;
+          --footer-text-secondary: rgba(255, 255, 255, 0.7);
+          --footer-border: rgba(255, 255, 255, 0.05);
+          --footer-social-bg: rgba(255, 255, 255, 0.05);
+          --footer-logo-filter: brightness(1.5);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        :global([data-theme='light']) .site-footer {
+          --footer-bg: #f8fafc;
+          --footer-text: var(--text-primary);
+          --footer-text-secondary: var(--text-secondary);
+          --footer-border: rgba(0, 0, 0, 0.06);
+          --footer-social-bg: rgba(0, 0, 0, 0.03);
+          --footer-logo-filter: none;
+        }
+
+        .footer-link {
+          transition: color 0.3s ease !important;
+        }
+
+        .footer-link:hover {
+          color: var(--accent) !important;
+        }
+
+        .footer-social-link:hover {
+          background-color: var(--accent) !important;
+          color: #000 !important;
+          transform: translateY(-3px);
+        }
+
         @media (max-width: 1024px) {
           footer .container:first-child {
             grid-template-columns: 1fr 1fr !important;

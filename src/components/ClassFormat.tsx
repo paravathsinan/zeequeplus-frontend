@@ -34,51 +34,63 @@ export default function ClassFormat() {
       overflow: 'hidden'
     }}>
       <div className="container">
+        {/* Centered Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginBottom: '60px' }}
+        >
+          <div style={{
+            display: 'inline-block',
+            padding: '8px 20px',
+            backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+            borderRadius: '100px',
+            fontSize: '14px',
+            fontWeight: 700,
+            color: 'var(--accent)',
+            marginBottom: '24px',
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
+          }}>
+            Class Format
+          </div>
+
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: 800,
+            color: 'var(--text-primary)',
+            lineHeight: 1.2,
+            maxWidth: '800px',
+            margin: '0 auto 32px'
+          }}>
+            A Dynamic <span style={{ color: 'var(--accent)' }}>Virtual Classroom</span> Environment.
+          </h2>
+
+          <p style={{
+            fontSize: '19px',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.7,
+            maxWidth: '700px',
+            margin: '0 auto'
+          }}>
+            We’ve designed our class format to be as effective and engaging as physical learning, using modern technology to bring the Qur’an to your home.
+          </p>
+        </motion.div>
+
         <div style={{
           display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', alignItems: 'center'
         }}>
-          {/* Content Side */}
+          {/* Content Side (Points only) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div style={{
-              display: 'inline-block',
-              padding: '8px 20px',
-              backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
-              borderRadius: '100px',
-              fontSize: '14px',
-              fontWeight: 700,
-              color: 'var(--accent)',
-              marginBottom: '32px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>
-              Section 1: Class Format
-            </div>
-
-            <h2 style={{
-              fontSize: '48px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              lineHeight: 1.2,
-              marginBottom: '32px'
-            }}>
-              A Dynamic <span style={{ color: 'var(--accent)' }}>Virtual Classroom</span> Environment.
-            </h2>
-
-            <p style={{
-              fontSize: '19px',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.7,
-              marginBottom: '48px'
-            }}>
-              We’ve designed our class format to be as effective and engaging as physical learning, using modern technology to bring the Qur’an to your home.
-            </p>
-
             <div style={{ display: 'grid', gap: '32px' }}>
+
               {formatPoints.map((point, idx) => (
                 <motion.div
                   key={idx}
@@ -143,7 +155,7 @@ export default function ClassFormat() {
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </div>
-            
+
             {/* Soft decorative light */}
             <div style={{
               position: 'absolute',

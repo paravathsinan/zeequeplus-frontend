@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User, Users, BookOpen, Check, ChevronRight, ChevronLeft, ChevronDown, Calendar,
@@ -153,7 +153,7 @@ function Stepper({ currentStep }: { currentStep: number }) {
   return (
     <div style={{
       display: "flex", alignItems: "center", justifyContent: "center",
-      marginBottom: 80, gap: 0, width: "100%", maxWidth: 600, margin: "0 auto 80px"
+      marginBottom: 60, gap: 0, width: "100%", maxWidth: 600, margin: "0 auto 60px"
     }}>
       {STEPS.map((step, i) => {
         const completed = i < currentStep;
@@ -253,15 +253,15 @@ function Stepper({ currentStep }: { currentStep: number }) {
    ═══════════════════════════════════════════════════ */
 function FormField({
   label, name, type = "text", placeholder, value, error,
-  onChange, required = true
+  onChange, required = true, onComplete
 }: {
   label: string; name: string; type?: string; placeholder: string;
   value: string; error?: string; onChange: (name: string, value: string) => void;
-  required?: boolean;
+  required?: boolean; onComplete?: () => void;
 }) {
   const isValid = required ? value.trim().length > 0 && !error : true;
   return (
-    <div style={{ marginBottom: 24 }}>
+    <div style={{ marginBottom: 18 }}>
       <label style={{
         display: "block", fontSize: 14, fontWeight: 600,
         color: C.slate, marginBottom: 8
@@ -282,6 +282,9 @@ function FormField({
             borderRadius: 14, fontSize: 16, color: C.slate,
             outline: "none", backgroundColor: C.white,
             transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && onComplete) onComplete();
           }}
           onFocus={(e) => {
             if (!error) e.currentTarget.style.borderColor = C.teal;
@@ -337,22 +340,26 @@ function FormField({
    ═══════════════════════════════════════════════════ */
 function CustomDropdown({
   label, options, value, error, placeholder,
-  onChange, required = true, icon: Icon, marginBottom = 24
+  onChange, required = true, icon: Icon, marginBottom = 24, onComplete
 }: {
   label?: string; options: string[];
   value: string; error?: string; placeholder: string;
   onChange: (value: string) => void;
   required?: boolean; icon?: any; marginBottom?: number;
+  onComplete?: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = (opt: string) => {
     onChange(opt);
     setIsOpen(false);
+    if (onComplete) {
+      setTimeout(onComplete, 100);
+    }
   };
 
   return (
-    <div style={{ marginBottom, position: "relative" }}>
+    <div style={{ marginBottom: 18, position: "relative" }}>
       {label && (
         <label style={{
           display: "block", fontSize: 14, fontWeight: 600,
@@ -444,12 +451,13 @@ function CustomDropdown({
 
 function SelectField({
   label, name, options, value, error, placeholder,
-  onChange, required = true, marginBottom = 24
+  onChange, required = true, marginBottom = 24, onComplete
 }: {
   label: string; name: string; options: string[];
   value: string; error?: string; placeholder: string;
   onChange: (name: string, value: string) => void;
   required?: boolean; marginBottom?: number;
+  onComplete?: () => void;
 }) {
   return (
     <CustomDropdown 
@@ -458,6 +466,7 @@ function SelectField({
       onChange={(val) => onChange(name, val)} 
       required={required} 
       marginBottom={marginBottom}
+      onComplete={onComplete}
     />
   );
 }
@@ -466,10 +475,11 @@ function SelectField({
    Custom Date Picker Component
    ═══════════════════════════════════════════════════ */
 function CustomDatePicker({
-  label, value, onChange, error, required = true, years = YEARS, maxWidth = "100%"
+  label, value, onChange, error, required = true, years = YEARS, maxWidth = "100%", onComplete
 }: {
   label: string; value: string; onChange: (val: string) => void; error?: string; required?: boolean;
   years?: string[]; maxWidth?: string | number;
+  onComplete?: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState<"days" | "months" | "years">("days");
@@ -497,6 +507,9 @@ function CustomDatePicker({
     onChange(newVal);
     setIsOpen(false);
     setView("days");
+    if (onComplete) {
+      setTimeout(onComplete, 100);
+    }
   };
 
   const handleToday = () => {
@@ -507,6 +520,9 @@ function CustomDatePicker({
     setPickerYear(today.getFullYear());
     setIsOpen(false);
     setView("days");
+    if (onComplete) {
+      setTimeout(onComplete, 100);
+    }
   };
 
   const handlePrevMonth = () => {
@@ -533,7 +549,7 @@ function CustomDatePicker({
   ];
 
   return (
-    <div style={{ marginBottom: 24, position: "relative", maxWidth }}>
+    <div style={{ marginBottom: 18, position: "relative", maxWidth }}>
       <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: C.slate, marginBottom: 8 }}>
         {label} {required && <span style={{ color: C.red }}>*</span>}
       </label>
@@ -799,6 +815,32 @@ export default function EnrollmentForm() {
     batchTiming: "", startDate: "", agreeTerms: false,
   });
 
+  const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  const scrollToNextField = (currentField: string) => {
+    const stepFields = [
+      ["studentName", "dateOfBirth", "gender", "grade", "aadhaarNumber"],
+      ["parentName", "parentRelationship", "parentEmail", "parentPhone", "countryOfResidence", "heardFrom"],
+      ["interestedProgram", "batchTiming", "startDate", "agreeTerms"]
+    ];
+
+    const flatFields = stepFields.flat();
+    const currentIndex = flatFields.indexOf(currentField);
+    
+    if (currentIndex !== -1 && currentIndex < flatFields.length - 1) {
+      const nextField = flatFields[currentIndex + 1];
+      const nextTwoField = currentIndex < flatFields.length - 2 ? flatFields[currentIndex + 2] : null;
+      
+      // Scroll such that the next TWO fields are visible if possible
+      const targetField = nextTwoField || nextField;
+      if (fieldRefs.current[targetField]) {
+        fieldRefs.current[targetField]?.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (fieldRefs.current[nextField]) {
+        fieldRefs.current[nextField]?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+  };
+
   const handleChange = useCallback((name: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     setErrors(prev => {
@@ -925,51 +967,58 @@ export default function EnrollmentForm() {
                   Student Information
                 </h3>
 
-                <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-                  <div style={{ flex: "1 1 65%", minWidth: 280 }}>
+                <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
+                  <div style={{ flex: "1 1 65%", minWidth: 280 }} ref={el => { fieldRefs.current.studentName = el; }}>
                     <FormField
                       label="Student Full Name" name="studentName"
                       placeholder="Enter legal name"
                       value={formData.studentName} error={errors.studentName}
                       onChange={handleChange}
+                      onComplete={() => scrollToNextField("studentName")}
                     />
                   </div>
-                  <div style={{ flex: "1 1 30%", minWidth: 180 }}>
+                  <div style={{ flex: "1 1 30%", minWidth: 180 }} ref={el => { fieldRefs.current.dateOfBirth = el; }}>
                     <CustomDatePicker
                       label="Date of Birth"
                       value={formData.dateOfBirth} error={errors.dateOfBirth}
                       onChange={(val) => handleChange("dateOfBirth", val)}
+                      onComplete={() => scrollToNextField("dateOfBirth")}
                     />
                   </div>
                 </div>
 
-                <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginBottom: 24 }}>
-                  <div style={{ flex: "1 1 calc(50% - 10px)", minWidth: 200 }}>
+                <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
+                  <div style={{ flex: "1 1 calc(50% - 8px)", minWidth: 200 }} ref={el => { fieldRefs.current.gender = el; }}>
                     <SelectField
                       label="Gender" name="gender"
                       options={["Male", "Female"]} placeholder="Select gender"
                       value={formData.gender} error={errors.gender}
                       onChange={handleChange}
                       marginBottom={0}
+                      onComplete={() => scrollToNextField("gender")}
                     />
                   </div>
-                  <div style={{ flex: "1 1 calc(50% - 10px)", minWidth: 200 }}>
+                  <div style={{ flex: "1 1 calc(50% - 8px)", minWidth: 200 }} ref={el => { fieldRefs.current.grade = el; }}>
                     <CustomDropdown
                       label="Class / Grade"
                       options={GRADES} placeholder="Select class"
                       value={formData.grade} error={errors.grade}
                       onChange={(val) => handleChange("grade", val)}
                       marginBottom={0}
+                      onComplete={() => scrollToNextField("grade")}
                     />
                   </div>
                 </div>
 
-                <FormField
-                  label="Aadhaar Number (Optional)" name="aadhaarNumber"
-                  placeholder="xxxx xxxx xxxx"
-                  value={formData.aadhaarNumber} error={errors.aadhaarNumber}
-                  onChange={handleChange} required={false}
-                />
+                <div ref={el => { fieldRefs.current.aadhaarNumber = el; }}>
+                  <FormField
+                    label="Aadhaar Number (Optional)" name="aadhaarNumber"
+                    placeholder="xxxx xxxx xxxx"
+                    value={formData.aadhaarNumber} error={errors.aadhaarNumber}
+                    onChange={handleChange} required={false}
+                    onComplete={() => scrollToNextField("aadhaarNumber")}
+                  />
+                </div>
 
                 <div style={{ marginBottom: 24 }}>
                   <motion.label
@@ -1016,77 +1065,98 @@ export default function EnrollmentForm() {
             {/* ── Step 2: Parent Details ── */}
             {currentStep === 1 && (
               <motion.div key="step1" variants={stepVariants} initial="initial" animate="animate" exit="exit">
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: C.slate, marginBottom: 28 }}>
+                 <h3 style={{ fontSize: 22, fontWeight: 700, color: C.slate, marginBottom: 20 }}>
                   Parent / Guardian Details
                 </h3>
 
-                <FormField
-                  label="Parent / Guardian Full Name" name="parentName"
-                  placeholder="Enter Name"
-                  value={formData.parentName} error={errors.parentName}
-                  onChange={handleChange}
-                />
+                <div ref={el => { fieldRefs.current.parentName = el; }}>
+                  <FormField
+                    label="Parent / Guardian Full Name" name="parentName"
+                    placeholder="Enter Name"
+                    value={formData.parentName} error={errors.parentName}
+                    onChange={handleChange}
+                    onComplete={() => scrollToNextField("parentName")}
+                  />
+                </div>
 
-                <SelectField
-                  label="Relationship to Student" name="parentRelationship"
-                  options={RELATIONSHIP_OPTIONS} placeholder="Select (Father, Mother, Guardian)"
-                  value={formData.parentRelationship} error={errors.parentRelationship}
-                  onChange={handleChange}
-                />
+                <div ref={el => { fieldRefs.current.parentRelationship = el; }}>
+                  <SelectField
+                    label="Relationship to Student" name="parentRelationship"
+                    options={RELATIONSHIP_OPTIONS} placeholder="Select (Father, Mother, Guardian)"
+                    value={formData.parentRelationship} error={errors.parentRelationship}
+                    onChange={handleChange}
+                    onComplete={() => scrollToNextField("parentRelationship")}
+                  />
+                </div>
 
-                <FormField
-                  label="Mobile Number" name="parentPhone" type="tel"
-                  placeholder="e.g. +91 9876 543 210"
-                  value={formData.parentPhone} error={errors.parentPhone}
-                  onChange={handleChange}
-                />
+                <div ref={el => { fieldRefs.current.parentPhone = el; }}>
+                  <FormField
+                    label="Mobile Number" name="parentPhone" type="tel"
+                    placeholder="e.g. +91 9876 543 210"
+                    value={formData.parentPhone} error={errors.parentPhone}
+                    onChange={handleChange}
+                    onComplete={() => scrollToNextField("parentPhone")}
+                  />
+                </div>
 
-                <FormField
-                  label="Email Address" name="parentEmail" type="email"
-                  placeholder="e.g. name@example.com"
-                  value={formData.parentEmail} error={errors.parentEmail}
-                  onChange={handleChange} required={false}
-                />
+                <div ref={el => { fieldRefs.current.parentEmail = el; }}>
+                  <FormField
+                    label="Email Address" name="parentEmail" type="email"
+                    placeholder="e.g. name@example.com"
+                    value={formData.parentEmail} error={errors.parentEmail}
+                    onChange={handleChange} required={false}
+                    onComplete={() => scrollToNextField("parentEmail")}
+                  />
+                </div>
 
-                <SelectField
-                  label="Country of Residence" name="countryOfResidence"
-                  options={COUNTRIES} placeholder="Select your country"
-                  value={formData.countryOfResidence} error={errors.countryOfResidence}
-                  onChange={handleChange}
-                />
+                <div ref={el => { fieldRefs.current.countryOfResidence = el; }}>
+                  <SelectField
+                    label="Country of Residence" name="countryOfResidence"
+                    options={COUNTRIES} placeholder="Select your country"
+                    value={formData.countryOfResidence} error={errors.countryOfResidence}
+                    onChange={handleChange}
+                    onComplete={() => scrollToNextField("countryOfResidence")}
+                  />
+                </div>
 
-                <SelectField
-                  label="How did you hear about us?" name="heardFrom"
-                  options={HEARD_OPTIONS} placeholder="Optional"
-                  value={formData.heardFrom} error={errors.heardFrom}
-                  onChange={handleChange} required={false}
-                />
+                <div ref={el => { fieldRefs.current.heardFrom = el; }}>
+                  <SelectField
+                    label="How did you hear about us?" name="heardFrom"
+                    options={HEARD_OPTIONS} placeholder="Optional"
+                    value={formData.heardFrom} error={errors.heardFrom}
+                    onChange={handleChange} required={false}
+                    onComplete={() => scrollToNextField("heardFrom")}
+                  />
+                </div>
               </motion.div>
             )}
 
             {/* ── Step 3: Program Selection ── */}
             {currentStep === 2 && (
               <motion.div key="step2" variants={stepVariants} initial="initial" animate="animate" exit="exit">
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: C.slate, marginBottom: 28 }}>
+                <h3 style={{ fontSize: 22, fontWeight: 700, color: C.slate, marginBottom: 20 }}>
                   Program Preferences
                 </h3>
 
-                <SelectField
-                  label="Interested Program" name="interestedProgram"
-                  options={PROGRAM_OPTIONS} placeholder="Select interested program"
-                  value={formData.interestedProgram} error={errors.interestedProgram}
-                  onChange={handleChange}
-                />
+                <div ref={el => { fieldRefs.current.interestedProgram = el; }}>
+                  <SelectField
+                    label="Interested Program" name="interestedProgram"
+                    options={PROGRAM_OPTIONS} placeholder="Select interested program"
+                    value={formData.interestedProgram} error={errors.interestedProgram}
+                    onChange={handleChange}
+                    onComplete={() => scrollToNextField("interestedProgram")}
+                  />
+                </div>
 
                 {/* Batch Timing Cards */}
-                <div style={{ marginBottom: 28 }}>
+                <div style={{ marginBottom: 20 }}>
                   <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: C.slate, marginBottom: 12 }}>
                     Preferred Batch Timing <span style={{ color: C.red }}>*</span>
                   </label>
                   <div style={{
                     display: "grid", gridTemplateColumns: "1fr 1fr",
-                    gap: 14,
-                  }}>
+                    gap: 12,
+                  }} ref={el => { fieldRefs.current.batchTiming = el; }}>
                     {BATCH_TIMINGS.map(batch => {
                       const selected = formData.batchTiming === batch.id;
                       return (
@@ -1094,7 +1164,10 @@ export default function EnrollmentForm() {
                           key={batch.id} type="button"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.97 }}
-                          onClick={() => handleChange("batchTiming", batch.id)}
+                          onClick={() => {
+                            handleChange("batchTiming", batch.id);
+                            setTimeout(() => scrollToNextField("batchTiming"), 100);
+                          }}
                           style={{
                             padding: "20px 16px", borderRadius: 18, cursor: "pointer",
                             border: `2px solid ${selected ? C.teal : C.grayBorder}`,
@@ -1125,14 +1198,17 @@ export default function EnrollmentForm() {
                 </div>
 
                 {/* Start Date */}
-                <CustomDatePicker
-                  label="Preferred Start Date"
-                  value={formData.startDate} error={errors.startDate}
-                  onChange={(val) => handleChange("startDate", val)}
-                  required={false}
-                  years={FUTURE_YEARS}
-                  maxWidth={260}
-                />
+                <div ref={el => { fieldRefs.current.startDate = el; }}>
+                  <CustomDatePicker
+                    label="Preferred Start Date"
+                    value={formData.startDate} error={errors.startDate}
+                    onChange={(val) => handleChange("startDate", val)}
+                    required={false}
+                    years={FUTURE_YEARS}
+                    maxWidth={260}
+                    onComplete={() => scrollToNextField("startDate")}
+                  />
+                </div>
 
                 {/* Terms Checkbox */}
                 <div style={{ marginBottom: 24 }}>
@@ -1147,7 +1223,10 @@ export default function EnrollmentForm() {
                     }}
                   >
                     <div
-                      onClick={() => handleChange("agreeTerms", !formData.agreeTerms)}
+                      onClick={() => {
+                        handleChange("agreeTerms", !formData.agreeTerms);
+                        if (!formData.agreeTerms) setTimeout(() => scrollToNextField("agreeTerms"), 100);
+                      }}
                       style={{
                         width: 24, height: 24, borderRadius: 8, flexShrink: 0, marginTop: 2,
                         border: `2px solid ${formData.agreeTerms ? C.teal : C.grayLight}`,
@@ -1197,8 +1276,8 @@ export default function EnrollmentForm() {
                 {/* Order Summary Box */}
                 <div style={{
                   backgroundColor: "rgba(13,148,136,0.05)",
-                  padding: 24, borderRadius: 20, border: `1.5px solid rgba(13,148,136,0.1)`,
-                  marginBottom: 32, position: "relative", overflow: "hidden"
+                  padding: 18, borderRadius: 20, border: `1.5px solid rgba(13,148,136,0.1)`,
+                  marginBottom: 24, position: "relative", overflow: "hidden"
                 }}>
                   <div style={{ position: "absolute", top: 0, right: 0, padding: "8px 16px", backgroundColor: C.teal, color: C.white, fontSize: 11, fontWeight: 800, borderBottomLeftRadius: 12, textTransform: "uppercase", letterSpacing: 1 }}>
                     Summary
@@ -1276,7 +1355,7 @@ export default function EnrollmentForm() {
 
           {/* ── Navigation Buttons ── */}
           <div style={{
-            display: "flex", justifyContent: currentStep > 0 ? "space-between" : "flex-end",
+            display: "flex", justifyContent: "center",
             marginTop: 36, gap: 16, flexWrap: "wrap",
           }}>
             {currentStep > 0 && (
