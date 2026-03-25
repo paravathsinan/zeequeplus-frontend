@@ -878,8 +878,8 @@ export default function EnrollmentForm() {
   if (submitted) {
     return (
       <div style={{
-        minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center",
-        padding: "60px 24px", backgroundColor: C.bgPage,
+        minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "100px 24px 80px", backgroundColor: C.bgPage,
       }}>
         <motion.div
           variants={successVariants} initial="initial" animate="animate"
@@ -1323,18 +1323,17 @@ export default function EnrollmentForm() {
                     <div style={{ width: 14, height: 14, borderRadius: "50%", backgroundColor: C.teal }} />
                   </div>
                 </motion.div>
-
-                {/* Trust Badge */}
+                
+                {/* Simplified Trust Text */}
                 <div style={{ 
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: 10, 
-                  marginTop: 32, color: C.gray, padding: "12px 20px", borderRadius: 12, border: `1px solid ${C.grayBorder}`,
-                  backgroundColor: "rgba(241, 245, 249, 0.5)"
+                  display: "flex", alignItems: "center", gap: 6, 
+                  marginTop: 12, color: C.gray, paddingLeft: 8
                 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: "50%", backgroundColor: "rgba(16, 185, 129, 0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Lock size={16} color="#059669" />
-                  </div>
-                  <span style={{ fontSize: 13, fontWeight: 600 }}>Secure 256-bit encrypted payment via Razorpay</span>
+                  <Lock size={12} color={C.gray} />
+                  <span style={{ fontSize: 12, fontWeight: 600 }}>Secure 256-bit encrypted payment via Razorpay</span>
                 </div>
+
+
               </motion.div>
             )}
           </AnimatePresence>
