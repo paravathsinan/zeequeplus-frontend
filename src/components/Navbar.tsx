@@ -21,18 +21,11 @@ export default function Navbar() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [activeLink, setActiveLink] = useState<string>("Home");
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
   const pathname = usePathname();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
     setIsScrolled(latest > 50);
   });
 
@@ -97,7 +90,7 @@ export default function Navbar() {
       <motion.nav 
         initial={{ y: -150, opacity: 0 }}
         animate={{ 
-          y: isVisible ? 0 : -150,
+          y: 0,
           opacity: 1,
           backgroundColor: isScrolled ? 'var(--glass-bg)' : 'rgba(255, 255, 255, 0)',
           backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)'

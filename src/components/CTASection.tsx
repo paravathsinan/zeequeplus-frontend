@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen, Heart } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function CTASection() {
@@ -12,17 +12,6 @@ export default function CTASection() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Background Decorative Elements */}
-      <div style={{
-        position: 'absolute',
-        bottom: '10%',
-        right: '5%',
-        width: '400px',
-        height: '400px',
-        background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.05) 0%, transparent 70%)',
-        zIndex: 0
-      }} />
-
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -35,7 +24,6 @@ export default function CTASection() {
             padding: '40px 60px',
             position: 'relative',
             overflow: 'hidden',
-            boxShadow: 'none',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             textAlign: 'left',
             maxWidth: '1200px',
@@ -47,7 +35,7 @@ export default function CTASection() {
           }}
           className="cta-card"
         >
-          <div style={{ flex: 1 }}>
+          <div className="cta-content" style={{ flex: 1 }}>
             <h2 style={{
               fontSize: '32px',
               fontWeight: 800,
@@ -68,9 +56,24 @@ export default function CTASection() {
               "The best among you are those who learn the Quran and teach it." 
               Provide your children with a foundation of faith, wisdom, and character that will guide them for a lifetime.
             </p>
+
+            {/* Mobile-only Enroll Button */}
+            <div className="mobile-cta-btn" style={{ marginTop: '24px' }}>
+              <Link href="/enroll">
+                <button className="premium-glass-btn primary" style={{ 
+                  padding: '16px 40px', 
+                  fontSize: '18px',
+                  borderRadius: '100px',
+                  whiteSpace: 'nowrap'
+                }}>
+                  <span>Enroll Now</span>
+                  <ArrowRight className="arrow-icon" size={22} />
+                </button>
+              </Link>
+            </div>
           </div>
 
-          <div style={{ flexShrink: 0 }}>
+          <div className="cta-action desktop-cta-btn" style={{ flexShrink: 0 }}>
             <Link href="/enroll">
               <button className="premium-glass-btn primary" style={{ 
                 padding: '16px 40px', 
@@ -131,15 +134,47 @@ export default function CTASection() {
           transform: translateX(6px);
         }
 
-        @media (max-width: 992px) {
+        .mobile-cta-btn {
+          display: none;
+        }
+
+        @media (max-width: 767px) {
+          .desktop-cta-btn {
+            display: none !important;
+          }
+
+          .mobile-cta-btn {
+            display: block !important;
+          }
+
           .cta-card {
             flex-direction: column !important;
-            text-align: center !important;
-            padding: 40px 30px !important;
-            gap: 30px !important;
+            align-items: flex-start !important;
+            padding: 32px 24px !important;
+            gap: 24px !important;
+            margin: 0 16px !important;
+            width: auto !important;
+            box-sizing: border-box !important;
           }
-          h2 { font-size: 28px !important; }
-          p { font-size: 15px !important; }
+
+          .cta-content, .cta-action {
+            width: 100% !important;
+            flex: none !important;
+          }
+
+          .cta-card h2 { 
+            font-size: 26px !important;
+            line-height: 1.2 !important;
+          }
+
+          .cta-card p { 
+            font-size: 15px !important; 
+          }
+
+          .premium-glass-btn {
+            width: 100% !important;
+            justify-content: center !important;
+          }
         }
       `}</style>
     </section>
