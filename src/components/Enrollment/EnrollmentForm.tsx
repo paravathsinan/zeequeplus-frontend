@@ -4,7 +4,7 @@ import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User, Users, BookOpen, Check, ChevronRight, ChevronLeft, ChevronDown, Calendar,
-  Sun, Sunset, Moon, Star, AlertCircle, Loader2, Sparkles, CreditCard, Lock, ShieldCheck
+  Sun, Sunset, Moon, AlertCircle, Loader2, Sparkles, CreditCard, Lock, ShieldCheck
 } from "lucide-react";
 
 /* ── Types ── */
@@ -23,7 +23,6 @@ interface FormData {
   aadhaarNumber: string;
   hasCompletedPreschool: boolean;
   batchTiming: string;
-  startDate: string;
   agreeTerms: boolean;
 }
 
@@ -61,21 +60,16 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December"
 ];
 const YEARS = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - i).toString());
-const FUTURE_YEARS = Array.from({ length: 10 }, (_, i) => (new Date().getFullYear() + i).toString());
+
 
 const PROGRAM_OPTIONS = [
-  "Classes 1-3 (Foundation)",
-  "Classes 4-7 (Intermediate)",
-  "Classes 8-10 (Advanced)",
-  "Dedicated Hifz Program",
-  "Vacation Specials"
+  "ZeeQue Plus Quran"
 ];
 
 const BATCH_TIMINGS = [
   { id: "morning",   label: "Morning",   time: "6 AM – 9 AM",   Icon: Sun },
   { id: "afternoon", label: "Afternoon", time: "12 PM – 3 PM",  Icon: Sunset },
   { id: "evening",   label: "Evening",   time: "5 PM – 8 PM",   Icon: Moon },
-  { id: "weekend",   label: "Weekend",   time: "Sat & Sun",     Icon: Star },
 ];
 
 /* ── Colors ── */
@@ -812,7 +806,7 @@ export default function EnrollmentForm() {
     parentName: "", parentEmail: "", parentPhone: "", parentRelationship: "", countryOfResidence: "", 
     interestedProgram: "", heardFrom: "",
     aadhaarNumber: "", hasCompletedPreschool: false,
-    batchTiming: "", startDate: "", agreeTerms: false,
+    batchTiming: "", agreeTerms: false,
   });
 
   const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -821,7 +815,7 @@ export default function EnrollmentForm() {
     const stepFields = [
       ["studentName", "dateOfBirth", "gender", "grade", "aadhaarNumber"],
       ["parentName", "parentRelationship", "parentEmail", "parentPhone", "countryOfResidence", "heardFrom"],
-      ["interestedProgram", "batchTiming", "startDate", "agreeTerms"]
+      ["interestedProgram", "batchTiming", "agreeTerms"]
     ];
 
     const flatFields = stepFields.flat();
@@ -1197,18 +1191,7 @@ export default function EnrollmentForm() {
                   </AnimatePresence>
                 </div>
 
-                {/* Start Date */}
-                <div ref={el => { fieldRefs.current.startDate = el; }}>
-                  <CustomDatePicker
-                    label="Preferred Start Date"
-                    value={formData.startDate} error={errors.startDate}
-                    onChange={(val) => handleChange("startDate", val)}
-                    required={false}
-                    years={FUTURE_YEARS}
-                    maxWidth={260}
-                    onComplete={() => scrollToNextField("startDate")}
-                  />
-                </div>
+
 
                 {/* Terms Checkbox */}
                 <div style={{ marginBottom: 24 }}>
@@ -1276,7 +1259,7 @@ export default function EnrollmentForm() {
                 {/* Order Summary Box */}
                 <div style={{
                   backgroundColor: "rgba(13,148,136,0.05)",
-                  padding: 18, borderRadius: 20, border: `1.5px solid rgba(13,148,136,0.1)`,
+                  padding: "32px 20px 20px", borderRadius: 20, border: `1.5px solid rgba(13,148,136,0.1)`,
                   marginBottom: 24, position: "relative", overflow: "hidden"
                 }}>
                   <div style={{ position: "absolute", top: 0, right: 0, padding: "8px 16px", backgroundColor: C.teal, color: C.white, fontSize: 11, fontWeight: 800, borderBottomLeftRadius: 12, textTransform: "uppercase", letterSpacing: 1 }}>
@@ -1285,12 +1268,15 @@ export default function EnrollmentForm() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
                     <span style={{ color: C.gray, fontSize: 14, fontWeight: 600 }}>Program</span>
                     <span style={{ color: C.slate, fontSize: 15, fontWeight: 700 }}>
-                      {formData.interestedProgram || "Intermediate (Classes 4-7)"}
+                      {formData.interestedProgram || "ZeeQue Plus Quran"}
                     </span>
                   </div>
                   <div style={{ height: 1, backgroundColor: "rgba(13,148,136,0.1)", marginBottom: 16 }} />
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ color: C.teal, fontSize: 16, fontWeight: 700 }}>Total Payable</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <div>
+                      <span style={{ color: C.teal, fontSize: 16, fontWeight: 700, display: "block" }}>Total Payable</span>
+                      <span style={{ color: C.gray, fontSize: 12, fontWeight: 600 }}>(Fee for June month)</span>
+                    </div>
                     <span style={{ color: C.teal, fontSize: 28, fontWeight: 900 }}>₹2,500</span>
                   </div>
                 </div>
