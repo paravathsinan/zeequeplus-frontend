@@ -15,7 +15,7 @@ export default function AboutPage() {
       <Navbar />
       
       {/* Page Header / Hero for About Page */}
-      <section style={{ 
+      <section className="about-hero" style={{ 
         padding: '160px 0 30px', 
         backgroundColor: 'var(--bg-page)',
         textAlign: 'center',
@@ -46,8 +46,23 @@ export default function AboutPage() {
             </p>
           </motion.div>
         </div>
-        
       </section>
+
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .about-hero {
+            padding: 120px 0 30px !important;
+          }
+          h1 {
+            font-size: 38px !important;
+            line-height: 1.2 !important;
+          }
+          p {
+            font-size: 16px !important;
+            padding: 0 20px;
+          }
+        }
+      `}</style>
 
       <AboutStory />
       <VisionMission />

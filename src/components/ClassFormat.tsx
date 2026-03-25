@@ -173,7 +173,7 @@ export default function ClassFormat() {
 
       <style jsx>{`
         @media (max-width: 1024px) {
-          .container > div:first-child {
+          .class-format .container > div:last-child {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
             text-align: center;
@@ -183,21 +183,31 @@ export default function ClassFormat() {
           }
            .class-format div[style*="display: flex"] {
             justify-content: center;
-            text-align: left;
           }
           h2 { font-size: 36px !important; }
         }
-        @media (max-width: 576px) {
+        @media (max-width: 767px) {
           .class-format {
-            padding: 40px 0 !important;
+            padding: 50px 0 !important;
+          }
+          .class-format .container > div:last-child {
+            gap: 40px !important;
           }
           h2 {
             font-size: 32px !important;
+            line-height: 1.2 !important;
           }
           .class-format div[style*="gap: 24px"] {
              flex-direction: column !important;
              text-align: center !important;
              align-items: center !important;
+             gap: 16px !important;
+          }
+          .class-format h4 {
+            font-size: 18px !important;
+          }
+          .class-format p {
+            font-size: 15px !important;
           }
         }
       `}</style>

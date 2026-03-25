@@ -414,27 +414,22 @@ export default function OurTeachers() {
       </div>
 
       <style jsx>{`
-        @media (max-width: 1200px) {
-          .container > div:first-child {
-            gap: 60px !important;
-          }
-        }
         @media (max-width: 1024px) {
           .our-teachers {
             padding: 100px 0 !important;
           }
-          .container > div:first-child {
+          .our-teachers .container > div:last-child {
             grid-template-columns: 1fr !important;
             gap: 80px !important;
             text-align: center;
           }
           .our-teachers div[style*="align-self"] {
             align-self: center !important;
-            max-width: 100% !important;
+            max-width: 500px !important;
+            margin: 0 auto !important;
           }
           .our-teachers div[style*="display: flex"] {
             justify-content: center;
-            text-align: left;
           }
           h2 {
             font-size: 42px !important;
@@ -444,37 +439,33 @@ export default function OurTeachers() {
             margin-right: auto;
           }
         }
-        @media (max-width: 576px) {
+        @media (max-width: 767px) {
           .our-teachers {
-            padding: 80px 0 !important;
+            padding: 60px 0 !important;
+          }
+          .our-teachers .container > div:last-child {
+            gap: 60px !important;
           }
           h2 {
-            font-size: 34px !important;
-          }
-          .our-teachers div[style*="padding: 60px 32px 40px"] {
-             padding: 50px 24px 30px !important;
-             margin-top: 60px !important;
-          }
-          .our-teachers div[style*="top: -60px"] {
-             width: 100px !important;
-             height: 100px !important;
-             top: -50px !important;
-          }
-          h4 { font-size: 20px !important; }
-          .our-teachers div[style*="flex-direction: column"][style*="gap: 32px"] {
-             max-width: 600px;
-             margin: 0 auto;
+            font-size: 32px !important;
+            line-height: 1.2 !important;
           }
           .our-teachers div[style*="padding: 32px"] {
-             padding: 24px 20px !important;
+             padding: 30px 20px !important;
              flex-direction: column !important;
              text-align: center !important;
              align-items: center !important;
+             border-radius: 24px !important;
           }
-          .our-teachers span[style*="font-size: 80px"] {
-             font-size: 60px !important;
-             top: 0 !important;
-             right: 15px !important;
+          .our-teachers div[style*="padding: 60px 32px 40px"] {
+             padding: 60px 24px 30px !important;
+             border-radius: 32px !important;
+             margin-top: 60px !important;
+          }
+           .our-teachers div[style*="top: -60px"] {
+             width: 110px !important;
+             height: 110px !important;
+             top: -55px !important;
           }
         }
       `}</style>

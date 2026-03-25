@@ -261,27 +261,48 @@ export default function VisionMission() {
 
       <style jsx>{`
         @media (max-width: 1024px) {
-          .container > div:first-child {
+          .vision-mission .container > div:nth-of-type(2) {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
             text-align: center;
           }
-          .container > div:first-child div[style*="height: 4px"] {
+          .vision-mission .container > div:first-of-type div[style*="height: 4px"] {
             margin: 0 auto;
           }
           h2 {
             font-size: 36px !important;
           }
         }
-        @media (max-width: 576px) {
+        @media (max-width: 767px) {
           .vision-mission {
-            padding: 40px 0 !important;
+            padding: 50px 0 !important;
+          }
+          .vision-mission .container > div:nth-of-type(2) {
+            gap: 40px !important;
           }
           h2 {
-            font-size: 32px !important;
+            font-size: 30px !important;
+            line-height: 1.2 !important;
           }
-          .container > div:last-child div[style*="display: grid"] {
+          .vision-mission div[style*="flex-direction: column"] {
+            align-items: center;
+          }
+          .vision-mission div[style*="flex-direction: column"] > div {
+             text-align: left;
+             width: 100%;
+          }
+          .vision-mission .container > div:last-of-type > div:last-of-type {
             grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .vision-mission div[style*="padding: 48px 40px"] {
+             padding: 32px 24px !important;
+             border-radius: 24px !important;
+             text-align: center;
+             align-items: center;
+          }
+          .vision-mission div[style*="padding: 48px 40px"] h3 {
+             font-size: 20px !important;
           }
         }
       `}</style>

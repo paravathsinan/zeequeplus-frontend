@@ -65,7 +65,6 @@ export default function BlogHero() {
             position: 'relative',
             borderRadius: '40px',
             overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
             border: '8px solid var(--glass-bg)',
             backdropFilter: 'blur(10px)'
           }}>

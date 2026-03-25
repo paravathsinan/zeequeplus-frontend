@@ -11,13 +11,16 @@ export default function BlogHighlights() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           style={{
-            background: 'linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, rgba(var(--accent-rgb), 0.1) 100%)',
+            backgroundColor: 'rgba(255, 255, 255, 0.03)',
+            backdropFilter: 'blur(30px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(30px) saturate(180%)',
             padding: '60px 40px',
             borderRadius: '40px',
             textAlign: 'center',
-            border: '1px solid var(--glass-border)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
           }}
         >
           <div style={{
@@ -65,6 +68,14 @@ export default function BlogHighlights() {
         </motion.div>
       </div>
       <style jsx>{`
+        .blog-highlights div[style*="background-color"] {
+          box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+        }
+        :global([data-theme='light']) .blog-highlights div[style*="background-color"] {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          border: 1px solid rgba(255, 255, 255, 0.8) !important;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.05) !important;
+        }
         @media (max-width: 1024px) {
           h2 { font-size: 36px !important; }
         }

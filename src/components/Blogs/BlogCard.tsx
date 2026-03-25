@@ -19,17 +19,19 @@ interface BlogCardProps {
 export default function BlogCard({ article }: BlogCardProps) {
   return (
     <motion.div
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -8, scale: 1.02 }}
       style={{
-        backgroundColor: 'var(--bg-card)',
+        backgroundColor: 'rgba(255, 255, 255, 0.03)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
         borderRadius: '24px',
         overflow: 'hidden',
-        border: '1px solid var(--glass-border)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'all 0.4s ease',
-        boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)'
+        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: '0 10px 40px -10px rgba(0,0,0,0.3)'
       }}
       className="blog-card"
     >
@@ -159,7 +161,12 @@ export default function BlogCard({ article }: BlogCardProps) {
 
       <style jsx>{`
         .blog-card {
-          box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
+          box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3) !important;
+        }
+        :global([data-theme='light']) .blog-card {
+          background-color: rgba(255, 255, 255, 0.7) !important;
+          border: 1px solid rgba(255, 255, 255, 0.8) !important;
+          box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.08) !important;
         }
         .blog-card:hover .card-image {
           transform: scale(1.05);

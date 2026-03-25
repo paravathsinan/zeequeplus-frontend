@@ -174,7 +174,7 @@ export default function BatchOptions() {
 
       <style jsx>{`
         @media (max-width: 1024px) {
-          .container > div:first-child {
+          .batch-options .container > div:last-child {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
             text-align: center;
@@ -184,21 +184,31 @@ export default function BatchOptions() {
           }
            .batch-options div[style*="display: flex"] {
             justify-content: center;
-            text-align: left;
           }
           h2 { font-size: 36px !important; }
         }
-        @media (max-width: 576px) {
+        @media (max-width: 767px) {
           .batch-options {
-            padding: 40px 0 !important;
+            padding: 50px 0 !important;
+          }
+          .batch-options .container > div:last-child {
+            gap: 40px !important;
           }
           h2 {
             font-size: 32px !important;
+            line-height: 1.2 !important;
           }
           .batch-options div[style*="gap: 24px"] {
              flex-direction: column !important;
              text-align: center !important;
              align-items: center !important;
+             gap: 16px !important;
+          }
+          .batch-options h4 {
+            font-size: 18px !important;
+          }
+          .batch-options p {
+            font-size: 15px !important;
           }
         }
       `}</style>

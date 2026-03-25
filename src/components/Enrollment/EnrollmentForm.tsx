@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User, Users, BookOpen, Check, ChevronRight, ChevronLeft, ChevronDown, Calendar,
@@ -75,19 +75,19 @@ const BATCH_TIMINGS = [
 /* ── Colors ── */
 const C = {
   teal:       "#0D9488",
-  tealDark:   "#115E59",
-  tealDeep:   "#0F766E",
+  tealDark:   "var(--text-primary)",
+  tealDeep:   "#0D9488", // Using brand teal
   orange:     "#F97316",
-  orangeDark: "#EA580C",
-  slate:      "#0F172A",
-  gray:       "#64748B",
-  grayLight:  "#CBD5E1",
-  grayBorder: "#E2E8F0",
-  red:        "#DC2626",
-  green:      "#16A34A",
-  white:      "#FFFFFF",
-  bgPage:     "#F0F9FF",
-  bgCard:     "#FFFFFF",
+  slate:      "var(--text-primary)",
+  gray:       "var(--text-secondary)",
+  grayLight:  "var(--text-muted)",
+  grayBorder: "var(--glass-border)",
+  red:        "#EF4444",
+  green:      "#22C55E",
+  white:      "#FFFFFF", // For solid high-contrast elements
+  bgPage:     "var(--bg-page)",
+  bgCard:     "var(--card-bg)",
+  glassBg:    "var(--glass-bg)",
 };
 
 /* ── Animation Variants ── */
@@ -144,10 +144,12 @@ function validateStep(step: number, data: FormData): FieldErrors {
    Stepper Component
    ═══════════════════════════════════════════════════ */
 function Stepper({ currentStep }: { currentStep: number }) {
+  const activeStep = STEPS[currentStep];
   return (
     <div style={{
       display: "flex", alignItems: "center", justifyContent: "center",
-      marginBottom: 60, gap: 0, width: "100%", maxWidth: 600, margin: "0 auto 60px"
+      marginBottom: 60, gap: 0, width: "100%", maxWidth: 600, margin: "0 auto 60px",
+      position: "relative"
     }}>
       {STEPS.map((step, i) => {
         const completed = i < currentStep;
@@ -171,8 +173,8 @@ function Stepper({ currentStep }: { currentStep: number }) {
               <motion.div
                 animate={{
                   scale: active ? 1.08 : 1,
-                  backgroundColor: completed ? C.tealDark : active ? C.white : C.white,
-                  borderColor: completed ? C.tealDark : active ? C.teal : C.grayLight,
+                  backgroundColor: completed ? C.teal : active ? C.white : "transparent",
+                  borderColor: completed ? C.teal : active ? C.teal : C.grayBorder,
                   boxShadow: active ? `0 0 0 4px rgba(13,148,136,0.15)` : "none",
                 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
@@ -190,25 +192,27 @@ function Stepper({ currentStep }: { currentStep: number }) {
                     </motion.div>
                   ) : (
                     <motion.div key="icon" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                      <StepIcon size={22} color={active ? C.teal : C.grayLight} strokeWidth={2} />
+                      <StepIcon size={22} color={active ? C.teal : "var(--text-secondary)"} strokeWidth={2.5} />
                     </motion.div>
                   )}
                 </AnimatePresence>
               </motion.div>
               
               {/* Label positioned absolutely below circle */}
-              <div style={{
-                position: "absolute",
-                top: 64,
-                width: 160,
-                textAlign: "center",
-                left: "50%",
-                transform: "translateX(-50%)",
-                pointerEvents: "none"
-              }}>
+              <div 
+                className={`stepper-label-container ${active ? "active" : ""}`}
+                style={{
+                  position: "absolute",
+                  top: 64,
+                  width: 160,
+                  textAlign: "center",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  pointerEvents: "none"
+                }}>
                 <span style={{
                   fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: 0.8,
-                  color: i === currentStep ? C.tealDark : i < currentStep ? C.teal : C.grayLight,
+                  color: i === currentStep ? C.teal : i < currentStep ? C.green : C.gray,
                   transition: "color 0.3s",
                   display: "block",
                   whiteSpace: "nowrap"
@@ -238,6 +242,35 @@ function Stepper({ currentStep }: { currentStep: number }) {
           </div>
         );
       })}
+      <div className="mobile-active-step-label">
+        {activeStep.label}
+      </div>
+      <style jsx>{`
+        .mobile-active-step-label {
+          display: none;
+        }
+
+        @media (max-width: 767px) {
+          .stepper-label-container {
+            display: none !important;
+          }
+          .mobile-active-step-label {
+            display: block;
+            position: absolute;
+            top: 66px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #115E59;
+            pointer-events: none;
+            padding: 0 20px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -274,21 +307,27 @@ function FormField({
             width: "100%", padding: "14px 40px 14px 16px",
             border: `2px solid ${error ? C.red : isValid ? C.green : C.grayBorder}`,
             borderRadius: 14, fontSize: 16, color: C.slate,
-            outline: "none", backgroundColor: C.white,
-            transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+            outline: "none", backgroundColor: C.bgCard,
+            transition: "all 0.3s ease",
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && onComplete) onComplete();
           }}
           onFocus={(e) => {
             if (!error) e.currentTarget.style.borderColor = C.teal;
-            e.currentTarget.style.boxShadow = `0 0 0 3px rgba(13,148,136,0.1)`;
+            e.currentTarget.style.boxShadow = `0 0 0 4px rgba(13,148,136,0.15)`;
           }}
           onBlur={(e) => {
             e.currentTarget.style.borderColor = error ? C.red : isValid ? C.green : C.grayBorder;
             e.currentTarget.style.boxShadow = "none";
           }}
         />
+        <style jsx>{`
+          input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.9;
+          }
+        `}</style>
         {/* Valid check */}
         <AnimatePresence>
           {isValid && !error && value && (
@@ -296,7 +335,7 @@ function FormField({
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
-              style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)" }}
+              style={{ position: "absolute", right: 14, top: 0, bottom: 0, display: "flex", alignItems: "center", pointerEvents: "none" }}
             >
               <Check size={18} color={C.green} strokeWidth={3} />
             </motion.div>
@@ -369,7 +408,7 @@ function CustomDropdown({
           width: "100%", padding: "14px 16px",
           border: `2px solid ${error ? C.red : value ? C.green : C.grayBorder}`,
           borderRadius: 14, fontSize: 16, color: value ? C.slate : C.gray,
-          backgroundColor: C.white, cursor: "pointer",
+          backgroundColor: C.bgCard, cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "space-between",
           transition: "border-color 0.3s ease",
         }}
@@ -396,8 +435,8 @@ function CustomDropdown({
               exit={{ opacity: 0, y: -10 }}
               style={{
                 position: "absolute", top: "100%", left: 0, right: 0,
-                marginTop: 8, backgroundColor: C.white, borderRadius: 14,
-                boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+                marginTop: 8, backgroundColor: C.bgCard, borderRadius: 14,
+                boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
                 border: `1px solid ${C.grayBorder}`,
                 maxHeight: 250, overflowY: "auto", zIndex: 50,
                 padding: "8px 0"
@@ -415,7 +454,7 @@ function CustomDropdown({
                     transition: "all 0.2s",
                   }}
                   onMouseEnter={(e) => {
-                    if (value !== opt) e.currentTarget.style.backgroundColor = "#F8FAFC";
+                    if (value !== opt) e.currentTarget.style.backgroundColor = C.glassBg;
                   }}
                   onMouseLeave={(e) => {
                     if (value !== opt) e.currentTarget.style.backgroundColor = "transparent";
@@ -553,9 +592,9 @@ function CustomDatePicker({
           width: "100%", padding: "14px 16px",
           border: `2px solid ${error ? C.red : value ? C.green : C.grayBorder}`,
           borderRadius: 14, fontSize: 16, color: value ? C.slate : C.gray,
-          backgroundColor: C.white, cursor: "pointer",
+          backgroundColor: C.bgCard, cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          transition: "border-color 0.3s ease",
+          transition: "all 0.3s ease",
         }}
       >
         <span>{displayDate || "Select Date"}</span>
@@ -576,8 +615,8 @@ function CustomDatePicker({
               style={{
                 position: "absolute", top: "100%", left: 0,
                 width: "100%",
-                marginTop: 8, backgroundColor: C.white, borderRadius: 18,
-                boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
+                marginTop: 8, backgroundColor: C.bgCard, borderRadius: 18,
+                boxShadow: "0 15px 40px rgba(0,0,0,0.2)",
                 border: `1px solid ${C.grayBorder}`,
                 zIndex: 50, padding: "12px", minWidth: 240,
                 overflow: "hidden"
@@ -810,6 +849,12 @@ export default function EnrollmentForm() {
   });
 
   const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  
+  useEffect(() => {
+    if (submitted) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [submitted]);
 
   const scrollToNextField = (currentField: string) => {
     const stepFields = [
@@ -878,7 +923,7 @@ export default function EnrollmentForm() {
   if (submitted) {
     return (
       <div style={{
-        minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+        minHeight: "100vh", display: "flex", alignItems: "flex-start", justifyContent: "center",
         padding: "100px 24px 80px", backgroundColor: C.bgPage,
       }}>
         <motion.div
@@ -1017,16 +1062,16 @@ export default function EnrollmentForm() {
                 <div style={{ marginBottom: 24 }}>
                   <motion.label
                     whileHover={{ scale: 1.01 }}
+                    onClick={() => handleChange("hasCompletedPreschool", !formData.hasCompletedPreschool)}
                     style={{
                       display: "flex", alignItems: "center", gap: 16,
                       padding: "20px 24px", borderRadius: 20,
                       border: `2px solid ${formData.hasCompletedPreschool ? C.teal : C.grayBorder}`,
-                      backgroundColor: formData.hasCompletedPreschool ? "rgba(13,148,136,0.04)" : "rgba(248, 250, 252, 0.5)",
+                      backgroundColor: formData.hasCompletedPreschool ? "rgba(13,148,136,0.04)" : C.bgCard,
                       cursor: "pointer", transition: "all 0.3s ease",
                     }}
                   >
                     <div
-                      onClick={() => handleChange("hasCompletedPreschool", !formData.hasCompletedPreschool)}
                       style={{
                         width: 28, height: 28, borderRadius: "50%", flexShrink: 0,
                         border: `2px solid ${formData.hasCompletedPreschool ? C.teal : C.grayLight}`,
@@ -1165,11 +1210,11 @@ export default function EnrollmentForm() {
                           style={{
                             padding: "20px 16px", borderRadius: 18, cursor: "pointer",
                             border: `2px solid ${selected ? C.teal : C.grayBorder}`,
-                            backgroundColor: selected ? C.tealDark : C.white,
-                            color: selected ? C.white : C.slate,
+                            backgroundColor: selected ? C.teal : C.bgCard,
+                            color: selected ? "#FFFFFF" : C.slate,
                             display: "flex", flexDirection: "column", alignItems: "center",
                             gap: 8, transition: "all 0.3s ease",
-                            boxShadow: selected ? `0 8px 25px rgba(13,148,136,0.2)` : "0 2px 8px rgba(0,0,0,0.04)",
+                            boxShadow: selected ? `0 8px 30px rgba(13,148,136,0.25)` : "0 2px 8px rgba(0,0,0,0.04)",
                           }}
                         >
                           <batch.Icon size={26} strokeWidth={1.8} color={selected ? C.white : C.teal} />
@@ -1197,19 +1242,19 @@ export default function EnrollmentForm() {
                 <div style={{ marginBottom: 24 }}>
                   <motion.label
                     whileHover={{ scale: 1.01 }}
+                    onClick={() => {
+                      handleChange("agreeTerms", !formData.agreeTerms);
+                      if (!formData.agreeTerms) setTimeout(() => scrollToNextField("agreeTerms"), 100);
+                    }}
                     style={{
                       display: "flex", alignItems: "flex-start", gap: 14,
                       padding: "16px 20px", borderRadius: 16,
                       border: `2px solid ${errors.agreeTerms ? C.red : formData.agreeTerms ? C.green : C.grayBorder}`,
-                      backgroundColor: formData.agreeTerms ? "rgba(13,148,136,0.04)" : C.white,
+                      backgroundColor: formData.agreeTerms ? "rgba(13,148,136,0.04)" : C.bgCard,
                       cursor: "pointer", transition: "all 0.3s ease",
                     }}
                   >
                     <div
-                      onClick={() => {
-                        handleChange("agreeTerms", !formData.agreeTerms);
-                        if (!formData.agreeTerms) setTimeout(() => scrollToNextField("agreeTerms"), 100);
-                      }}
                       style={{
                         width: 24, height: 24, borderRadius: 8, flexShrink: 0, marginTop: 2,
                         border: `2px solid ${formData.agreeTerms ? C.teal : C.grayLight}`,
@@ -1287,6 +1332,7 @@ export default function EnrollmentForm() {
 
                 {/* Razorpay Selection Card */}
                 <motion.div
+                  className="payment-selection-card"
                   whileHover={{ scale: 1.01, borderColor: C.teal }}
                   whileTap={{ scale: 0.99 }}
                   style={{
@@ -1297,18 +1343,17 @@ export default function EnrollmentForm() {
                     boxShadow: "0 10px 30px rgba(13,148,136,0.08)"
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-                    <div style={{
-                      backgroundColor: C.white, padding: "10px 14px", borderRadius: 12,
-                      boxShadow: "0 4px 15px rgba(0,0,0,0.06)", border: `1px solid ${C.grayBorder}`
+                  <div className="razorpay-logo-group" style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                    <div className="razorpay-logo-wrapper" style={{
+                      backgroundColor: C.white, width: 48, height: 48, borderRadius: 12,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      boxShadow: "0 4px 15px rgba(0,0,0,0.1)", border: `1px solid ${C.grayBorder}`,
+                      flexShrink: 0
                     }}>
                       <img 
-                        src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg" 
+                        src="https://razorpay.com/assets/razorpay-glyph.svg" 
                         alt="Razorpay" 
-                        style={{ height: 26 }}
-                        onError={(e) => {
-                          e.currentTarget.src = "https://razorpay.com/assets/razorpay-glyph.svg";
-                        }}
+                        style={{ height: 24 }}
                       />
                     </div>
                     <div>
@@ -1318,7 +1363,7 @@ export default function EnrollmentForm() {
                   </div>
                   <div style={{
                     width: 28, height: 28, borderRadius: "50%", border: `2.5px solid ${C.teal}`,
-                    display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: C.white
+                    display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: C.bgCard
                   }}>
                     <div style={{ width: 14, height: 14, borderRadius: "50%", backgroundColor: C.teal }} />
                   </div>
@@ -1339,7 +1384,7 @@ export default function EnrollmentForm() {
           </AnimatePresence>
 
           {/* ── Navigation Buttons ── */}
-          <div style={{
+          <div className="form-navigation-buttons" style={{
             display: "flex", justifyContent: "center",
             marginTop: 36, gap: 16, flexWrap: "wrap",
           }}>
@@ -1369,10 +1414,10 @@ export default function EnrollmentForm() {
                 style={{
                   padding: "14px 32px", borderRadius: 14, fontSize: 16, fontWeight: 700,
                   border: "none",
-                  background: `linear-gradient(135deg, ${C.tealDeep}, ${C.tealDark})`,
-                  color: C.white, cursor: "pointer", display: "flex",
+                  background: `linear-gradient(135deg, ${C.teal}, #14b8a6)`,
+                  color: "#FFFFFF", cursor: "pointer", display: "flex",
                   alignItems: "center", gap: 8, transition: "all 0.3s ease",
-                  boxShadow: `0 8px 25px rgba(15,118,110,0.25)`,
+                  boxShadow: `0 8px 30px rgba(13,148,136,0.35)`,
                 }}
               >
                 Continue <ChevronRight size={18} />
@@ -1421,6 +1466,43 @@ export default function EnrollmentForm() {
           <span>Your transaction is secure and encrypted</span>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .payment-selection-card {
+            flex-direction: row !important;
+            padding: 16px 20px !important;
+            gap: 12px !important;
+            justify-content: space-between !important;
+          }
+          .razorpay-logo-group {
+            flex-direction: row !important;
+            gap: 12px !important;
+            text-align: left !important;
+          }
+          .razorpay-logo-wrapper {
+            width: 40px !important;
+            height: 40px !important;
+            padding: 0 !important;
+          }
+          .razorpay-logo-wrapper img {
+            height: 20px !important;
+          }
+          .form-navigation-buttons {
+            flex-direction: row !important;
+            justify-content: center !important;
+            gap: 12px !important;
+            margin-top: 28px !important;
+          }
+          .form-navigation-buttons button {
+            flex: 1 !important;
+            padding: 12px 14px !important;
+            font-size: 14px !important;
+            justify-content: center !important;
+            min-width: 120px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

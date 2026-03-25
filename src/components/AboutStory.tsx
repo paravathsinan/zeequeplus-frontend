@@ -163,7 +163,7 @@ export default function AboutStory() {
 
       <style jsx>{`
         @media (max-width: 1024px) {
-          .container {
+          .about-story .container > div:last-of-type {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
             text-align: center;
@@ -171,10 +171,6 @@ export default function AboutStory() {
           h2 {
             font-size: 40px !important;
           }
-          .about-story div[style*="display: flex"]:not(.audience-items div):not(.intro-list div):not(.audience-grid div) {
-             /* Target only major layout containers if needed, but broad centering often breaks lists */
-          }
-          /* Ensure the list container itself is centered but items inside are left-aligned */
           .about-story div[style*="flex-direction: column"] {
             align-items: center;
           }
@@ -188,15 +184,24 @@ export default function AboutStory() {
             margin-right: auto;
           }
         }
-        @media (max-width: 576px) {
+        @media (max-width: 767px) {
           .about-story {
-            padding: 60px 0 !important;
+            padding: 50px 0 !important;
+          }
+          .about-story .container > div:last-of-type {
+            gap: 40px !important;
           }
           h2 {
             font-size: 32px !important;
+            line-height: 1.2 !important;
           }
           .about-story div[style*="padding: 40px"] {
-            padding: 24px !important;
+            padding: 30px 20px !important;
+            border-radius: 24px !important;
+          }
+          .about-story h4 {
+            font-size: 17px !important;
+            line-height: 1.4 !important;
           }
         }
       `}</style>

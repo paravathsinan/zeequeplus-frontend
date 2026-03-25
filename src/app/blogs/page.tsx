@@ -42,9 +42,9 @@ export default function BlogsPage() {
   };
 
   return (
-    <main style={{ backgroundColor: 'var(--bg-page)', minHeight: '100vh' }}>
+    <main style={{ backgroundColor: 'var(--bg-page)', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
       <Navbar />
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '100px', position: 'relative', zIndex: 1 }}>
         <BlogHero />
         <BlogHighlights />
         <FeaturedBlogs />
@@ -61,6 +61,45 @@ export default function BlogsPage() {
           onPageChange={setCurrentPage}
         />
       </div>
+
+      {/* Liquid Glass Background Elements */}
+      <div style={{
+        position: 'absolute',
+        top: '10%',
+        left: '-5%',
+        width: '500px',
+        height: '500px',
+        background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.08) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(80px)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '40%',
+        right: '-10%',
+        width: '600px',
+        height: '600px',
+        background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.05) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(100px)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: '10%',
+        left: '10%',
+        width: '400px',
+        height: '400px',
+        background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.03) 0%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(70px)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} />
+
       <Footer />
     </main>
   );

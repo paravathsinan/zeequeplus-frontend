@@ -85,6 +85,18 @@ export default function Navbar() {
     localStorage.setItem('theme', newTheme);
   };
 
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
     <>
       <motion.nav 
@@ -414,21 +426,54 @@ export default function Navbar() {
             ))}
 
             <div style={{ 
-              marginTop: '40px', // More space before appearance toggle
+              marginTop: '40px', 
               borderTop: '1px solid var(--glass-border)', 
               paddingTop: '32px', 
               display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center'
+              flexDirection: 'column',
+              gap: '16px'
             }}>
-              <span style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-secondary)' }}>Appearance</span>
-              <button 
-                onClick={toggleTheme}
-                className="premium-toggle-btn"
-                style={{ padding: '12px', marginRight: 0 }}
-              >
-                {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
-              </button>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginLeft: '4px' }}>Appearance</span>
+              
+              <div onClick={toggleTheme} style={{
+                backgroundColor: 'rgba(var(--accent-rgb), 0.05)',
+                borderRadius: '20px',
+                padding: '6px',
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer',
+                border: '1px solid var(--glass-border)',
+                position: 'relative',
+                height: '56px',
+                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.05)'
+              }}>
+                {/* Sliding Pill */}
+                <motion.div 
+                  initial={false}
+                  animate={{ x: theme === 'light' ? 0 : 'calc(100% - 12px)' }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  style={{
+                    position: 'absolute',
+                    top: '6px',
+                    left: '6px',
+                    width: 'calc(50% - 6px)',
+                    height: 'calc(100% - 12px)',
+                    background: 'var(--accent)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 15px rgba(var(--accent-rgb), 0.3)',
+                    zIndex: 1
+                  }}
+                />
+                
+                <div style={{ flex: 1, textAlign: 'center', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: theme === 'light' ? '#fff' : 'var(--text-secondary)', transition: 'all 0.3s ease' }}>
+                  <Sun size={20} />
+                  <span style={{ fontWeight: 700, fontSize: '15px' }}>Light</span>
+                </div>
+                <div style={{ flex: 1, textAlign: 'center', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: theme === 'dark' ? '#fff' : 'var(--text-secondary)', transition: 'all 0.3s ease' }}>
+                  <Moon size={20} />
+                  <span style={{ fontWeight: 700, fontSize: '15px' }}>Dark</span>
+                </div>
+              </div>
             </div>
 
             {/* Mobile Login Button */}

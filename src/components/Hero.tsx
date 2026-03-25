@@ -185,6 +185,7 @@ export default function Hero() {
           cursor: pointer;
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 12px;
           box-shadow: 0 8px 32px rgba(255, 165, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.3);
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

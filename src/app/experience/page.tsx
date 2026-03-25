@@ -15,7 +15,7 @@ export default function ExperiencePage() {
       <Navbar />
       
       {/* Page Header / Hero for Learning Experience */}
-      <section style={{ 
+      <section className="experience-hero" style={{ 
         padding: '160px 0 100px', 
         backgroundColor: 'var(--bg-page)',
         textAlign: 'center',
@@ -61,12 +61,23 @@ export default function ExperiencePage() {
             </p>
           </motion.div>
         </div>
-        
-
-
-        
-
       </section>
+
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .experience-hero {
+            padding: 120px 0 60px !important;
+          }
+          h1 {
+            font-size: 38px !important;
+            line-height: 1.2 !important;
+          }
+          p {
+            font-size: 16px !important;
+            padding: 0 20px;
+          }
+        }
+      `}</style>
 
       <ClassFormat />
       <BatchOptions />
