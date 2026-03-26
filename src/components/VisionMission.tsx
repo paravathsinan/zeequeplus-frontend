@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Compass, Target, ShieldCheck, TrendingUp, Heart } from "lucide-react";
+import { Compass, Target, ShieldCheck, TrendingUp } from "lucide-react";
 
 const missionPoints = [
   {
@@ -116,9 +116,9 @@ export default function VisionMission() {
             {/* New Vision Pillars */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               {[
-                { icon: <Heart size={20} />, title: 'Heart-Centered', desc: 'Fostering a deep spiritual love for Allah and His words.' },
-                { icon: <TrendingUp size={20} />, title: 'Growth Mindset', desc: 'Encouraging continuous self-improvement and wisdom.' },
-                { icon: <ShieldCheck size={20} />, title: 'Rooted Character', desc: 'Building strong ethical foundations for daily life.' }
+                { title: 'Heart-Centered', desc: 'Fostering a deep spiritual love for Allah and His words.' },
+                { title: 'Growth Mindset', desc: 'Encouraging continuous self-improvement and wisdom.' },
+                { title: 'Rooted Character', desc: 'Building strong ethical foundations for daily life.' }
               ].map((pillar, i) => (
                 <motion.div 
                   key={i}
@@ -126,22 +126,7 @@ export default function VisionMission() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 + (i * 0.1) }}
                   viewport={{ once: true }}
-                  style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}
                 >
-                  <div style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '12px',
-                    backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'var(--accent)',
-                    flexShrink: 0,
-                    marginTop: '2px'
-                  }}>
-                    {pillar.icon}
-                  </div>
                   <div>
                     <h4 style={{ 
                       fontSize: '18px', 
@@ -229,6 +214,8 @@ export default function VisionMission() {
                   border: '1px solid var(--glass-border)',
                   display: 'flex',
                   flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
                   gap: '24px',
                   transition: 'all 0.3s ease'
                 }}

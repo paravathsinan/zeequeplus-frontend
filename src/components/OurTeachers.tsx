@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { GraduationCap, Award, Users } from "lucide-react";
+import { Users } from "lucide-react";
 
 const teachers = [
   {
@@ -21,17 +21,14 @@ const teachers = [
 
 const features = [
   {
-    icon: <GraduationCap size={24} />,
     title: "Expert Qualifications",
     text: "Qualified in Qur’an, Tajweed and Islamic studies with deep academic foundations."
   },
   {
-    icon: <Users size={24} />,
     title: "Specialized Training",
     text: "Trained in modern online teaching tools and child psychology for effective handling."
   },
   {
-    icon: <Award size={24} />,
     title: "Quality Assurance",
     text: "Regularly evaluated for pronunciation accuracy and innovative classroom management."
   }
@@ -156,9 +153,11 @@ export default function OurTeachers() {
                   viewport={{ once: true }}
                   style={{
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
+                    textAlign: 'center',
                     gap: '24px',
-                    padding: '32px',
+                    padding: '40px 32px',
                     backgroundColor: 'var(--glass-bg)',
                     borderRadius: '32px',
                     border: '1px solid var(--glass-border)',
@@ -168,7 +167,7 @@ export default function OurTeachers() {
                     overflow: 'hidden'
                   }}
                   whileHover={{ 
-                    transform: 'translateX(10px)', 
+                    scale: 1.02, 
                     borderColor: 'var(--accent)',
                     backgroundColor: 'rgba(255, 255, 255, 0.05)'
                   }}
@@ -188,24 +187,6 @@ export default function OurTeachers() {
                   }}>
                     0{idx + 1}
                   </span>
-
-                  {/* Icon Container */}
-                  <div style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
-                    borderRadius: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'var(--accent)',
-                    flexShrink: 0,
-                    boxShadow: '0 10px 20px rgba(var(--accent-rgb), 0.1)',
-                    position: 'relative',
-                    zIndex: 1
-                  }}>
-                    {feature.icon}
-                  </div>
 
                   {/* Content Container */}
                   <div style={{ position: 'relative', zIndex: 1 }}>

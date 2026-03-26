@@ -14,7 +14,7 @@ const requirements = [
       "Functional Web Camera"
     ],
     icon: <Smartphone size={24} />,
-    color: "var(--accent)"
+    color: "var(--accent-rgb)"
   },
   {
     id: "02",
@@ -25,7 +25,7 @@ const requirements = [
       "Distraction-free Audio Environment"
     ],
     icon: <Headphones size={24} />,
-    color: "#4FD1C5"
+    color: "79, 209, 197"
   },
   {
     id: "03",
@@ -36,7 +36,7 @@ const requirements = [
       "Spiritual Readiness Area"
     ],
     icon: <Coffee size={24} />,
-    color: "#F6AD55"
+    color: "246, 173, 85"
   }
 ];
 
@@ -139,48 +139,41 @@ export default function TechRequirements() {
             }} />
           </div>
 
-          <div style={{ display: 'grid', gap: '140px' }}>
+          <div style={{ display: 'grid', gap: '40px' }}>
             {requirements.map((req, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                style={{ position: 'relative' }}
-              >
-                {/* Massive Background ID */}
-                <span style={{
-                  position: 'absolute',
-                  top: '-40px',
-                  right: '0',
-                  fontSize: '140px',
-                  fontWeight: 900,
-                  color: 'rgba(var(--text-primary-rgb), 0.03)',
-                  lineHeight: 1,
-                  fontFamily: 'serif',
-                  pointerEvents: 'none'
-                }}>
-                  {req.id}
-                </span>
-
-                <div style={{
+                style={{ 
+                  position: 'relative',
+                  padding: '48px 32px',
+                  backgroundColor: 'var(--glass-bg)',
+                  borderRadius: '32px',
+                  border: `1px solid rgba(${req.color}, 0.2)`,
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '24px',
-                  marginBottom: '32px'
-                }}>
+                  textAlign: 'center',
+                  gap: '32px',
+                  transition: 'all 0.3s ease'
+                }}
+                whileHover={{ transform: 'translateY(-5px)', borderColor: `rgb(${req.color})` }}
+              >
+                {/* Header: Icon and Title centered */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
                   <div style={{
                     width: '64px',
                     height: '64px',
-                    backgroundColor: 'var(--bg-card)',
+                    backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
                     borderRadius: '20px',
-                    border: '1px solid var(--glass-border)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: req.color,
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
+                    color: `rgb(${req.color})`,
+                    boxShadow: `0 10px 30px rgba(0,0,0,0.05)`
                   }}>
                     {req.icon}
                   </div>
@@ -189,24 +182,26 @@ export default function TechRequirements() {
                   </h3>
                 </div>
 
-                <div style={{ display: 'grid', gap: '16px' }}>
+                {/* Points List centered */}
+                <div style={{ display: 'grid', gap: '16px', width: '100%', maxWidth: '400px' }}>
                   {req.points.map((point, pIdx) => (
                     <motion.div
                       key={pIdx}
-                      initial={{ opacity: 0, x: 10 }}
+                      initial={{ opacity: 0, x: 0 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + (pIdx * 0.1) }}
+                      transition={{ delay: 0.3 + (pIdx * 0.1) }}
                       viewport={{ once: true }}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
                         gap: '12px',
                         fontSize: '18px',
                         color: 'var(--text-secondary)',
                         fontWeight: 500
                       }}
                     >
-                      <Check size={18} style={{ color: req.color }} />
+                      <Check size={18} style={{ color: `rgb(${req.color})`, flexShrink: 0 }} />
                       {point}
                     </motion.div>
                   ))}

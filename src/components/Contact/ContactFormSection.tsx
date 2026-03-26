@@ -216,16 +216,6 @@ export default function ContactFormSection() {
               overflow: 'hidden'
             }}
           >
-            {/* Background Blob */}
-            <div style={{
-              position: 'absolute',
-              top: '-10%',
-              right: '-10%',
-              width: '40%',
-              height: '40%',
-              background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.1) 0%, transparent 70%)',
-              zIndex: 0
-            }} />
 
             <div style={{ position: 'relative', zIndex: 1 }}>
               <p style={{ fontSize: '24px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
@@ -292,17 +282,18 @@ export default function ContactFormSection() {
                     backgroundColor: 'var(--accent)',
                     color: '#fff',
                     border: 'none',
-                    padding: '20px 40px',
-                    borderRadius: '20px',
-                    fontWeight: 800,
-                    fontSize: '17px',
+                    padding: '14px 28px',
+                    borderRadius: '16px',
+                    fontWeight: 700,
+                    fontSize: '16px',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    marginTop: '10px',
+                    marginTop: '8px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '12px'
+                    gap: '10px',
+                    width: 'fit-content'
                   }}
                 >
                   <span>Send Message</span>

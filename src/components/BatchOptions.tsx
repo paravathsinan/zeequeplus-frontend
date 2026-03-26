@@ -2,26 +2,20 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Clock, Layers, CalendarCheck } from "lucide-react";
+import {  } from "lucide-react";
 
 const batchPoints = [
   {
     title: "Flexible Timings",
-    description: "Multiple timing options tailored to suit various school schedules across different time zones.",
-    icon: <Clock size={24} />,
-    color: "#F6AD55"
+    description: "Multiple timing options tailored to suit various school schedules across different time zones."
   },
   {
     title: "Class Segregation",
-    description: "Separate batches optimized for different age groups and academic levels (Classes 1–10).",
-    icon: <Layers size={24} />,
-    color: "#63B3ED"
+    description: "Separate batches optimized for different age groups and academic levels (Classes 1–10)."
   },
   {
     title: "Progressive Slots",
-    description: "Regularly updated schedules to ensure students can progress to higher levels seamlessly.",
-    icon: <CalendarCheck size={24} />,
-    color: "#4FD1C5"
+    description: "Regularly updated schedules to ensure students can progress to higher levels seamlessly."
   }
 ];
 
@@ -137,34 +131,13 @@ export default function BatchOptions() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
                   viewport={{ once: true }}
-                  style={{
-                    display: 'flex',
-                    gap: '24px',
-                    alignItems: 'flex-start'
-                  }}
                 >
-                  <div style={{
-                    width: '52px',
-                    height: '52px',
-                    backgroundColor: 'var(--glass-bg)',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: point.color,
-                    border: '1px solid var(--glass-border)',
-                    flexShrink: 0
-                  }}>
-                    {point.icon}
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
-                      {point.title}
-                    </h4>
-                    <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, opacity: 0.8 }}>
-                      {point.description}
-                    </p>
-                  </div>
+                  <h4 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                    {point.title}
+                  </h4>
+                  <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, opacity: 0.8 }}>
+                    {point.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
