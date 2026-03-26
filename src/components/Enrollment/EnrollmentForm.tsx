@@ -187,11 +187,24 @@ function Stepper({ currentStep }: { currentStep: number }) {
               >
                 <AnimatePresence mode="wait">
                   {completed ? (
-                    <motion.div key="check" variants={checkVariants} initial="initial" animate="animate" exit={{ opacity: 0, scale: 0.5 }}>
+                    <motion.div 
+                      key="check" 
+                      variants={checkVariants} 
+                      initial="initial" 
+                      animate="animate" 
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                    >
                       <Check size={22} color={C.white} strokeWidth={3} />
                     </motion.div>
                   ) : (
-                    <motion.div key="icon" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    <motion.div 
+                      key="icon" 
+                      initial={{ opacity: 0 }} 
+                      animate={{ opacity: 1 }} 
+                      exit={{ opacity: 0 }}
+                      style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                    >
                       <StepIcon size={22} color={active ? C.teal : "var(--text-secondary)"} strokeWidth={2.5} />
                     </motion.div>
                   )}
@@ -435,10 +448,10 @@ function CustomDropdown({
               exit={{ opacity: 0, y: -10 }}
               style={{
                 position: "absolute", top: "100%", left: 0, right: 0,
-                marginTop: 8, backgroundColor: C.bgCard, borderRadius: 14,
-                boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-                border: `1px solid ${C.grayBorder}`,
-                maxHeight: 250, overflowY: "auto", zIndex: 50,
+                marginTop: 8, backgroundColor: "var(--stats-bg)", borderRadius: 14,
+                boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
+                border: "1px solid var(--glass-border)",
+                maxHeight: 250, overflowY: "auto", zIndex: 100,
                 padding: "8px 0"
               }}
             >
@@ -448,8 +461,8 @@ function CustomDropdown({
                   onClick={() => handleSelect(opt)}
                   style={{
                     padding: "12px 16px", cursor: "pointer",
-                    fontSize: 15, color: value === opt ? C.teal : C.slate,
-                    backgroundColor: value === opt ? "rgba(13,148,136,0.05)" : "transparent",
+                    fontSize: 15, color: value === opt ? C.white : C.slate,
+                    backgroundColor: value === opt ? C.teal : "transparent",
                     fontWeight: value === opt ? 700 : 500,
                     transition: "all 0.2s",
                   }}
@@ -615,10 +628,10 @@ function CustomDatePicker({
               style={{
                 position: "absolute", top: "100%", left: 0,
                 width: "100%",
-                marginTop: 8, backgroundColor: C.bgCard, borderRadius: 18,
-                boxShadow: "0 15px 40px rgba(0,0,0,0.2)",
-                border: `1px solid ${C.grayBorder}`,
-                zIndex: 50, padding: "12px", minWidth: 240,
+                marginTop: 8, backgroundColor: "var(--stats-bg)", borderRadius: 18,
+                boxShadow: "0 15px 50px rgba(0,0,0,0.3)",
+                border: "1px solid var(--glass-border)",
+                zIndex: 100, padding: "12px", minWidth: 260,
                 overflow: "hidden"
               }}
             >
@@ -645,7 +658,7 @@ function CustomDatePicker({
                   <button 
                     onClick={() => setView(view === "months" ? "days" : "months")}
                     style={{ 
-                      background: "none", border: "none", cursor: "pointer", 
+                      background: view === "months" ? "rgba(13,148,136,0.1)" : "none", border: "none", cursor: "pointer", 
                       fontWeight: 800, color: view === "months" ? C.teal : C.slate,
                       padding: "4px 8px", borderRadius: 8, transition: "all 0.2s"
                     }}
@@ -657,7 +670,7 @@ function CustomDatePicker({
                   <button 
                     onClick={() => setView(view === "years" ? "days" : "years")}
                     style={{ 
-                      background: "none", border: "none", cursor: "pointer", 
+                      background: view === "years" ? "rgba(13,148,136,0.1)" : "none", border: "none", cursor: "pointer", 
                       fontWeight: 800, color: view === "years" ? C.teal : C.slate,
                       padding: "4px 8px", borderRadius: 8, transition: "all 0.2s"
                     }}
@@ -805,8 +818,9 @@ function CustomDatePicker({
                   type="button"
                   onClick={() => { setIsOpen(false); setView("days"); }}
                   style={{
-                    background: "none", border: "none", cursor: "pointer",
-                    fontSize: 11, fontWeight: 800, color: C.gray, padding: "4px 8px"
+                    background: "rgba(13,148,136,0.1)", border: "none", cursor: "pointer",
+                    fontSize: 11, fontWeight: 800, color: C.teal, padding: "6px 12px",
+                    borderRadius: 8
                   }}
                 >
                   Close
@@ -1082,7 +1096,12 @@ export default function EnrollmentForm() {
                     >
                       <AnimatePresence>
                         {formData.hasCompletedPreschool && (
-                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+                          <motion.div 
+                            initial={{ scale: 0 }} 
+                            animate={{ scale: 1 }} 
+                            exit={{ scale: 0 }}
+                            style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                          >
                             <Check size={16} color={C.white} strokeWidth={3} />
                           </motion.div>
                         )}
@@ -1265,7 +1284,12 @@ export default function EnrollmentForm() {
                     >
                       <AnimatePresence>
                         {formData.agreeTerms && (
-                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+                          <motion.div 
+                            initial={{ scale: 0 }} 
+                            animate={{ scale: 1 }} 
+                            exit={{ scale: 0 }}
+                            style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                          >
                             <Check size={14} color={C.white} strokeWidth={3} />
                           </motion.div>
                         )}
@@ -1432,9 +1456,9 @@ export default function EnrollmentForm() {
                 style={{
                   padding: "14px 36px", borderRadius: 14, fontSize: 16, fontWeight: 700,
                   border: "none",
-                  background: submitting
-                    ? C.grayLight
-                    : `linear-gradient(135deg, ${C.tealDeep}, ${C.tealDark})`,
+                  background: formData.agreeTerms && !submitting
+                    ? `linear-gradient(135deg, ${C.teal}, #115e59)`
+                    : submitting ? C.grayLight : `linear-gradient(135deg, ${C.teal}, #115e59)`,
                   color: C.white, cursor: submitting ? "not-allowed" : "pointer",
                   display: "flex", alignItems: "center", gap: 8,
                   opacity: submitting ? 0.7 : 1,
