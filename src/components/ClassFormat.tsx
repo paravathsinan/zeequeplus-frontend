@@ -91,43 +91,49 @@ export default function ClassFormat() {
           >
             <div style={{ display: 'grid', gap: '32px' }}>
 
-              {formatPoints.map((point, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  style={{
-                    display: 'flex',
-                    gap: '24px',
-                    alignItems: 'flex-start'
-                  }}
-                >
-                  <div style={{
-                    width: '52px',
-                    height: '52px',
-                    backgroundColor: 'var(--glass-bg)',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: point.color,
-                    border: '1px solid var(--glass-border)',
-                    flexShrink: 0
-                  }}>
-                    {point.icon}
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
-                      {point.title}
-                    </h4>
-                    <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, opacity: 0.8 }}>
-                      {point.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                {formatPoints.map((point, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    viewport={{ once: true }}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '20px',
+                      alignItems: 'flex-start',
+                      backgroundColor: 'var(--card-bg)',
+                      padding: '32px',
+                      borderRadius: '24px',
+                      border: '1px solid var(--glass-border)',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <div style={{
+                      width: '52px',
+                      height: '52px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      borderRadius: '16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: point.color,
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}>
+                      {point.icon}
+                    </div>
+                    <div>
+                      <h4 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                        {point.title}
+                      </h4>
+                      <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6, opacity: 0.8 }}>
+                        {point.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
             </div>
           </motion.div>
 
@@ -188,7 +194,7 @@ export default function ClassFormat() {
         }
         @media (max-width: 767px) {
           .class-format {
-            padding: 50px 0 !important;
+            padding: 40px 0 !important;
           }
           .class-format .container > div:last-child {
             gap: 40px !important;
@@ -197,8 +203,7 @@ export default function ClassFormat() {
             font-size: 32px !important;
             line-height: 1.2 !important;
           }
-          .class-format div[style*="gap: 24px"] {
-             flex-direction: column !important;
+          .class-format div[style*="gap: 20px"] {
              text-align: center !important;
              align-items: center !important;
              gap: 16px !important;

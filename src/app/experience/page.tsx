@@ -16,7 +16,7 @@ export default function ExperiencePage() {
       
       {/* Page Header / Hero for Learning Experience */}
       <section className="experience-hero" style={{ 
-        padding: '160px 0 100px', 
+        padding: '100px 0 60px', 
         backgroundColor: 'var(--bg-page)',
         textAlign: 'center',
         position: 'relative',

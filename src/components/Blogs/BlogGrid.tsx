@@ -18,7 +18,7 @@ export default function BlogGrid({
   onPageChange
 }: BlogGridProps) {
   return (
-    <section className="blog-grid" style={{ padding: '40px 0 100px' }}>
+    <section className="blog-grid" style={{ padding: '20px 0 50px' }}>
       <div className="container">
         <AnimatePresence mode="wait">
           {blogs.length > 0 ? (

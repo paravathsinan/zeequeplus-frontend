@@ -208,7 +208,7 @@ export default function ContactFormSection() {
             viewport={{ once: true }}
             style={{
               backgroundColor: 'var(--bg-card)',
-              padding: '60px',
+              padding: '40px',
               borderRadius: '40px',
               border: '1px solid var(--glass-border)',
               boxShadow: '0 40px 100px -20px rgba(0,0,0,0.08)',
@@ -293,11 +293,12 @@ export default function ContactFormSection() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '10px',
-                    width: 'fit-content'
+                    width: 'fit-content',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   <span>Send Message</span>
-                  <SendHorizontal size={18} style={{ transform: 'rotate(-45deg) translateY(0.5px)' }} />
+                  <SendHorizontal size={18} style={{ transform: 'rotate(-45deg)', display: 'block' }} />
                 </motion.button>
               </form>
             </div>
@@ -404,7 +405,7 @@ export default function ContactFormSection() {
           div[style*="justify-content: center"], .contact-main-grid div[style*="align-items: center"] {
             justify-content: center !important;
           }
-          div[style*="padding: 60px"] { padding: 40px 24px !important; }
+          div[style*="padding: 60px"], div[style*="padding: 40px"] { padding: 30px 20px !important; }
           .contact-main-grid form div[style*="grid-template-columns: 1fr 1fr"] {
             grid-template-columns: 1fr !important;
           }

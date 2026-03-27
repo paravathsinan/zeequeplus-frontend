@@ -42,7 +42,7 @@ export default function ExperienceFAQs() {
   const [openId, setOpenId] = useState<number | null>(1);
 
   return (
-    <section className="experience-faqs" style={{ padding: '120px 0', backgroundColor: 'var(--bg-page)' }}>
+    <section className="experience-faqs" style={{ padding: '60px 0', backgroundColor: 'var(--bg-page)' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
           <motion.div
@@ -175,7 +175,7 @@ export default function ExperienceFAQs() {
           h2 { font-size: 42px !important; }
         }
         @media (max-width: 640px) {
-          .experience-faqs { padding: 60px 0 !important; }
+          .experience-faqs { padding: 40px 0 !important; }
           h2 { font-size: 32px !important; }
           p { font-size: 16px !important; }
           .faq-header { padding: 20px !important; }

@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function CTASection() {
   return (
     <section style={{ 
-      padding: '80px 0',
+      padding: '40px 0',
       backgroundColor: 'var(--bg-page)',
       position: 'relative',
       overflow: 'hidden'
@@ -149,12 +149,14 @@ export default function CTASection() {
 
           .cta-card {
             flex-direction: column !important;
-            align-items: flex-start !important;
-            padding: 32px 24px !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 40px 24px !important;
             gap: 24px !important;
-            margin: 0 16px !important;
-            width: auto !important;
+            margin: 0 !important;
+            width: 100% !important;
             box-sizing: border-box !important;
+            border-radius: 32px !important;
           }
 
           .cta-content, .cta-action {
@@ -163,12 +165,12 @@ export default function CTASection() {
           }
 
           .cta-card h2 { 
-            font-size: 26px !important;
+            font-size: 28px !important;
             line-height: 1.2 !important;
           }
 
           .cta-card p { 
-            font-size: 15px !important; 
+            font-size: 16px !important; 
           }
 
           .premium-glass-btn {

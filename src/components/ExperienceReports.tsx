@@ -84,7 +84,7 @@ export default function ExperienceReports() {
 
       <style jsx>{`
         .experience-reports {
-          padding: 100px 0;
+          padding: 50px 0;
           background-color: var(--bg-page);
           position: relative;
           overflow: hidden;

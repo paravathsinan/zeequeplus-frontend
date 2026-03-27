@@ -35,7 +35,7 @@ const outcomes = [
 export default function Outcomes() {
   return (
     <section className="outcomes" style={{
-      padding: '120px 0',
+      padding: '60px 0',
       backgroundColor: 'var(--bg-page)',
       position: 'relative',
       overflow: 'hidden'
@@ -98,7 +98,7 @@ export default function Outcomes() {
               backgroundColor: 'var(--glass-bg)'
             }}>
               <Image
-                src="/images/outcomes-img.png"
+                src="/images/site/outcomes-img.png"
                 alt="Student Success Illustration"
                 width={600}
                 height={600}
@@ -234,6 +234,10 @@ export default function Outcomes() {
             grid-template-columns: 1fr !important;
             gap: 60px !important;
           }
+          .container > div:last-child > div:first-child {
+            margin: 0 auto;
+            max-width: 600px;
+          }
           h2 {
             font-size: 36px !important;
           }
@@ -246,11 +250,17 @@ export default function Outcomes() {
             font-size: 32px !important;
           }
           .glass-card {
-            padding: 20px !important;
-            gap: 16px !important;
+            padding: 16px !important;
+            gap: 12px !important;
+            bottom: 10px !important;
+            right: 10px !important;
+          }
+          .outcome-card {
+             padding: 20px !important;
+             gap: 16px !important;
           }
            .container > div:last-child {
-            gap: 30px !important;
+            gap: 40px !important;
           }
         }
       `}</style>

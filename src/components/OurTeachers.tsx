@@ -85,7 +85,6 @@ export default function OurTeachers() {
               fontWeight: 800,
               color: 'var(--accent)',
               marginBottom: '24px',
-              textTransform: 'uppercase',
               letterSpacing: '1.5px',
               border: '1px solid rgba(var(--accent-rgb), 0.2)'
             }}
@@ -431,7 +430,7 @@ export default function OurTeachers() {
             font-size: 32px !important;
             line-height: 1.2 !important;
           }
-          .our-teachers div[style*="padding: 32px"] {
+          .our-teachers div[style*="padding: 40px 32px"] {
              padding: 30px 20px !important;
              flex-direction: column !important;
              text-align: center !important;

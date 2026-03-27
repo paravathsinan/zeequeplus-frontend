@@ -22,7 +22,7 @@ const batchPoints = [
 export default function BatchOptions() {
   return (
     <section className="batch-options" style={{
-      padding: '80px 0',
+      padding: '40px 0',
       backgroundColor: 'var(--bg-page)',
       position: 'relative',
       overflow: 'hidden'
@@ -162,7 +162,7 @@ export default function BatchOptions() {
         }
         @media (max-width: 767px) {
           .batch-options {
-            padding: 50px 0 !important;
+            padding: 40px 0 !important;
           }
           .batch-options .container > div:last-child {
             gap: 40px !important;

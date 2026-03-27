@@ -10,7 +10,7 @@ const featuredArticles = blogs.slice(0, 3);
 
 export default function FeaturedBlogs() {
   return (
-    <section className="featured-blogs" style={{ padding: '80px 0' }}>
+    <section className="featured-blogs" style={{ padding: '40px 0' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
           <div style={{

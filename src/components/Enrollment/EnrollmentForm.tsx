@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   User, Users, BookOpen, Check, ChevronRight, ChevronLeft, ChevronDown, Calendar,
   Sun, Sunset, Moon, AlertCircle, Loader2, Sparkles, CreditCard, Lock, ShieldCheck
@@ -16,6 +17,7 @@ interface FormData {
   parentName: string;
   parentEmail: string;
   parentPhone: string;
+  parentWhatsapp: string;
   parentRelationship: string;
   countryOfResidence: string;
   interestedProgram: string;
@@ -59,7 +61,13 @@ const MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-const YEARS = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - i).toString());
+const MIN_ENROLLMENT_AGE = 4;
+const MAX_ENROLLMENT_AGE = 18;
+const currentYear = new Date().getFullYear();
+const maxBirthYear = currentYear - MIN_ENROLLMENT_AGE;
+const minBirthYear = currentYear - MAX_ENROLLMENT_AGE;
+
+const YEARS = Array.from({ length: maxBirthYear - minBirthYear + 1 }, (_, i) => (maxBirthYear - i).toString());
 
 
 const PROGRAM_OPTIONS = [
@@ -131,6 +139,8 @@ function validateStep(step: number, data: FormData): FieldErrors {
     }
     if (!data.parentPhone.trim()) errors.parentPhone = "Mobile number is required";
     else if (!phoneRegex.test(data.parentPhone)) errors.parentPhone = "Enter a valid phone number";
+    if (!data.parentWhatsapp.trim()) errors.parentWhatsapp = "WhatsApp number is required";
+    else if (!phoneRegex.test(data.parentWhatsapp)) errors.parentWhatsapp = "Enter a valid phone number";
     if (!data.countryOfResidence) errors.countryOfResidence = "Please select country";
   } else if (step === 2) {
     if (!data.interestedProgram) errors.interestedProgram = "Please select a program";
@@ -146,11 +156,13 @@ function validateStep(step: number, data: FormData): FieldErrors {
 function Stepper({ currentStep }: { currentStep: number }) {
   const activeStep = STEPS[currentStep];
   return (
-    <div style={{
-      display: "flex", alignItems: "center", justifyContent: "center",
-      marginBottom: 60, gap: 0, width: "100%", maxWidth: 600, margin: "0 auto 60px",
-      position: "relative"
-    }}>
+    <div 
+      className="form-stepper-container"
+      style={{
+        display: "flex", alignItems: "center", justifyContent: "center",
+        marginBottom: 60, gap: 0, width: "100%", maxWidth: 600, margin: "0 auto 60px",
+        position: "relative"
+      }}>
       {STEPS.map((step, i) => {
         const completed = i < currentStep;
         const active = i === currentStep;
@@ -299,9 +311,13 @@ function FormField({
   value: string; error?: string; onChange: (name: string, value: string) => void;
   required?: boolean; onComplete?: () => void;
 }) {
-  const isValid = required ? value.trim().length > 0 && !error : true;
+  const isAadhaar = name === "aadhaarNumber";
+  const isValid = required 
+    ? (value.trim().length > 0 && !error) 
+    : (isAadhaar ? (value.replace(/\s/g, "").length === 12 && !error) : true);
+
   return (
-    <div style={{ marginBottom: 18 }}>
+    <div style={{ marginBottom: 18 }} className="form-field-container">
       <label style={{
         display: "block", fontSize: 14, fontWeight: 600,
         color: C.slate, marginBottom: 8
@@ -318,7 +334,7 @@ function FormField({
           variants={shakeVariants}
           style={{
             width: "100%", padding: "14px 40px 14px 16px",
-            border: `2px solid ${error ? C.red : isValid ? C.green : C.grayBorder}`,
+            border: `2px solid ${error ? C.red : (isAadhaar && value.replace(/\s/g, "").length > 0 && !isValid) ? C.grayBorder : isValid && value ? C.green : C.grayBorder}`,
             borderRadius: 14, fontSize: 16, color: C.slate,
             outline: "none", backgroundColor: C.bgCard,
             transition: "all 0.3s ease",
@@ -331,7 +347,9 @@ function FormField({
             e.currentTarget.style.boxShadow = `0 0 0 4px rgba(13,148,136,0.15)`;
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = error ? C.red : isValid ? C.green : C.grayBorder;
+            const currentVal = e.currentTarget.value.replace(/\s/g, "");
+            const currentIsValid = isAadhaar ? currentVal.length === 12 : (required ? currentVal.length > 0 : true);
+            e.currentTarget.style.borderColor = error ? C.red : (isAadhaar && currentVal.length > 0 && !currentIsValid) ? C.grayBorder : currentIsValid && e.currentTarget.value ? C.green : C.grayBorder;
             e.currentTarget.style.boxShadow = "none";
           }}
         />
@@ -395,6 +413,13 @@ function CustomDropdown({
   onComplete?: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isOpen]);
 
   const handleSelect = (opt: string) => {
     onChange(opt);
@@ -405,7 +430,7 @@ function CustomDropdown({
   };
 
   return (
-    <div style={{ marginBottom: 18, position: "relative" }}>
+    <div ref={containerRef} style={{ marginBottom: 18, position: "relative" }}>
       {label && (
         <label style={{
           display: "block", fontSize: 14, fontWeight: 600,
@@ -428,7 +453,9 @@ function CustomDropdown({
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {Icon && <Icon size={18} color={C.teal} />}
-          <span>{value || placeholder}</span>
+          <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginRight: 8 }}>
+          {value || placeholder}
+        </span>
         </div>
         <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
           <ChevronDown size={20} color={C.gray} />
@@ -528,9 +555,16 @@ function CustomDatePicker({
   onComplete?: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<"days" | "months" | "years">("days");
   const [pickerMonth, setPickerMonth] = useState(value ? new Date(value).getMonth() : new Date().getMonth());
-  const [pickerYear, setPickerYear] = useState(value ? new Date(value).getFullYear() : new Date().getFullYear());
+  const [pickerYear, setPickerYear] = useState(value ? new Date(value).getFullYear() : maxBirthYear);
+
+  useEffect(() => {
+    if (isOpen && containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isOpen]);
 
   const tempDate = value ? new Date(value) : null;
   const day = tempDate ? tempDate.getDate().toString() : "";
@@ -573,8 +607,10 @@ function CustomDatePicker({
 
   const handlePrevMonth = () => {
     if (pickerMonth === 0) {
-      setPickerMonth(11);
-      setPickerYear(pickerYear - 1);
+      if (pickerYear > minBirthYear) {
+        setPickerMonth(11);
+        setPickerYear(pickerYear - 1);
+      }
     } else {
       setPickerMonth(pickerMonth - 1);
     }
@@ -582,8 +618,10 @@ function CustomDatePicker({
 
   const handleNextMonth = () => {
     if (pickerMonth === 11) {
-      setPickerMonth(0);
-      setPickerYear(pickerYear + 1);
+      if (pickerYear < maxBirthYear) {
+        setPickerMonth(0);
+        setPickerYear(pickerYear + 1);
+      }
     } else {
       setPickerMonth(pickerMonth + 1);
     }
@@ -595,7 +633,7 @@ function CustomDatePicker({
   ];
 
   return (
-    <div style={{ marginBottom: 18, position: "relative", maxWidth }}>
+    <div ref={containerRef} style={{ marginBottom: 18, position: "relative", maxWidth }}>
       <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: C.slate, marginBottom: 8 }}>
         {label} {required && <span style={{ color: C.red }}>*</span>}
       </label>
@@ -804,16 +842,7 @@ function CustomDatePicker({
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 paddingTop: 12, borderTop: `1px solid ${C.grayBorder}`, marginTop: 8
               }}>
-                <button
-                  type="button"
-                  onClick={handleToday}
-                  style={{
-                    background: "none", border: "none", cursor: "pointer",
-                    fontSize: 11, fontWeight: 800, color: C.teal, padding: "4px 8px"
-                  }}
-                >
-                  Today
-                </button>
+<div style={{ flex: 1 }} />
                 <button
                   type="button"
                   onClick={() => { setIsOpen(false); setView("days"); }}
@@ -856,7 +885,7 @@ export default function EnrollmentForm() {
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     studentName: "", dateOfBirth: "", gender: "", grade: "",
-    parentName: "", parentEmail: "", parentPhone: "", parentRelationship: "", countryOfResidence: "", 
+    parentName: "", parentEmail: "", parentPhone: "", parentWhatsapp: "", parentRelationship: "", countryOfResidence: "", 
     interestedProgram: "", heardFrom: "",
     aadhaarNumber: "", hasCompletedPreschool: false,
     batchTiming: "", agreeTerms: false,
@@ -873,7 +902,7 @@ export default function EnrollmentForm() {
   const scrollToNextField = (currentField: string) => {
     const stepFields = [
       ["studentName", "dateOfBirth", "gender", "grade", "aadhaarNumber"],
-      ["parentName", "parentRelationship", "parentEmail", "parentPhone", "countryOfResidence", "heardFrom"],
+      ["parentName", "parentRelationship", "parentPhone", "parentWhatsapp", "parentEmail", "countryOfResidence", "heardFrom"],
       ["interestedProgram", "batchTiming", "agreeTerms"]
     ];
 
@@ -939,7 +968,7 @@ export default function EnrollmentForm() {
       <div style={{
         minHeight: "100vh", display: "flex", alignItems: "flex-start", justifyContent: "center",
         padding: "100px 24px 80px", backgroundColor: C.bgPage,
-      }}>
+      }} className="application-submitted-page">
         <motion.div
           variants={successVariants} initial="initial" animate="animate"
           style={{
@@ -947,35 +976,96 @@ export default function EnrollmentForm() {
             padding: "60px 48px", borderRadius: 28,
             boxShadow: "0 25px 60px rgba(0,0,0,0.06)",
             maxWidth: 500, width: "100%",
+            position: "relative", overflow: "hidden"
           }}
         >
+          {/* Subtle Confetti Animation */}
+          {[...Array(16)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                top: -20, 
+                left: `${Math.random() * 100}%`, 
+                rotate: 0,
+                opacity: 1 
+              }}
+              animate={{ 
+                top: "100%", 
+                rotate: 360,
+                opacity: 0
+              }}
+              transition={{ 
+                duration: 1 + Math.random(), 
+                delay: Math.random() * 0.5,
+                ease: "easeOut" 
+              }}
+              style={{
+                position: "absolute",
+                width: 8,
+                height: 8,
+                backgroundColor: i % 3 === 0 ? C.teal : i % 3 === 1 ? "#F59E0B" : "#7DD3FC",
+                borderRadius: i % 2 === 0 ? "2px" : "50%",
+                zIndex: 1,
+                pointerEvents: "none"
+              }}
+            />
+          ))}
+
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
             style={{
-              width: 100, height: 100, borderRadius: "50%",
+              width: 80, height: 80, borderRadius: "50%",
               background: `linear-gradient(135deg, ${C.teal}, ${C.tealDark})`,
               display: "flex", alignItems: "center", justifyContent: "center",
-              margin: "0 auto 28px", boxShadow: `0 15px 40px rgba(13,148,136,0.3)`,
+              margin: "0 auto 28px", boxShadow: `0 10px 30px rgba(13,148,136,0.2)`,
+              position: "relative", zIndex: 2
             }}
           >
-            <Check size={48} color={C.white} strokeWidth={3} />
+            <Check size={40} color={C.white} strokeWidth={4} />
           </motion.div>
-          <h2 style={{ fontSize: 32, fontWeight: 800, color: C.tealDark, marginBottom: 12 }}>
-            Application Submitted!
+
+          <h2 style={{ fontSize: 28, fontWeight: 800, color: C.tealDark, marginBottom: 12 }}>
+            Enrollment Submitted Successfully!
           </h2>
-          <p style={{ fontSize: 17, color: C.gray, lineHeight: 1.7, marginBottom: 32 }}>
-            Thank you for enrolling with ZeeQue Plus. Our team will review your application and contact you within 24–48 hours.
+          <p style={{ fontSize: 16, color: C.gray, lineHeight: 1.6, marginBottom: 32 }}>
+            Thank you for choosing ZeeQue Plus. Our team will review your application and contact you within 24–48 hours.
           </p>
-          <motion.div
-            style={{
-              display: "inline-flex", gap: 8, alignItems: "center",
-              padding: "10px 24px", backgroundColor: "rgba(13,148,136,0.08)",
-              borderRadius: 100, color: C.tealDeep, fontWeight: 700, fontSize: 14
-            }}
-          >
-            <Sparkles size={16} /> A confirmation email has been sent
-          </motion.div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center" }}>
+            <div
+              style={{
+                display: "inline-flex", gap: 8, alignItems: "center",
+                padding: "8px 20px", backgroundColor: "rgba(13,148,136,0.05)",
+                borderRadius: 100, color: C.tealDeep, fontWeight: 700, fontSize: 13
+              }}
+            >
+              <Check size={14} /> A confirmation email has been sent
+            </div>
+
+            <Link href="/" style={{ textDecoration: "none", width: "100%" }}>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  width: "100%",
+                  padding: "16px 32px",
+                  borderRadius: "16px",
+                  background: `linear-gradient(135deg, ${C.teal}, ${C.tealDeep})`,
+                  color: C.white,
+                  border: "none",
+                  fontWeight: 700,
+                  fontSize: 16,
+                  cursor: "pointer",
+                  boxShadow: "0 10px 25px rgba(13,148,136,0.2)",
+                  transition: "all 0.3s ease"
+                }}
+              >
+                Return to Homepage
+              </motion.button>
+            </Link>
+          </div>
         </motion.div>
       </div>
     );
@@ -989,7 +1079,7 @@ export default function EnrollmentForm() {
     }}>
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 40 }}>
+        <div style={{ textAlign: "center", marginBottom: 40 }} className="form-header">
           <h1 style={{
             fontSize: 40, fontWeight: 800, color: C.tealDark,
             marginBottom: 10, lineHeight: 1.2,
@@ -1006,6 +1096,7 @@ export default function EnrollmentForm() {
         {/* Card */}
         <motion.div
           layout
+          className="form-main-card"
           style={{
             backgroundColor: C.bgCard, borderRadius: 28,
             padding: "48px 40px",
@@ -1020,8 +1111,8 @@ export default function EnrollmentForm() {
                   Student Information
                 </h3>
 
-                <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
-                  <div style={{ flex: "1 1 65%", minWidth: 280 }} ref={el => { fieldRefs.current.studentName = el; }}>
+                <div className="form-row-2col" style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
+                  <div className="name-field-col" style={{ flex: "1 1 60%", minWidth: 200 }} ref={el => { fieldRefs.current.studentName = el; }}>
                     <FormField
                       label="Student Full Name" name="studentName"
                       placeholder="Enter legal name"
@@ -1030,7 +1121,7 @@ export default function EnrollmentForm() {
                       onComplete={() => scrollToNextField("studentName")}
                     />
                   </div>
-                  <div style={{ flex: "1 1 30%", minWidth: 180 }} ref={el => { fieldRefs.current.dateOfBirth = el; }}>
+                  <div className="dob-field-col" style={{ flex: "1 1 30%", minWidth: 160 }} ref={el => { fieldRefs.current.dateOfBirth = el; }}>
                     <CustomDatePicker
                       label="Date of Birth"
                       value={formData.dateOfBirth} error={errors.dateOfBirth}
@@ -1066,7 +1157,7 @@ export default function EnrollmentForm() {
                 <div ref={el => { fieldRefs.current.aadhaarNumber = el; }}>
                   <FormField
                     label="Aadhaar Number (Optional)" name="aadhaarNumber"
-                    placeholder="xxxx xxxx xxxx"
+                    placeholder="Enter 12-digit Aadhaar"
                     value={formData.aadhaarNumber} error={errors.aadhaarNumber}
                     onChange={handleChange} required={false}
                     onComplete={() => scrollToNextField("aadhaarNumber")}
@@ -1075,6 +1166,7 @@ export default function EnrollmentForm() {
 
                 <div style={{ marginBottom: 24 }}>
                   <motion.label
+                    className="preschool-card"
                     whileHover={{ scale: 1.01 }}
                     onClick={() => handleChange("hasCompletedPreschool", !formData.hasCompletedPreschool)}
                     style={{
@@ -1140,7 +1232,7 @@ export default function EnrollmentForm() {
                 <div ref={el => { fieldRefs.current.parentRelationship = el; }}>
                   <SelectField
                     label="Relationship to Student" name="parentRelationship"
-                    options={RELATIONSHIP_OPTIONS} placeholder="Select (Father, Mother, Guardian)"
+                    options={RELATIONSHIP_OPTIONS} placeholder="Select relationship"
                     value={formData.parentRelationship} error={errors.parentRelationship}
                     onChange={handleChange}
                     onComplete={() => scrollToNextField("parentRelationship")}
@@ -1149,18 +1241,28 @@ export default function EnrollmentForm() {
 
                 <div ref={el => { fieldRefs.current.parentPhone = el; }}>
                   <FormField
-                    label="Mobile Number" name="parentPhone" type="tel"
-                    placeholder="e.g. +91 9876 543 210"
+                    label="Contact Number" name="parentPhone" type="tel"
+                    placeholder="Enter Contact Number"
                     value={formData.parentPhone} error={errors.parentPhone}
                     onChange={handleChange}
                     onComplete={() => scrollToNextField("parentPhone")}
                   />
                 </div>
 
+                <div ref={el => { fieldRefs.current.parentWhatsapp = el; }}>
+                  <FormField
+                    label="WhatsApp Number" name="parentWhatsapp" type="tel"
+                    placeholder="Enter whatsapp number"
+                    value={formData.parentWhatsapp} error={errors.parentWhatsapp}
+                    onChange={handleChange}
+                    onComplete={() => scrollToNextField("parentWhatsapp")}
+                  />
+                </div>
+
                 <div ref={el => { fieldRefs.current.parentEmail = el; }}>
                   <FormField
                     label="Email Address" name="parentEmail" type="email"
-                    placeholder="e.g. name@example.com"
+                    placeholder="Enter email address"
                     value={formData.parentEmail} error={errors.parentEmail}
                     onChange={handleChange} required={false}
                     onComplete={() => scrollToNextField("parentEmail")}
@@ -1212,8 +1314,8 @@ export default function EnrollmentForm() {
                     Preferred Batch Timing <span style={{ color: C.red }}>*</span>
                   </label>
                   <div style={{
-                    display: "grid", gridTemplateColumns: "1fr 1fr",
-                    gap: 12,
+                    display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
+                    gap: 8,
                   }} ref={el => { fieldRefs.current.batchTiming = el; }}>
                     {BATCH_TIMINGS.map(batch => {
                       const selected = formData.batchTiming === batch.id;
@@ -1227,7 +1329,7 @@ export default function EnrollmentForm() {
                             setTimeout(() => scrollToNextField("batchTiming"), 100);
                           }}
                           style={{
-                            padding: "20px 16px", borderRadius: 18, cursor: "pointer",
+                            padding: "16px 8px", borderRadius: 16, cursor: "pointer",
                             border: `2px solid ${selected ? C.teal : C.grayBorder}`,
                             backgroundColor: selected ? C.teal : C.bgCard,
                             color: selected ? "#FFFFFF" : C.slate,
@@ -1236,9 +1338,9 @@ export default function EnrollmentForm() {
                             boxShadow: selected ? `0 8px 30px rgba(13,148,136,0.25)` : "0 2px 8px rgba(0,0,0,0.04)",
                           }}
                         >
-                          <batch.Icon size={26} strokeWidth={1.8} color={selected ? C.white : C.teal} />
-                          <span style={{ fontWeight: 700, fontSize: 15 }}>{batch.label}</span>
-                          <span style={{ fontSize: 12, opacity: 0.8 }}>{batch.time}</span>
+                          <batch.Icon size={22} strokeWidth={1.8} color={selected ? C.white : C.teal} />
+                          <span style={{ fontWeight: 700, fontSize: 13 }}>{batch.label}</span>
+                          <span style={{ fontSize: 10, opacity: 0.8 }}>{batch.time}</span>
                         </motion.button>
                       );
                     })}
@@ -1260,6 +1362,7 @@ export default function EnrollmentForm() {
                 {/* Terms Checkbox */}
                 <div style={{ marginBottom: 24 }}>
                   <motion.label
+                    className="terms-card"
                     whileHover={{ scale: 1.01 }}
                     onClick={() => {
                       handleChange("agreeTerms", !formData.agreeTerms);
@@ -1297,7 +1400,16 @@ export default function EnrollmentForm() {
                     </div>
                     <div>
                       <span style={{ fontSize: 15, fontWeight: 600, color: C.slate }}>
-                        I agree to the Terms & Conditions <span style={{ color: C.red }}>*</span>
+                        I agree to the{" "}
+                        <Link 
+                          href="/terms-of-use" 
+                          target="_blank"
+                          onClick={(e) => e.stopPropagation()}
+                          style={{ color: C.teal, textDecoration: "underline" }}
+                        >
+                          Terms & Conditions
+                        </Link>{" "}
+                        <span style={{ color: C.red }}>*</span>
                       </span>
                       <p style={{ fontSize: 13, color: C.gray, lineHeight: 1.5, marginTop: 4 }}>
                         By submitting, you agree to our enrollment policies, privacy policy, and code of conduct.
@@ -1320,89 +1432,91 @@ export default function EnrollmentForm() {
 
             {/* ── Step 4: Payment Details ── */}
             {currentStep === 3 && (
-              <motion.div key="step3" variants={stepVariants} initial="initial" animate="animate" exit="exit">
-                <h3 style={{ fontSize: 24, fontWeight: 800, color: C.tealDeep, marginBottom: 28 }}>
-                  Payment Details
-                </h3>
-
-                {/* Order Summary Box */}
-                <div style={{
-                  backgroundColor: "rgba(13,148,136,0.05)",
-                  padding: "32px 20px 20px", borderRadius: 20, border: `1.5px solid rgba(13,148,136,0.1)`,
-                  marginBottom: 24, position: "relative", overflow: "hidden"
-                }}>
-                  <div style={{ position: "absolute", top: 0, right: 0, padding: "8px 16px", backgroundColor: C.teal, color: C.white, fontSize: 11, fontWeight: 800, borderBottomLeftRadius: 12, textTransform: "uppercase", letterSpacing: 1 }}>
-                    Summary
+              <motion.div key="step3" variants={stepVariants} initial="initial" animate="animate" exit="exit" style={{ padding: "0 4px" }}>
+                {/* Hero Amount Display */}
+                <div style={{ textAlign: "center", marginBottom: 36 }} className="payment-hero">
+                  <span style={{ 
+                    display: "block", fontSize: 12, fontWeight: 800, color: C.teal, 
+                    textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 
+                  }}>
+                    Total Payable
+                  </span>
+                  <div style={{ 
+                    fontSize: 48, fontWeight: 900, color: C.slate, 
+                    letterSpacing: -1, lineHeight: 1 
+                  }} className="payment-hero-amount">
+                    ₹2,500
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                    <span style={{ color: C.gray, fontSize: 14, fontWeight: 600 }}>Program</span>
-                    <span style={{ color: C.slate, fontSize: 15, fontWeight: 700 }}>
+                  <p style={{ 
+                    fontSize: 14, color: C.gray, marginTop: 12, fontWeight: 600 
+                  }}>
+                    June Month Fee for 
+                    <span style={{ color: C.teal, marginLeft: 4 }}>
                       {formData.interestedProgram || "ZeeQue Plus Quran"}
                     </span>
-                  </div>
-                  <div style={{ height: 1, backgroundColor: "rgba(13,148,136,0.1)", marginBottom: 16 }} />
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                    <div>
-                      <span style={{ color: C.teal, fontSize: 16, fontWeight: 700, display: "block" }}>Total Payable</span>
-                      <span style={{ color: C.gray, fontSize: 12, fontWeight: 600 }}>(Fee for June month)</span>
-                    </div>
-                    <span style={{ color: C.teal, fontSize: 28, fontWeight: 900 }}>₹2,500</span>
+                  </p>
+
+                  <div style={{ 
+                    marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6,
+                    padding: "6px 14px", borderRadius: 100, backgroundColor: "rgba(13,148,136,0.08)",
+                    color: C.teal, fontSize: 13, fontWeight: 700, border: "1px solid rgba(13,148,136,0.12)"
+                  }} className="june-fee-badge">
+                    <Calendar size={14} strokeWidth={2.5} /> 
+                    <span>June Month Fee Only</span>
                   </div>
                 </div>
 
-                <label style={{ display: "block", fontSize: 13, fontWeight: 800, color: C.slate, marginBottom: 16, textTransform: "uppercase", letterSpacing: 1 }}>
-                  Select Payment Method <span style={{ color: C.red }}>*</span>
-                </label>
-
-                {/* Razorpay Selection Card */}
-                <motion.div
-                  className="payment-selection-card"
-                  whileHover={{ scale: 1.01, borderColor: C.teal }}
-                  whileTap={{ scale: 0.99 }}
-                  style={{
-                    backgroundColor: "rgba(13,148,136,0.02)",
-                    border: `2px solid ${C.teal}`,
-                    borderRadius: 20, padding: "24px 28px", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    boxShadow: "0 10px 30px rgba(13,148,136,0.08)"
-                  }}
-                >
-                  <div className="razorpay-logo-group" style={{ display: "flex", alignItems: "center", gap: 20 }}>
-                    <div className="razorpay-logo-wrapper" style={{
-                      backgroundColor: C.white, width: 48, height: 48, borderRadius: 12,
+                <div style={{ marginBottom: 32 }}>
+                  <span style={{ 
+                    display: "block", fontSize: 11, fontWeight: 800, color: C.gray, 
+                    textTransform: "uppercase", letterSpacing: 1, marginBottom: 12, paddingLeft: 4
+                  }}>
+                    Payment Method
+                  </span>
+                  
+                  {/* Minimal Razorpay Card */}
+                  <motion.div
+                    className="minimal-payment-card"
+                    whileHover={{ scale: 1.01, boxShadow: "0 15px 35px rgba(13,148,136,0.12)" }}
+                    whileTap={{ scale: 0.98 }}
+                    style={{
+                      backgroundColor: "rgba(13,148,136,0.03)",
+                      border: `1.5px solid ${C.teal}`,
+                      borderRadius: 20, padding: "20px 24px", cursor: "pointer",
+                      display: "flex", alignItems: "center", gap: 18,
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                    }}
+                  >
+                    <div style={{
+                      backgroundColor: C.white, width: 42, height: 42, borderRadius: 12,
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      boxShadow: "0 4px 15px rgba(0,0,0,0.1)", border: `1px solid ${C.grayBorder}`,
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.08)", border: `1px solid rgba(13,148,136,0.1)`,
                       flexShrink: 0
                     }}>
                       <img 
                         src="https://razorpay.com/assets/razorpay-glyph.svg" 
                         alt="Razorpay" 
-                        style={{ height: 24 }}
+                        style={{ height: 22 }}
                       />
                     </div>
-                    <div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: C.slate }}>Razorpay</div>
-                      <div style={{ fontSize: 13, color: C.gray, fontWeight: 600 }}>UPI, Cards, Wallets & Netbanking</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 17, fontWeight: 800, color: C.slate, lineHeight: 1.2 }}>Razorpay</div>
+                      <div style={{ fontSize: 12, color: C.gray, fontWeight: 600, marginTop: 2 }}>UPI, Cards, Wallets & Netbanking</div>
                     </div>
-                  </div>
-                  <div style={{
-                    width: 28, height: 28, borderRadius: "50%", border: `2.5px solid ${C.teal}`,
-                    display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: C.bgCard
-                  }}>
-                    <div style={{ width: 14, height: 14, borderRadius: "50%", backgroundColor: C.teal }} />
-                  </div>
-                </motion.div>
-                
-                {/* Simplified Trust Text */}
-                <div style={{ 
-                  display: "flex", alignItems: "center", gap: 6, 
-                  marginTop: 12, color: C.gray, paddingLeft: 8
-                }}>
-                  <Lock size={12} color={C.gray} />
-                  <span style={{ fontSize: 12, fontWeight: 600 }}>Secure 256-bit encrypted payment via Razorpay</span>
+                    <ShieldCheck size={20} color={C.teal} style={{ opacity: 0.6 }} />
+                  </motion.div>
                 </div>
 
-
+                {/* Secure Trust Note */}
+                <div style={{ 
+                  display: "flex", alignItems: "center", justifyContent: "center", 
+                  gap: 8, color: C.gray, marginBottom: 8
+                }} className="payment-trust-note">
+                  <Lock size={12} color={C.teal} />
+                  <span style={{ fontSize: 12, fontWeight: 600, opacity: 0.8 }}>
+                    Secure 256-bit encrypted checkout via Razorpay
+                  </span>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -1419,76 +1533,68 @@ export default function EnrollmentForm() {
                 whileTap={{ scale: 0.97 }}
                 onClick={handleBack}
                 style={{
-                  padding: "14px 28px", borderRadius: 14, fontSize: 16, fontWeight: 700,
-                  border: `2px solid ${C.orange}`, backgroundColor: "transparent",
-                  color: C.orange, cursor: "pointer", display: "flex",
-                  alignItems: "center", gap: 8, transition: "all 0.3s ease",
+                  padding: "10px 16px", borderRadius: 14, fontSize: 15, fontWeight: 600,
+                  border: `1.5px solid ${C.grayLight}`, backgroundColor: "transparent",
+                  color: C.gray, cursor: "pointer", display: "flex",
+                  alignItems: "center", justifyContent: "center", gap: 4, transition: "all 0.3s ease",
+                  opacity: currentStep === 3 ? 0.7 : 1,
                 }}
               >
                 <ChevronLeft size={18} /> Back
               </motion.button>
             )}
 
-            {currentStep < STEPS.length - 1 ? (
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.03, filter: "brightness(1.1)" }}
-                whileTap={{ scale: 0.97 }}
-                onClick={handleNext}
-                style={{
-                  padding: "14px 32px", borderRadius: 14, fontSize: 16, fontWeight: 700,
-                  border: "none",
-                  background: `linear-gradient(135deg, ${C.teal}, #14b8a6)`,
-                  color: "#FFFFFF", cursor: "pointer", display: "flex",
-                  alignItems: "center", gap: 8, transition: "all 0.3s ease",
-                  boxShadow: `0 8px 30px rgba(13,148,136,0.35)`,
-                }}
-              >
-                Continue <ChevronRight size={18} />
-              </motion.button>
-            ) : (
-              <motion.button
-                type="button"
-                whileHover={!submitting ? { scale: 1.03, filter: "brightness(1.1)" } : {}}
-                whileTap={!submitting ? { scale: 0.97 } : {}}
-                onClick={handleSubmit}
-                disabled={submitting}
-                style={{
-                  padding: "14px 36px", borderRadius: 14, fontSize: 16, fontWeight: 700,
-                  border: "none",
-                  background: formData.agreeTerms && !submitting
-                    ? `linear-gradient(135deg, ${C.teal}, #115e59)`
-                    : submitting ? C.grayLight : `linear-gradient(135deg, ${C.teal}, #115e59)`,
-                  color: C.white, cursor: submitting ? "not-allowed" : "pointer",
-                  display: "flex", alignItems: "center", gap: 8,
-                  opacity: submitting ? 0.7 : 1,
-                  transition: "all 0.3s ease",
-                  boxShadow: submitting ? "none" : `0 8px 25px rgba(15,118,110,0.25)`,
-                }}
-              >
-                {submitting ? (
-                  <>
-                    <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
-                      <Loader2 size={18} />
-                    </motion.div>
-                    Processing...
-                  </>
-                ) : (
-                  <>Pay Now <ChevronRight size={18} /></>
-                )}
-              </motion.button>
-            )}
+            <motion.button
+              key={currentStep === 3 ? "pay" : "next"}
+              type="button"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={currentStep === STEPS.length - 1 ? handleSubmit : handleNext}
+              disabled={submitting || (currentStep === 3 && !formData.agreeTerms)}
+              style={{
+                flex: currentStep === 3 ? 1.5 : 1,
+                padding: currentStep === 3 ? "14px 40px" : "10px 24px", 
+                borderRadius: 16, fontSize: 16, fontWeight: 800,
+                border: "none",
+                background: currentStep === 3 
+                  ? `linear-gradient(135deg, ${C.teal}, ${C.tealDeep})`
+                  : `linear-gradient(135deg, ${C.teal}, #14b8a6)`,
+                color: "#FFFFFF", cursor: "pointer", display: "flex",
+                alignItems: "center", justifyContent: "center", gap: 8,
+                boxShadow: currentStep === 3 
+                  ? `0 12px 35px rgba(13,148,136,0.3)` 
+                  : `0 8px 25px rgba(13,148,136,0.2)`,
+                transition: "all 0.3s ease",
+                opacity: submitting ? 0.7 : 1,
+              }}
+            >
+              {submitting ? (
+                <>
+                  <Loader2 size={20} className="animate-spin" />
+                  <span>Processing...</span>
+                </>
+              ) : currentStep === STEPS.length - 1 ? (
+                <span>Pay ₹2,500</span>
+              ) : (
+                <>
+                  <span>Continue</span>
+                  <ChevronRight size={18} />
+                </>
+              )}
+            </motion.button>
           </div>
         </motion.div>
 
-        {/* Security Footer */}
-        <div style={{
-          display: "flex", alignItems: "center", justifyContent: "center",
-          gap: 6, marginTop: 28, color: C.gray, fontSize: 12, fontWeight: 600
-        }}>
-          <ShieldCheck size={14} color={C.gray} />
-          <span>Your transaction is secure and encrypted</span>
-        </div>
+         {/* Security Footer - Only in Payment Step */}
+        {currentStep === 3 && (
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            gap: 6, marginTop: 28, color: C.gray, fontSize: 12, fontWeight: 600
+          }} className="step4-security-footer">
+            <ShieldCheck size={14} color={C.gray} />
+            <span>Your transaction is secure and encrypted</span>
+          </div>
+        )}
       </div>
 
       <style jsx>{`
@@ -1515,15 +1621,81 @@ export default function EnrollmentForm() {
           .form-navigation-buttons {
             flex-direction: row !important;
             justify-content: center !important;
-            gap: 12px !important;
+            gap: 16px !important;
             margin-top: 28px !important;
+            flex-wrap: nowrap !important;
           }
           .form-navigation-buttons button {
             flex: 1 !important;
-            padding: 12px 14px !important;
+            padding: 8px 16px !important;
             font-size: 14px !important;
             justify-content: center !important;
-            min-width: 120px;
+            min-width: unset !important;
+            max-width: 120px !important;
+            border-radius: 12px !important;
+          }
+          .name-field-col, .dob-field-col {
+            flex: 1 1 100% !important;
+            min-width: 100% !important;
+          }
+          .form-row-2col {
+            gap: 0 !important;
+            margin-bottom: 0 !important;
+          }
+          .form-field-container {
+            margin-bottom: 9px !important;
+          }
+          .preschool-card, .terms-card {
+            padding: 12px 16px !important;
+            gap: 12px !important;
+            border-radius: 16px !important;
+          }
+          .preschool-card p, .terms-card p {
+            font-size: 13px !important;
+            margin-top: 2px !important;
+          }
+          .terms-card {
+            margin-bottom: 12px !important;
+          }
+          .application-submitted-page {
+            padding: 40px 20px 20px !important;
+          }
+          .application-submitted-page > div {
+            padding: 32px 24px !important;
+          }
+          /* Section padding reductions by 50% */
+          .form-header {
+            margin-bottom: 20px !important;
+          }
+          .form-stepper-container {
+            margin-bottom: 30px !important;
+          }
+          .form-main-card {
+            padding: 32px 20px !important;
+          }
+          .payment-hero-amount {
+            font-size: 38px !important;
+          }
+          .minimal-payment-card {
+            padding: 16px 20px !important;
+            border-radius: 16px !important;
+          }
+          .payment-hero {
+            margin-bottom: 28px !important;
+          }
+          .payment-trust-note {
+            margin-bottom: 0 !important;
+          }
+          .form-navigation-buttons button {
+            flex: 1 !important;
+            padding: 10px 14px !important;
+            font-size: 14px !important;
+            justify-content: center !important;
+            gap: 4px !important;
+          }
+          .form-navigation-buttons button:last-child {
+            flex: 2 !important; /* Pay Now dominant */
+            font-size: 16px !important;
           }
         }
       `}</style>

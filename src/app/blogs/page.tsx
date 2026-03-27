@@ -44,7 +44,7 @@ export default function BlogsPage() {
   return (
     <main style={{ backgroundColor: 'var(--bg-page)', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
       <Navbar />
-      <div style={{ paddingTop: '100px', position: 'relative', zIndex: 1 }}>
+      <div style={{ paddingTop: '60px', position: 'relative', zIndex: 1 }}>
         <BlogHero />
         <BlogHighlights />
         <FeaturedBlogs />

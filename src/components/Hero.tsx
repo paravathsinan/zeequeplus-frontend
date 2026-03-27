@@ -8,7 +8,7 @@ import { Star, ArrowRight, Sparkles } from "lucide-react";
 export default function Hero() {
   return (
     <section id="home" className="hero" style={{ 
-      padding: '160px 0 80px',
+      padding: '120px 0 40px',
       background: 'var(--hero-bg)',
       color: 'var(--text-primary)',
       overflow: 'hidden'
@@ -90,9 +90,10 @@ export default function Hero() {
               border: '8px solid var(--glass-border)'
             }}>
               <Image 
-                src="/images/hero-boy.png" 
+                src="/images/site/hero-boy.png" 
                 alt="Boy learning Quran" 
                 fill
+                priority
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: 'cover' }}
               />
@@ -143,7 +144,7 @@ export default function Hero() {
                 <p style={{ fontSize: '11px', opacity: 0.7 }}>Helping children connect with the Word of Allah</p>
               </div>
               <div style={{ flexShrink: 0 }}>
-                <Image src="/images/quran-open.png" alt="Open Quran" width={60} height={40} sizes="60px" style={{ borderRadius: '4px' }} />
+                <Image src="/images/site/quran-open.png" alt="Open Quran" width={60} height={40} sizes="60px" style={{ borderRadius: '4px' }} />
               </div>
             </motion.div>
 
@@ -254,6 +255,9 @@ export default function Hero() {
         }
 
         @media (max-width: 992px) {
+          .hero {
+            padding: 120px 0 60px !important;
+          }
           .hero-grid {
             grid-template-columns: 1fr !important;
             text-align: center;
@@ -269,6 +273,7 @@ export default function Hero() {
           }
           p {
             max-width: 100% !important;
+            font-size: 18px !important;
           }
           .hero-btns {
             justify-content: center;
@@ -279,6 +284,30 @@ export default function Hero() {
           }
           .glass-card {
             display: none !important;
+          }
+        }
+        @media (max-width: 576px) {
+          .hero {
+            padding: 100px 0 40px !important;
+          }
+          h1 {
+            font-size: 32px !important;
+          }
+          p {
+            font-size: 16px !important;
+            margin-bottom: 24px !important;
+          }
+          .hero-btns {
+            flex-direction: column;
+            width: 100%;
+          }
+          .hero-btns button {
+            width: 100%;
+            justify-content: center;
+          }
+          .premium-glass-btn {
+            padding: 14px 24px !important;
+            font-size: 16px !important;
           }
         }
         @media (max-width: 576px) {

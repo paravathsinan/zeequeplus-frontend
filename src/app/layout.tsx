@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: "ZeeQue Plus – Online Qur’an Course for Classes 1–10 with Tajweed",
   description: "A trusted online platform designed to make recitation, Tajweed, and understanding the Quran easier for everyone.",
   icons: {
-    icon: "/images/logo/zeequeplus-logo.png",
-    shortcut: "/images/logo/zeequeplus-logo.png",
-    apple: "/images/logo/zeequeplus-logo.png",
+    icon: "/images/logo/favicon.jpg",
+    shortcut: "/images/logo/favicon.jpg",
+    apple: "/images/logo/favicon.jpg",
   },
 };
 

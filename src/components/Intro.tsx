@@ -8,7 +8,7 @@ import { CheckCircle2, Users, Award, BookOpen } from 'lucide-react';
 export default function Intro() {
   return (
     <section className="intro" style={{ 
-      padding: '120px 0',
+      padding: '60px 0',
       backgroundColor: 'var(--bg-page)',
       position: 'relative',
       overflow: 'hidden'
@@ -55,7 +55,7 @@ export default function Intro() {
               letterSpacing: '1px'
             }}>
               <BookOpen size={16} />
-              WHO WE ARE
+              Who We Are
             </div>
             
             <h2 style={{
@@ -153,9 +153,10 @@ export default function Intro() {
               border: '2px solid var(--glass-border)'
             }}>
               <Image 
-                src="/images/intro-img.png" 
+                src="/images/site/intro-img.png" 
                 alt="Who We Are - ZeeQue Plus" 
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: 'cover' }}
               />
               <div style={{
@@ -263,10 +264,12 @@ export default function Intro() {
           .intro-grid {
             grid-template-columns: 1fr !important;
             text-align: center;
+            gap: 50px !important;
           }
           .intro-visual {
             max-width: 500px;
-            margin: 0 auto 60px;
+            margin: 0 auto;
+            order: -1; /* Image on top on mobile */
           }
           .intro-content {
             display: flex;

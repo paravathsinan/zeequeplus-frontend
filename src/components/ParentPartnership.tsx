@@ -58,7 +58,6 @@ export default function ParentPartnership() {
               fontWeight: 700,
               color: 'var(--accent)',
               marginBottom: '24px',
-              textTransform: 'uppercase',
               letterSpacing: '1px',
               border: '1px solid rgba(var(--accent-rgb), 0.2)'
             }}
@@ -302,8 +301,12 @@ export default function ParentPartnership() {
           }
         }
         @media (max-width: 576px) {
-          .parent-partnership { padding: 80px 0 !important; }
-          h2 { font-size: 34px !important; }
+          .parent-partnership { padding: 60px 0 !important; }
+          h2 { font-size: 32px !important; }
+          .mobile-milestones > div > div {
+            padding: 32px 24px !important;
+            border-radius: 24px !important;
+          }
         }
       `}</style>
     </section>

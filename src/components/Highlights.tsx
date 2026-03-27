@@ -30,7 +30,7 @@ const highlights = [
 export default function Highlights() {
   return (
     <section id="highlights" style={{ 
-      padding: '100px 0', 
+      padding: '50px 0', 
       backgroundColor: 'var(--bg-page)',
       borderBottomLeftRadius: '50% 60px',
       borderBottomRightRadius: '50% 60px',
@@ -48,7 +48,7 @@ export default function Highlights() {
             display: 'inline-block',
             marginBottom: '16px'
           }}>
-            WHY CHOOSE US
+            Why Choose Us
           </div>
           <h2 style={{
             fontSize: '48px',
@@ -206,9 +206,19 @@ export default function Highlights() {
             grid-template-columns: 1fr !important;
           }
           .highlight-card {
-            padding: 40px 30px !important;
-            border-radius: 40px !important;
+            padding: 32px 24px !important;
+            border-radius: 32px !important;
+            align-items: center;
+            text-align: center;
           }
+          h2 {
+            font-size: 36px !important;
+          }
+          p {
+            font-size: 16px !important;
+          }
+        }
+        @media (max-width: 576px) {
           h2 {
             font-size: 32px !important;
           }

@@ -31,7 +31,7 @@ const targetAudience = [
 export default function Audience() {
   return (
     <section id="audience" style={{ 
-      padding: '100px 0', 
+      padding: '50px 0', 
       backgroundColor: 'var(--stats-bg)', 
       overflow: 'hidden',
       borderBottomLeftRadius: '50% 40px',
@@ -59,7 +59,7 @@ export default function Audience() {
               letterSpacing: '1px'
             }}
           >
-            FOR EVERYONE
+            For Everyone
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -188,7 +188,7 @@ export default function Audience() {
               border: '1px solid rgba(255,255,255,0.1)'
             }}>
               <Image 
-                src="/images/audience-img.png" 
+                src="/images/site/audience-img.png" 
                 alt="Diverse people learning" 
                 width={800}
                 height={600}
@@ -236,14 +236,17 @@ export default function Audience() {
           .audience-image {
             max-width: 600px;
             margin: 0 auto;
+            order: -1; /* Image on top on mobile */
           }
         }
         @media (max-width: 576px) {
           h2 {
             font-size: 32px !important;
+            line-height: 1.2 !important;
           }
           .audience-items {
             grid-template-columns: 1fr !important;
+            gap: 20px !important;
           }
           .glass-card {
             display: none !important;

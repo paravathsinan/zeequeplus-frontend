@@ -20,35 +20,32 @@ const quickLinks = [
   { name: "Contact Us", href: "/contact" },
 ];
 
-const targetGroups = [
-  { name: "Foundation (Classes 1-3)", href: "#foundation" },
-  { name: "Intermediate (Classes 4-7)", href: "#intermediate" },
-  { name: "Advanced (Classes 8-10)", href: "#advanced" },
-  { name: "Vacation Specials", href: "#vacation" },
+const programLinks = [
+  { name: "Zeeque Plus Quran", href: "/quran" },
 ];
 
 export default function Footer() {
   return (
     <footer style={{
       backgroundColor: 'var(--footer-bg, #051e29)',
-      padding: '100px 0 40px',
+      padding: '50px 0 20px',
       color: 'var(--footer-text, #ffffff)',
       borderTop: '1px solid var(--footer-border, rgba(255, 255, 255, 0.05))'
     }} className="site-footer">
       <div className="container" style={{
         display: 'grid',
-        gridTemplateColumns: '1.2fr 0.8fr 1fr 1fr',
+        gridTemplateColumns: '1fr 0.8fr 0.8fr 1.4fr',
         gap: '60px',
         marginBottom: '80px'
       }}>
         {/* Brand Column */}
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <Link href="/" style={{
             display: 'flex',
             alignItems: 'center',
             marginBottom: '32px'
           }}>
-            <div style={{ width: '100%', maxWidth: '500px' }}>
+            <div style={{ width: '100%', maxWidth: '160px' }}>
               <Image 
                 src="/images/logo/zeequeplus-logo.png" 
                 alt="ZeeQuePlus Logo" 
@@ -73,6 +70,7 @@ export default function Footer() {
           }}>
             Empowering the next generation with a structured, step-by-step Qur'anic journey. Excellence in Tajweed, Hifz, and Character.
           </p>
+          <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', gap: '16px' }}>
             {socialLinks.map(({ Icon, href }, i) => (
               <a 
@@ -127,11 +125,11 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Target Groups Column */}
+        {/* Programs Column */}
         <div>
-          <h4 className="handwritten" style={{ fontSize: '28px', color: 'var(--footer-text, #ffffff)', marginBottom: '32px' }}>Target Groups</h4>
+          <h4 className="handwritten" style={{ fontSize: '28px', color: 'var(--footer-text, #ffffff)', marginBottom: '32px' }}>Programs</h4>
           <ul style={{ listStyle: 'none', padding: 0 }}>
-            {targetGroups.map((group) => (
+            {programLinks.map((group) => (
               <li key={group.name} style={{ marginBottom: '16px' }}>
                 <Link 
                   href={group.href} 
@@ -151,14 +149,15 @@ export default function Footer() {
         </div>
 
         {/* Connect Column */}
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h4 className="handwritten" style={{ fontSize: '28px', color: 'var(--footer-text, #ffffff)', marginBottom: '32px' }}>Connect</h4>
           
           {/* Phone */}
-          <div style={{ display: 'flex', gap: '20px', marginBottom: '32px' }}>
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '32px', alignItems: 'flex-start' }}>
             <div style={{
               width: '48px',
               height: '48px',
+              flexShrink: 0,
               borderRadius: '12px',
               backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
               display: 'flex',
@@ -166,10 +165,10 @@ export default function Footer() {
               justifyContent: 'center',
               border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
             }}>
-              <Phone size={20} style={{ color: 'var(--accent)' }} />
+              <Phone size={22} style={{ color: 'var(--accent)' }} />
             </div>
-            <div>
-              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Call Us</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px' }}>Call Us</div>
               <a
                 href="tel:+919072500435"
                 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--footer-text, #ffffff)', textDecoration: 'none' }}
@@ -180,10 +179,11 @@ export default function Footer() {
           </div>
 
           {/* Email */}
-          <div style={{ display: 'flex', gap: '20px', marginBottom: '32px' }}>
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '32px', alignItems: 'flex-start' }}>
             <div style={{
               width: '48px',
               height: '48px',
+              flexShrink: 0,
               borderRadius: '12px',
               backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
               display: 'flex',
@@ -191,10 +191,10 @@ export default function Footer() {
               justifyContent: 'center',
               border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
             }}>
-              <Mail size={20} style={{ color: 'var(--accent)' }} />
+              <Mail size={22} style={{ color: 'var(--accent)' }} />
             </div>
-            <div>
-              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Email</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px' }}>Email</div>
               <a
                 href="mailto:info@zeequeplus.com"
                 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--footer-text, #ffffff)', textDecoration: 'none', textTransform: 'lowercase' }}
@@ -203,12 +203,15 @@ export default function Footer() {
               </a>
             </div>
           </div>
+
+          <div style={{ flex: 1 }} />
           
           {/* Location */}
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
             <div style={{
               width: '48px',
               height: '48px',
+              flexShrink: 0,
               borderRadius: '12px',
               backgroundColor: 'var(--footer-social-bg, rgba(255,255,255,0.05))',
               display: 'flex',
@@ -216,10 +219,10 @@ export default function Footer() {
               justifyContent: 'center',
               border: '1px solid var(--footer-border, rgba(255,255,255,0.1))'
             }}>
-              <MapPin size={20} style={{ color: 'var(--accent)' }} />
+              <MapPin size={22} strokeWidth={2.5} style={{ color: 'var(--accent)' }} />
             </div>
-            <div>
-              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Location</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ fontSize: '13px', color: 'var(--footer-text-secondary, rgba(255,255,255,0.5))', textTransform: 'uppercase', letterSpacing: '1px' }}>Location</div>
               <a
                 href="https://www.google.com/maps?q=Zahra+Park,+Koduvally,+Kozhikode,+Kerala"
                 target="_blank"
@@ -295,6 +298,7 @@ export default function Footer() {
         @media (max-width: 640px) {
           footer .container:first-child {
             grid-template-columns: 1fr !important;
+            gap: 40px !important;
           }
           footer .container:last-child {
             flex-direction: column !important;
@@ -302,7 +306,8 @@ export default function Footer() {
             text-align: center;
           }
           .handwritten {
-            margin-bottom: 20px !important;
+            margin-bottom: 24px !important;
+            font-size: 24px !important;
           }
         }
       `}</style>

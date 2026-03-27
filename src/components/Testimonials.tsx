@@ -70,7 +70,7 @@ export default function Testimonials() {
 
   return (
     <section className="testimonials" style={{
-      padding: '60px 0',
+      padding: '30px 0',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -264,26 +264,29 @@ export default function Testimonials() {
           display: none;
         }
         @media (max-width: 768px) {
+          .testimonials {
+            padding: 40px 0 !important;
+          }
           .testimonials-heading {
-            font-size: 28px !important;
+            font-size: 32px !important;
             padding: 0 16px;
             text-align: center !important;
           }
           .testimonials-subtitle {
-            font-size: 14px !important;
+            font-size: 15px !important;
           }
           .testimonial-card {
             padding: 32px 24px !important;
             border-radius: 24px !important;
           }
           .testimonial-text {
-            font-size: 15px !important;
+            font-size: 16px !important;
             line-height: 1.6 !important;
           }
         }
         @media (max-width: 480px) {
           .testimonials-heading {
-            font-size: 24px !important;
+            font-size: 28px !important;
           }
         }
       `}</style>

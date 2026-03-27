@@ -43,7 +43,6 @@ export default function OurApproach() {
               fontSize: '14px',
               fontWeight: 700,
               color: 'var(--accent)',
-              textTransform: 'uppercase',
               letterSpacing: '3px',
               marginBottom: '24px',
               display: 'flex',
@@ -189,8 +188,9 @@ export default function OurApproach() {
           h2 {
             font-size: 32px !important;
           }
-          .our-approach-minimal div[style*="padding: 60px"] {
+          .our-approach-minimal div[style*="padding: 60px 40px"] {
              padding: 30px 20px !important;
+             min-width: 100% !important;
           }
         }
       `}</style>

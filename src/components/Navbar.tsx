@@ -89,11 +89,14 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -131,13 +134,16 @@ export default function Navbar() {
               alt="ZeeQuePlus Logo" 
               width={200} 
               height={60}
+              priority
+              className="logo-img"
               style={{ 
                 width: 'auto', 
                 height: '100%', 
                 objectFit: 'contain',
                 transform: 'scale(2.2)',
                 transformOrigin: 'left center',
-                display: 'block'
+                display: 'block',
+                transition: 'filter 0.4s ease, transform 0.3s ease'
               }}
             />
           </Link>
@@ -197,19 +203,15 @@ export default function Navbar() {
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
 
-            <a 
-              href="https://operations.zeequeplus.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="login-btn-wrapper"
+            <Link 
+              href="/enroll" 
+              className="enroll-btn-wrapper"
             >
-              <button 
-                className="premium-login-btn"
-              >
-                <span>Login</span>
+              <button className="premium-glass-btn primary">
+                <span>Enroll Now</span>
                 <ArrowRight size={18} className="arrow-icon" />
               </button>
-            </a>
+            </Link>
           </div>
 
             {/* Mobile Toggle - Only show Menu when closed, X is handled inside overlay */}
@@ -233,17 +235,21 @@ export default function Navbar() {
         </div>
 
         <style jsx>{`
-          .premium-login-btn {
+        .logo-img {
+          filter: drop-shadow(0 0 8px rgba(0,0,0,0.05));
+        }
+
+        :global([data-theme='dark']) .logo-img {
+          filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+        }
+
+        .premium-glass-btn {
           position: relative;
-          background: var(--theme-mode, 'light') === 'dark' 
-            ? rgba(255, 255, 255, 0.15) 
-            : rgba(var(--accent-rgb), 0.1);
+          background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
-          border: 1px solid var(--theme-mode, 'light') === 'dark'
-            ? rgba(255, 255, 255, 0.3)
-            : rgba(var(--accent-rgb), 0.2);
-          color: var(--theme-mode, 'light') === 'dark' ? 'white' : 'var(--accent)';
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: white;
           padding: 10px 26px;
           border-radius: 50px;
           font-size: 14px;
@@ -251,42 +257,53 @@ export default function Navbar() {
           cursor: pointer;
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 10px;
-          box-shadow: var(--theme-mode, 'light') === 'dark'
-            ? '0 8px 32px rgba(255, 165, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.3)'
-            : '0 8px 24px rgba(var(--accent-rgb), 0.15), inset 0 1px 0 rgba(255,255,255,0.5)';
+          box-shadow: 0 8px 32px rgba(255, 165, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.3);
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           overflow: hidden;
           z-index: 1;
         }
 
-        /* Using CSS variables for theme-specific styles is cleaner for styled-jsx */
-        :global([data-theme='light']) .premium-login-btn {
+        .premium-glass-btn.primary {
+          background: rgba(var(--accent-rgb), 0.2);
+          border: 1px solid rgba(var(--accent-rgb), 0.3);
+          box-shadow: 0 8px 32px rgba(var(--accent-rgb), 0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .premium-glass-btn:hover {
+          background: rgba(0, 0, 0, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .premium-glass-btn.primary:hover {
+          background: #06455d;
+          box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+          border-color: var(--accent);
+        }
+
+        .premium-glass-btn :global(.arrow-icon) {
+          transition: transform 0.3s ease;
+        }
+
+        .premium-glass-btn:hover :global(.arrow-icon) {
+          transform: translateX(4px);
+        }
+
+        :global([data-theme='light']) .premium-glass-btn:not(.primary) {
           background: rgba(var(--accent-rgb), 0.1);
           border: 1px solid rgba(var(--accent-rgb), 0.2);
           color: var(--accent);
           box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.12), inset 0 1px 0 rgba(255,255,255,0.5);
         }
 
-        :global([data-theme='dark']) .premium-login-btn {
-          background: rgba(255, 255, 255, 0.15);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          color: white;
-          box-shadow: 0 8px 32px rgba(255, 165, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-
-        .premium-login-btn:hover {
-          background: rgba(255, 255, 255, 0.25);
-          transform: translateY(-2px);
-          box-shadow: 0 12px 40px rgba(255, 165, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.4);
-        }
-
-        .premium-login-btn :global(.arrow-icon) {
-          transition: transform 0.3s ease;
-        }
-
-        .premium-login-btn:hover :global(.arrow-icon) {
-          transform: translateX(4px);
+        :global([data-theme='light']) .premium-glass-btn.primary {
+          background: rgba(var(--accent-rgb), 0.2);
+          border: 1px solid rgba(var(--accent-rgb), 0.3);
+          color: #0b4d66;
+          box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.15), inset 0 1px 0 rgba(255,255,255,0.5);
         }
 
         .premium-toggle-btn {
@@ -322,7 +339,7 @@ export default function Navbar() {
           background: rgba(var(--accent-rgb), 0.15);
         }
 
-        .login-btn-wrapper {
+        .enroll-btn-wrapper {
           text-decoration: none;
         }
 
@@ -342,169 +359,191 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'var(--bg-page)',
-              zIndex: 9999,
-              padding: '140px 24px 60px', // Increased top/bottom padding
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px', // Space between links
-              overflowY: 'auto'
-            }}
-          >
-            {/* Dedicated Close Button */}
-            <button 
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
               style={{
-                position: 'absolute',
-                top: '32px',
-                right: '24px',
-                background: 'var(--glass-bg)',
-                border: '1px solid var(--glass-border)',
-                color: 'var(--text-primary)',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                zIndex: 10000,
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backdropFilter: 'blur(4px)',
+                zIndex: 9998,
               }}
-              aria-label="Close Menu"
+            />
+
+            {/* Top Sheet */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0 }}
+              style={{
+                position: 'fixed',
+                left: 0,
+                right: 0,
+                top: 0,
+                backgroundColor: 'var(--bg-page)',
+                zIndex: 9999,
+                padding: '20px 24px 32px', // Slightly reduced top padding
+                borderBottomLeftRadius: '32px',
+                borderBottomRightRadius: '32px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                maxHeight: '90vh',
+                overflowY: 'hidden'
+              }}
             >
-              <X size={28} />
-            </button>
-            {navLinks.map((link) => (
-              <motion.div
-                key={link.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <Link
-                  href={link.href}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <Link href="/" onClick={() => setIsOpen(false)} style={{ display: 'flex', alignItems: 'center', height: '32px', width: '120px' }}>
+                  <Image 
+                    src="/images/logo/zeequeplus-logo.png" 
+                    alt="ZeeQuePlus Logo" 
+                    width={100} 
+                    height={30}
+                    className="logo-img"
+                    style={{ 
+                      width: 'auto', 
+                      height: '100%', 
+                      objectFit: 'contain',
+                      transform: 'scale(1.8)',
+                      transformOrigin: 'left center',
+                      display: 'block'
+                    }}
+                  />
+                </Link>
+                <button 
                   onClick={() => setIsOpen(false)}
                   style={{
-                    fontSize: '22px', // Slightly larger
-                    fontWeight: 700,
-                    color: activeLink === link.name ? 'var(--accent)' : 'var(--text-primary)',
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--text-primary)',
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '20px 24px', // Increased inner padding
-                    backgroundColor: 'rgba(var(--accent-rgb), 0.05)',
-                    borderRadius: '20px',
-                    border: `1px solid ${activeLink === link.name ? 'rgba(var(--accent-rgb), 0.3)' : 'var(--glass-border)'}`,
-                    transition: 'all 0.3s ease'
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                   }}
+                  aria-label="Close Menu"
                 >
-                  {link.name}
-                  {activeLink === link.name && (
-                    <div
-                      style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--accent)'
-                      }}
-                    />
-                  )}
-                </Link>
-              </motion.div>
-            ))}
-
-            <div style={{ 
-              marginTop: '40px', 
-              borderTop: '1px solid var(--glass-border)', 
-              paddingTop: '32px', 
-              display: 'flex', 
-              flexDirection: 'column',
-              gap: '16px'
-            }}>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', marginLeft: '4px' }}>Appearance</span>
-              
-              <div onClick={toggleTheme} style={{
-                backgroundColor: 'rgba(var(--accent-rgb), 0.05)',
-                borderRadius: '20px',
-                padding: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer',
-                border: '1px solid var(--glass-border)',
-                position: 'relative',
-                height: '56px',
-                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.05)'
-              }}>
-                {/* Sliding Pill */}
-                <motion.div 
-                  initial={false}
-                  animate={{ x: theme === 'light' ? 0 : 'calc(100% - 12px)' }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  style={{
-                    position: 'absolute',
-                    top: '6px',
-                    left: '6px',
-                    width: 'calc(50% - 6px)',
-                    height: 'calc(100% - 12px)',
-                    background: 'var(--accent)',
-                    borderRadius: '16px',
-                    boxShadow: '0 4px 15px rgba(var(--accent-rgb), 0.3)',
-                    zIndex: 1
-                  }}
-                />
-                
-                <div style={{ flex: 1, textAlign: 'center', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: theme === 'light' ? '#fff' : 'var(--text-secondary)', transition: 'all 0.3s ease' }}>
-                  <Sun size={20} />
-                  <span style={{ fontWeight: 700, fontSize: '15px' }}>Light</span>
-                </div>
-                <div style={{ flex: 1, textAlign: 'center', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: theme === 'dark' ? '#fff' : 'var(--text-secondary)', transition: 'all 0.3s ease' }}>
-                  <Moon size={20} />
-                  <span style={{ fontWeight: 700, fontSize: '15px' }}>Dark</span>
-                </div>
+                  <X size={20} />
+                </button>
               </div>
-            </div>
 
-            {/* Mobile Login Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              style={{ marginTop: '24px' }}
-            >
-              <a 
-                href="https://operations.zeequeplus.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
+              {navLinks.map((link) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      color: activeLink === link.name ? 'var(--accent)' : 'var(--text-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      backgroundColor: 'rgba(var(--accent-rgb), 0.03)',
+                      borderRadius: '12px',
+                      border: `1px solid ${activeLink === link.name ? 'rgba(var(--accent-rgb), 0.3)' : 'var(--glass-border)'}`,
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    {link.name}
+                    {activeLink === link.name && (
+                      <div
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--accent)'
+                        }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
+              ))}
+
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0 }}
+                style={{ 
+                  marginTop: '12px', 
+                  borderTop: '1px solid var(--glass-border)', 
+                  paddingTop: '20px', 
+                  display: 'flex', 
+                  gap: '12px',
+                  alignItems: 'center'
+                }}
               >
                 <button 
-                  className="btn btn-primary"
+                  onClick={toggleTheme}
                   style={{
-                    width: '100%',
-                    padding: '18px',
-                    fontSize: '18px',
-                    fontWeight: 700,
-                    borderRadius: '20px',
-                    boxShadow: '0 10px 25px rgba(var(--accent-rgb), 0.2)'
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    background: 'rgba(var(--accent-rgb), 0.08)',
+                    border: '1px solid rgba(var(--accent-rgb), 0.2)',
+                    color: 'var(--accent)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    transition: 'all 0.3s ease'
                   }}
+                  aria-label="Toggle Theme"
                 >
-                  Login to Portal
+                  {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
                 </button>
-              </a>
+                
+                <Link href="/enroll" onClick={() => setIsOpen(false)} style={{ flex: 1, display: 'block' }}>
+                  <button 
+                    className="premium-glass-btn primary liquid-glass"
+                    style={{
+                      width: '100%',
+                      padding: '14px',
+                      fontSize: '16px',
+                      fontWeight: 700,
+                      borderRadius: '16px',
+                      margin: 0,
+                      background: 'linear-gradient(135deg, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--accent-rgb), 0.2) 100%)',
+                      backdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                      boxShadow: '0 8px 32px rgba(var(--accent-rgb), 0.3), inset 0 0 12px rgba(255, 255, 255, 0.2)',
+                      color: 'var(--text-primary)',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px'
+                    }}
+                  >
+                    <span style={{ position: 'relative', zIndex: 2, lineHeight: 1 }}>Enroll Now</span>
+                    <ArrowRight size={18} className="arrow-icon" style={{ position: 'relative', zIndex: 2, color: 'var(--text-primary)' }} />
+                  </button>
+                </Link>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

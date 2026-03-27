@@ -58,7 +58,7 @@ export default function TechRequirements() {
       ref={containerRef}
       className="tech-requirements" 
       style={{
-        padding: '100px 0',
+        padding: '50px 0',
         backgroundColor: 'var(--bg-page)',
         position: 'relative'
       }}
@@ -240,7 +240,7 @@ export default function TechRequirements() {
         }
         @media (max-width: 576px) {
           .tech-requirements {
-             padding: 60px 0 !important;
+             padding: 40px 0 !important;
           }
           h2 { font-size: 32px !important; }
           .tech-requirements span[style*="font-size: 140px"] {

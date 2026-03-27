@@ -27,7 +27,7 @@ export default function BlogSearchFilter({
   onCategoryChange
 }: BlogSearchFilterProps) {
   return (
-    <section className="blog-filter" style={{ padding: '60px 0 40px' }}>
+    <section className="blog-filter" style={{ padding: '30px 0 20px' }}>
       <div className="container" style={{ textAlign: 'center' }}>
         <div style={{
           padding: '8px 16px',
